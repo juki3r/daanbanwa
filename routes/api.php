@@ -1,0 +1,16 @@
+<?php
+
+use App\Http\Controllers\Api\AuthController;
+use Illuminate\Support\Facades\Route;
+
+
+Route::get('/', function () {
+    return response()->json([
+        'message' => 'Welcome to the API',
+    ]);
+});
+
+
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/verify-otp', [AuthController::class, 'verifyOtp']);

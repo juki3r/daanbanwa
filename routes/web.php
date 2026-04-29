@@ -29,7 +29,9 @@ Route::get('/admin/users', function () {
 
     abort_unless(Auth::user()->role === 'admin', 403);
 
-    $users = User::latest()->get();
+    $users = User::where('role', 'resident')
+        ->orderBy('created_at', 'desc') // newest first
+        ->get();
 
     return view('admin.users.index', compact('users'));
 })->middleware('auth')->name('admin.users');

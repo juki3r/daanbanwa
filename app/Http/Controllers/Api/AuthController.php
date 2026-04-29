@@ -256,4 +256,21 @@ class AuthController extends Controller
             'message' => 'Password reset successful'
         ]);
     }
+
+    public function saveFcmToken(Request $request)
+    {
+        $request->validate([
+            'user_id' => 'required',
+            'token' => 'required',
+        ]);
+
+        User::where('id', $request->user_id)
+            ->update([
+                'fcm_token' => $request->token
+            ]);
+
+        return response()->json([
+            'message' => 'FCM token saved'
+        ]);
+    }
 }

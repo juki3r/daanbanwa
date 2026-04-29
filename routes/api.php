@@ -18,3 +18,4 @@ Route::post('/verify-otp', [AuthController::class, 'verifyOtp']);
 Route::post('/send-forgot-otp', [AuthController::class, 'sendForgotOtp']);
 Route::post('/verify-reset-otp', [AuthController::class, 'verifyResetOtp']);
 Route::post('/reset-password', [AuthController::class, 'resetPassword']);
+Route::post('/save-fcm-token', [AuthController::class, 'saveFcmToken']);

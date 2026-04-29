@@ -8,18 +8,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 Route::get('/dashboard', function () {
-    if (Auth::user()->role === 'admin') {
-        return view('admin.dashboard');
-    }
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+    return Auth::user()->role === 'admin'
+        ? redirect()->route('admin.dashboard')
+        : view('dashboard');
+})->middleware('auth')->name('dashboard');
 
 Route::get('/admin/dashboard', function () {
+    abort_unless(Auth::user()->role === 'admin', 403);
+
     return view('admin.dashboard');
-})->middleware(['auth'])->name('admin.dashboard');
-
-
+})->middleware('auth')->name('admin.dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

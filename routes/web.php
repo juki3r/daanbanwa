@@ -58,13 +58,13 @@ Route::get('/admin/users', function () {
 
 
 // Admin route to send notification to a specific user
-// Route::get('/send-to-one/{id}', function ($id) {
-//     if (Auth::user()->role !== 'admin') {
-//         abort(403);
-//     }
+Route::get('/send-to-one/{id}', function ($id) {
+    if (Auth::user()->role !== 'admin') {
+        abort(403);
+    }
 
-//     return app(App\Http\Controllers\AdminController::class)->sendToOne($id);
-// })->middleware('auth');
+    return app(App\Http\Controllers\AdminController::class)->sendToOneo($id);
+})->middleware('auth');
 Route::post('/send-to-one/{id}', function ($id) {
 
     if (Auth::user()->role !== 'admin') {

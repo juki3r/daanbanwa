@@ -20,8 +20,8 @@ class AdminController extends Controller
                 ], 400);
             }
 
-            $title = request('title');
-            $body  = request('body');
+            $title = request()->input('title');
+            $body  = request()->input('body');
 
             (new \App\Services\FirebaseService)->sendNotification(
                 $user->fcm_token,
@@ -29,9 +29,16 @@ class AdminController extends Controller
                 $body
             );
 
+            $response = (new \App\Services\FirebaseService)->sendNotification(
+                $user->fcm_token,
+                $title,
+                $body
+            );
+
             return response()->json([
                 'status' => 'success',
-                'message' => "Notification sent successfully."
+                'message' => 'Notification sent successfully',
+                'firebase' => $response
             ]);
         } catch (\Exception $e) {
             return response()->json([

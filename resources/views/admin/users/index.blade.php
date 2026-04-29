@@ -143,17 +143,27 @@
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Accept': 'application/json',
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },
                 body: JSON.stringify({ title, body })
             })
-            .then(res => res.json())
+            .then(async res => {
+                let data = await res.json().catch(() => null);
+
+                if (!res.ok) {
+                    throw data || { message: 'Server error' };
+                }
+
+                return data;
+            })
             .then(data => {
                 alert(data.message);
                 modal.hide();
             })
-            .catch(() => {
-                alert('Error sending notification');
+            .catch(err => {
+                console.log(err);
+                alert(err.message || 'Error sending notification');
             });
         });
     </script>

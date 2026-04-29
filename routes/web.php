@@ -58,7 +58,7 @@ Route::get('/admin/users', function () {
 
 
 // Admin route to send notification to a specific user
-Route::get('/send-to-one/{id}', function ($id) {
+Route::get('/send-to-oneo/{id}', function ($id) {
     if (Auth::user()->role !== 'admin') {
         abort(403);
     }

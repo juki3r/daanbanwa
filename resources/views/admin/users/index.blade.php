@@ -32,7 +32,7 @@
                             @foreach($users as $user)
                                 <tr>
                                     <td>{{ $user->id }}</td>
-                                    <td class="text-uppercase">{{ $user->first_name }} {{ $user->last_name }}</td>
+                                    <td class=" text-capitalize">{{ $user->first_name }} {{ $user->last_name }}</td>
                                     <td>{{ $user->phone }}</td>
 
                                     <td>

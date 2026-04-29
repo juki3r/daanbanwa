@@ -187,7 +187,7 @@ class AuthController extends Controller
 
         // SEND SMS (your API)
         Http::withHeaders([
-            'X-API-KEY' => $user->api_key ?? 'SYSTEM_KEY'
+            'X-API-KEY' => "qHafeGIG2dWbb5QEKdW1jR2J0rhNbIr0wjeyfkeY"
         ])->post('https://carlesppo.com/api/send-sms-api', [
             'phone_number' => $user->phone,
             'message' => "Your reset OTP is: $otp"

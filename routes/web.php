@@ -29,11 +29,20 @@ Route::get('/admin/users', function () {
 
     abort_unless(Auth::user()->role === 'admin', 403);
 
+    $query = request('search');
+
     $users = User::where('role', 'resident')
-        ->orderBy('created_at', 'desc') // newest first
+        ->when($query, function ($q) use ($query) {
+            $q->where(function ($sub) use ($query) {
+                $sub->where('first_name', 'like', "%{$query}%")
+                    ->orWhere('last_name', 'like', "%{$query}%")
+                    ->orWhere('phone', 'like', "%{$query}%");
+            });
+        })
+        ->orderBy('created_at', 'desc')
         ->get();
 
-    return view('admin.users.index', compact('users'));
+    return view('admin.users.index', compact('users', 'query'));
 })->middleware('auth')->name('admin.users');
 
 

@@ -9,9 +9,14 @@
 
         <div class="card shadow-sm">
             <div class="card-body">
-
+                <div class="mb-3">
+                    <input type="text"
+                        id="searchInput"
+                        class="form-control"
+                        placeholder="Search name or phone...">
+                </div>
                 <div class="table-responsive">
-                    <table class="table table-bordered table-hover align-middle">
+                    <table class="table table-bordered table-hover align-middle" id="usersTable">
 
                         <thead class="table-dark">
                             <tr>

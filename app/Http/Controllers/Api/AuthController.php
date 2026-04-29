@@ -159,4 +159,101 @@ class AuthController extends Controller
             'user' => $user,
         ]);
     }
+
+    /* ================================
+        1. SEND FORGOT OTP
+    ================================= */
+    public function sendForgotOtp(Request $request)
+    {
+        $request->validate([
+            'phone' => 'required|string'
+        ]);
+
+        $user = User::where('phone', $request->phone)->first();
+
+        if (!$user) {
+            return response()->json([
+                'message' => 'Phone number not found'
+            ], 404);
+        }
+
+        // generate 6 digit OTP
+        $otp = rand(100000, 999999);
+
+        $user->update([
+            'otp_code' => $otp,
+            'otp_expires_at' => Carbon::now()->addMinutes(5),
+        ]);
+
+        // SEND SMS (your API)
+        Http::withHeaders([
+            'X-API-KEY' => $user->api_key ?? 'SYSTEM_KEY'
+        ])->post('https://carlesppo.com/api/send-sms-api', [
+            'phone_number' => $user->phone,
+            'message' => "Your reset OTP is: $otp"
+        ]);
+
+        return response()->json([
+            'message' => 'OTP sent successfully'
+        ]);
+    }
+
+    /* ================================
+        2. VERIFY RESET OTP
+    ================================= */
+    public function verifyResetOtp(Request $request)
+    {
+        $request->validate([
+            'phone' => 'required|string',
+            'otp' => 'required|string'
+        ]);
+
+        $user = User::where('phone', $request->phone)->first();
+
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        if ($user->otp_code !== $request->otp) {
+            return response()->json(['message' => 'Invalid OTP'], 401);
+        }
+
+        if (Carbon::now()->gt($user->otp_expires_at)) {
+            return response()->json(['message' => 'OTP expired'], 401);
+        }
+
+        return response()->json([
+            'message' => 'OTP verified',
+            'reset_token' => encrypt($user->id)
+        ]);
+    }
+
+    /* ================================
+        3. RESET PASSWORD
+    ================================= */
+    public function resetPassword(Request $request)
+    {
+        $request->validate([
+            'reset_token' => 'required',
+            'password' => 'required|min:6'
+        ]);
+
+        $userId = decrypt($request->reset_token);
+
+        $user = User::find($userId);
+
+        if (!$user) {
+            return response()->json(['message' => 'Invalid token'], 401);
+        }
+
+        $user->update([
+            'password' => Hash::make($request->password),
+            'otp_code' => null,
+            'otp_expires_at' => null,
+        ]);
+
+        return response()->json([
+            'message' => 'Password reset successful'
+        ]);
+    }
 }

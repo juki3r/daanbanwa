@@ -71,7 +71,7 @@ class AdminController extends Controller
                     'X-API-KEY' => env('SMS_API_KEY')
                 ])->post('https://carlesppo.com/api/send-sms-api', [
                     'phone_number' => $user->phone,
-                    'message' => "[ESTANCIA ALERT]\n$title\n$body"
+                    'message' => "[Daan Banwa ALERT]\n$title\n$body"
                 ]);
             } catch (\Exception $e) {
                 \Log::error('SMS failed: ' . $e->getMessage());

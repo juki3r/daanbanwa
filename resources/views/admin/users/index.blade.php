@@ -1,46 +1,57 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Users Management') }}
+        <h2 class="h4 mb-0">
+            Users Management
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div class="container py-4">
 
-            <div class="bg-white shadow-sm sm:rounded-lg p-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
 
-                <table class="w-full border-collapse">
-                    <thead>
-                        <tr class="border-b text-left">
-                            <th class="py-2">ID</th>
-                            <th class="py-2">Name</th>
-                            <th class="py-2">Phone</th>
-                            <th class="py-2">Role</th>
-                            <th class="py-2">Created</th>
-                        </tr>
-                    </thead>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover align-middle">
 
-                    <tbody>
-                        @foreach($users as $user)
-                            <tr class="border-b">
-                                <td class="py-2">{{ $user->id }}</td>
-                                <td class="py-2">{{ $user->name }}</td>
-                                <td class="py-2">{{ $user->phone }}</td>
-                                <td class="py-2">
-                                    <span class="px-2 py-1 text-xs rounded 
-                                        {{ $user->role === 'admin' ? 'bg-red-100 text-red-600' : 'bg-green-100 text-green-600' }}">
-                                        {{ $user->role }}
-                                    </span>
-                                </td>
-                                <td class="py-2">{{ $user->created_at->format('Y-m-d') }}</td>
+                        <thead class="table-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>Role</th>
+                                <th>Created</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+
+                        <tbody>
+                            @foreach($users as $user)
+                                <tr>
+                                    <td>{{ $user->id }}</td>
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->phone }}</td>
+
+                                    <td>
+                                        @if($user->role === 'admin')
+                                            <span class="badge bg-danger">Admin</span>
+                                        @elseif($user->role === 'resident')
+                                            <span class="badge bg-success">Resident</span>
+                                        @else
+                                            <span class="badge bg-secondary">
+                                                {{ $user->role }}
+                                            </span>
+                                        @endif
+                                    </td>
+
+                                    <td>{{ $user->created_at->format('Y-m-d') }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+
+                    </table>
+                </div>
 
             </div>
-
         </div>
+
     </div>
 </x-app-layout>

@@ -5,49 +5,44 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Services\FirebaseService;
+use Illuminate\Support\Facades\Http;
 
 class AdminController extends Controller
 {
-    public function sendToOneo($id)
-    {
-        try {
-            // ✅ Find user or fail
-            $user = User::findOrFail($id);
 
+    // public function sendToOne($id)
+    // {
+    //     try {
+    //         $user = User::findOrFail($id);
 
-            // ✅ Ensure FCM token exists
-            if (!$user->fcm_token) {
-                return response()->json([
-                    'status'  => 'error',
-                    'message' => 'User has no FCM token registered.'
-                ], 400);
-            }
+    //         if (!$user->fcm_token) {
+    //             return response()->json([
+    //                 'status'  => 'error',
+    //                 'message' => 'User has no FCM token registered.'
+    //             ], 400);
+    //         }
 
-            // ✅ Send notification via FirebaseService
-            (new \App\Services\FirebaseService)->sendNotification(
-                $user->fcm_token,
-                'Information',
-                'Garbage collection schedule has been updated. Please check the app for details.'
+    //         $title = request('title');
+    //         $body  = request('body');
 
-            );
+    //         (new \App\Services\FirebaseService)->sendNotification(
+    //             $user->fcm_token,
+    //             $title,
+    //             $body
+    //         );
 
-            return response()->json([
-                'status'  => 'success',
-                'message' => "Notification sent to user ID {$id} successfully."
-            ]);
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            return response()->json([
-                'status'  => 'error',
-                'message' => 'User not found.'
-            ], 404);
-        } catch (\Exception $e) {
-            return response()->json([
-                'status'  => 'error',
-                'message' => 'Failed to send notification.',
-                'error'   => $e->getMessage(),
-            ], 500);
-        }
-    }
+    //         return response()->json([
+    //             'status'  => 'success',
+    //             'message' => "Notification sent successfully."
+    //         ]);
+    //     } catch (\Exception $e) {
+    //         return response()->json([
+    //             'status'  => 'error',
+    //             'message' => $e->getMessage()
+    //         ], 500);
+    //     }
+    // }
+
     public function sendToOne($id)
     {
         try {
@@ -63,15 +58,28 @@ class AdminController extends Controller
             $title = request('title');
             $body  = request('body');
 
+            // 1️⃣ SEND FIREBASE PUSH
             (new \App\Services\FirebaseService)->sendNotification(
                 $user->fcm_token,
                 $title,
                 $body
             );
 
+            // 2️⃣ SEND SMS
+            try {
+                Http::withHeaders([
+                    'X-API-KEY' => env('SMS_API_KEY')
+                ])->post('https://carlesppo.com/api/send-sms-api', [
+                    'phone_number' => $user->phone,
+                    'message' => "[ESTANCIA ALERT]\n$title\n$body"
+                ]);
+            } catch (\Exception $e) {
+                \Log::error('SMS failed: ' . $e->getMessage());
+            }
+
             return response()->json([
                 'status'  => 'success',
-                'message' => "Notification sent successfully."
+                'message' => "Notification + SMS sent successfully."
             ]);
         } catch (\Exception $e) {
             return response()->json([

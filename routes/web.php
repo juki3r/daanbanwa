@@ -13,7 +13,7 @@ Route::get('/dashboard', function () {
 
 Route::get('/admin/dashboard', function () {
     return view('admin.dashboard');
-})->middleware(['auth', 'role:admin'])->name('admin.dashboard');
+})->middleware(['auth'])->name('admin.dashboard');
 
 
 

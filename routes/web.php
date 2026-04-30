@@ -77,10 +77,10 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::post('/officials', [AdminController::class, 'store_official'])
         ->name('officials.store');
 
-    Route::get('/ordinances', [OrdinanceController::class, 'index']);
-    Route::post('/ordinances', [OrdinanceController::class, 'store']);
-    Route::put('/ordinances/{id}', [OrdinanceController::class, 'update']);
-    Route::delete('/ordinances/{id}', [OrdinanceController::class, 'destroy']);
+    Route::get('/ordinances', [OrdinanceController::class, 'index'])->name('ordinances.index');
+    Route::post('/ordinances', [OrdinanceController::class, 'store'])->name('ordinances.store');
+    Route::put('/ordinances/{id}', [OrdinanceController::class, 'update'])->name('ordinances.update');
+    Route::delete('/ordinances/{id}', [OrdinanceController::class, 'destroy'])->name('ordinances.destroy');
 });
 
 

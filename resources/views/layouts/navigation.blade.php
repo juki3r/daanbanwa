@@ -32,7 +32,7 @@
                     </div>
 
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('admin.ordinances')" :active="request()->routeIs('admin.ordinances')">
+                        <x-nav-link :href="route('ordinances.index')" :active="request()->routeIs('ordinances.index')">
                             {{ __('Ordinances Management') }}
                         </x-nav-link>
                     </div>

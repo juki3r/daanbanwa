@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\OrdinanceController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Official;
 use App\Models\User;
@@ -68,9 +69,18 @@ Route::get('/admin/officials', function () {
 })->middleware('auth')->name('admin.officials');
 
 
-Route::middleware(['auth'])->group(function () {
+
+
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+
+
     Route::post('/officials', [AdminController::class, 'store_official'])
         ->name('officials.store');
+
+    Route::get('/ordinances', [OrdinanceController::class, 'index']);
+    Route::post('/ordinances', [OrdinanceController::class, 'store']);
+    Route::put('/ordinances/{id}', [OrdinanceController::class, 'update']);
+    Route::delete('/ordinances/{id}', [OrdinanceController::class, 'destroy']);
 });
 
 

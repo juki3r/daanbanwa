@@ -69,7 +69,12 @@ class AdminController extends Controller
     {
         $request->validate([
             'name'         => 'required|string|max:255',
-            'phone_number' => 'nullable|string|max:20',
+            'phone_number' => [
+                'required',
+                'string',
+                'regex:/^09\d{9}$/', // 👈 strict PH format
+                'unique:officials,phone_number'
+            ],
             'position'     => 'required|string|max:255',
             'assignment'   => 'nullable|string|max:255',
         ]);

@@ -57,7 +57,7 @@
                                     <td>{{ $news_item->id }}</td>
                                     <td class="text-capitalize">{{ $news_item->title }}</td>
                                     <td>{{ $news_item->content }}</td>
-                                    <td>{{ $news_item->published_at }}</td>
+                                    <td>{{ $news_item->created_at }}</td>
                                 </tr>
                             @endforeach
                         </tbody>

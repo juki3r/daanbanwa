@@ -23,5 +23,7 @@ Route::post('/reset-password', [AuthController::class, 'resetPassword']);
 Route::post('/save-fcm-token', [AuthController::class, 'saveFcmToken']);
 
 Route::middleware('auth:sanctum')->group(function () {
+
     Route::get('/officials', [UserController::class, 'getOfficials']);
+    Route::get('/ordinances', [UserController::class, 'getOrdinances']);
 });

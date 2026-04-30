@@ -10,9 +10,20 @@ class OrdinanceController extends Controller
     // GET all ordinances
     public function index()
     {
-        return response()->json([
-            'ordinances' => Ordinance::latest()->get()
-        ]);
+        $query = request('search');
+
+        $ordinances = Ordinance::where('title', 'like', "%{$query}%")
+            ->when($query, function ($q) use ($query) {
+                $q->where(function ($sub) use ($query) {
+                    $sub->where('ordinance_no', 'like', "%{$query}%")
+                        ->orWhere('title', 'like', "%{$query}%")
+                        ->orWhere('description', 'like', "%{$query}%");
+                });
+            })
+            ->orderBy('created_at', 'asc')
+            ->get();
+
+        return view('admin.ordinances.index', compact('ordinances', 'query'));
     }
 
     // STORE (optional admin side)
@@ -26,10 +37,9 @@ class OrdinanceController extends Controller
 
         $ordinance = Ordinance::create($request->all());
 
-        return response()->json([
-            'message' => 'Ordinance created',
-            'ordinance' => $ordinance
-        ]);
+        return redirect()
+            ->back()
+            ->with('success', 'Ordinance added successfully.');
     }
 
     // SHOW single
@@ -44,10 +54,9 @@ class OrdinanceController extends Controller
         $ordinance = Ordinance::findOrFail($id);
         $ordinance->update($request->all());
 
-        return response()->json([
-            'message' => 'Updated successfully',
-            'ordinance' => $ordinance
-        ]);
+        return redirect()
+            ->back()
+            ->with('success', 'Ordinance updated successfully.');
     }
 
     // DELETE
@@ -55,8 +64,8 @@ class OrdinanceController extends Controller
     {
         Ordinance::findOrFail($id)->delete();
 
-        return response()->json([
-            'message' => 'Deleted successfully'
-        ]);
+        return redirect()
+            ->back()
+            ->with('success', 'Ordinance deleted successfully.');
     }
 }

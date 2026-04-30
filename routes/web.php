@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\NewsController;
 use App\Http\Controllers\OrdinanceController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Official;
@@ -81,6 +82,11 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::post('/ordinances', [OrdinanceController::class, 'store'])->name('ordinances.store');
     Route::put('/ordinances/{id}', [OrdinanceController::class, 'update'])->name('ordinances.update');
     Route::delete('/ordinances/{id}', [OrdinanceController::class, 'destroy'])->name('ordinances.destroy');
+
+    Route::get('/news', [NewsController::class, 'index'])->name('news.index');
+    Route::post('/news', [NewsController::class, 'store'])->name('news.store');
+    Route::put('/news/{id}', [NewsController::class, 'update'])->name('news.update');
+    Route::delete('/news/{id}', [NewsController::class, 'destroy'])->name('news.destroy');
 });
 
 

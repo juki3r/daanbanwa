@@ -26,4 +26,5 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/officials', [UserController::class, 'getOfficials']);
     Route::get('/ordinances', [UserController::class, 'getOrdinances']);
+    Route::get('/news', [UserController::class, 'getNews']);
 });

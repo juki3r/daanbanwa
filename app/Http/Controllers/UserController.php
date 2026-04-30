@@ -23,4 +23,12 @@ class UserController extends Controller
             'ordinances' => Ordinance::latest()->get()
         ]);
     }
+
+    // GET NEWS (SECURED)
+    public function getNews()
+    {
+        return response()->json([
+            'news' => \App\Models\News::latest()->get()
+        ]);
+    }
 }

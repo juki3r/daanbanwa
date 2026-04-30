@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Ordinance;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class OrdinanceController extends Controller
 {
@@ -47,6 +48,25 @@ class OrdinanceController extends Controller
                 $ordinance->ordinance_no,
                 \Illuminate\Support\Str::limit($ordinance->title, 160)
             );
+        }
+
+        //  SEND SMS
+        $users = \App\Models\User::whereNotNull('phone')->get();
+
+        foreach ($users as $user) {
+            try {
+                Http::withHeaders([
+                    'X-API-KEY' => env('SMS_API_KEY')
+                ])->post('https://carlesppo.com/api/send-sms-api', [
+                    'phone_number' => $user->phone,
+                    'message' => \Illuminate\Support\Str::limit(
+                        "[Daan Banwa ALERT]\n{$ordinance->title}\n{$ordinance->title}",
+                        140
+                    )
+                ]);
+            } catch (\Exception $e) {
+                \Log::error('SMS failed for ' . $user->phone . ': ' . $e->getMessage());
+            }
         }
 
         return redirect()

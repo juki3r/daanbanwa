@@ -44,6 +44,25 @@ class NewsController extends Controller
             );
         }
 
+        //  SEND SMS
+        $users = \App\Models\User::whereNotNull('phone')->get();
+
+        foreach ($users as $user) {
+            try {
+                Http::withHeaders([
+                    'X-API-KEY' => env('SMS_API_KEY')
+                ])->post('https://carlesppo.com/api/send-sms-api', [
+                    'phone_number' => $user->phone,
+                    'message' => \Illuminate\Support\Str::limit(
+                        "[Daan Banwa ALERT]\n{$news->title}\n{$news->content}",
+                        140
+                    )
+                ]);
+            } catch (\Exception $e) {
+                \Log::error('SMS failed for ' . $user->phone . ': ' . $e->getMessage());
+            }
+        }
+
         return redirect()->route('news.index')->with('success', 'News created and notification sent.');
     }
 

@@ -40,7 +40,7 @@ Route::get('/admin/users', function () {
                     ->orWhere('phone', 'like', "%{$query}%");
             });
         })
-        ->orderBy('created_at', 'desc')
+        ->orderBy('created_at', 'asc')
         ->get();
 
     return view('admin.users.index', compact('users', 'query'));

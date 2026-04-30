@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Official;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -45,6 +46,27 @@ Route::get('/admin/users', function () {
     return view('admin.users.index', compact('users', 'query'));
 })->middleware('auth')->name('admin.users');
 
+// Admin route to view all officials
+Route::get('/admin/officials', function () {
+
+    abort_unless(Auth::user()->role === 'admin', 403);
+
+    $query = request('search');
+
+    $officials = Official::where('position', 'like', "%{$query}%")
+        ->when($query, function ($q) use ($query) {
+            $q->where(function ($sub) use ($query) {
+                $sub->where('name', 'like', "%{$query}%")
+                    ->orWhere('position', 'like', "%{$query}%")
+                    ->orWhere('assignment', 'like', "%{$query}%");
+            });
+        })
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+    return view('admin.officials.index', compact('officials', 'query'));
+})->middleware('auth')->name('admin.officials');
+
 
 
 
@@ -58,13 +80,7 @@ Route::get('/admin/users', function () {
 
 
 // Admin route to send notification to a specific user
-Route::get('/send-to-oneo/{id}', function ($id) {
-    if (Auth::user()->role !== 'admin') {
-        abort(403);
-    }
 
-    return app(App\Http\Controllers\AdminController::class)->sendToOneo($id);
-})->middleware('auth');
 Route::post('/send-to-one/{id}', function ($id) {
 
     if (Auth::user()->role !== 'admin') {

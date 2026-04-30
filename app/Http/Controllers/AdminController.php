@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Notification;
+use App\Models\Official;
 use App\Models\User;
 use App\Services\FirebaseService;
 use Illuminate\Http\Request;
@@ -61,5 +62,27 @@ class AdminController extends Controller
                 'message' => $e->getMessage()
             ], 500);
         }
+    }
+
+
+    public function store_official(Request $request)
+    {
+        $request->validate([
+            'name'         => 'required|string|max:255',
+            'phone_number' => 'nullable|string|max:20',
+            'position'     => 'required|string|max:255',
+            'assignment'   => 'nullable|string|max:255',
+        ]);
+
+        Official::create([
+            'name'         => $request->name,
+            'phone_number' => $request->phone_number,
+            'position'     => $request->position,
+            'assignment'   => $request->assignment,
+        ]);
+
+        return redirect()
+            ->back()
+            ->with('success', 'Official added successfully.');
     }
 }

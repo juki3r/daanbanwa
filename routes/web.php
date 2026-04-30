@@ -68,6 +68,13 @@ Route::get('/admin/officials', function () {
 })->middleware('auth')->name('admin.officials');
 
 
+Route::middleware(['auth'])->group(function () {
+    Route::post('/officials', [AdminController::class, 'store_official'])
+        ->name('officials.store');
+});
+
+
+
 
 
 

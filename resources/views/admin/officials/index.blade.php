@@ -1,12 +1,15 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="h4 mb-0">
-            Council Management
-        </h2>
+        <div class="d-flex justify-content-between align-items-center">
+            <h2 class="h4 mb-0">Council Management</h2>
+
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addOfficialModal">
+                Add Official
+            </button>
+        </div>
     </x-slot>
 
     <div class="container py-4">
-
         <div class="card shadow-sm">
             <div class="card-body">
 
@@ -21,7 +24,6 @@
                 <!-- TABLE -->
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover align-middle" id="usersTable">
-
                         <thead class="table-dark">
                             <tr>
                                 <th>ID</th>
@@ -36,24 +38,13 @@
                             @foreach($officials as $official)
                                 <tr>
                                     <td>{{ $official->id }}</td>
-
-                                    <td class="text-capitalize">
-                                        {{ $official->name }}
-                                    </td>
-
+                                    <td class="text-capitalize">{{ $official->name }}</td>
                                     <td>{{ $official->phone_number }}</td>
-
-                                    <td>
-                                        {{ $official->position }}
-                                    </td>
-
-                                    <td>
-                                        {{ $official->assignment }}
-                                    </td>
+                                    <td>{{ $official->position }}</td>
+                                    <td>{{ $official->assignment }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
-
                     </table>
                 </div>
 
@@ -61,7 +52,53 @@
         </div>
     </div>
 
-    <!-- ================= SCRIPT ================= -->
+    <!-- ADD OFFICIAL MODAL -->
+    <div class="modal fade" id="addOfficialModal" tabindex="-1" aria-labelledby="addOfficialModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <form action="{{ route('officials.store') }}" method="POST" class="modal-content">
+                @csrf
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addOfficialModalLabel">Add Official</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Name</label>
+                            <input type="text" name="name" class="form-control" required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Phone Number</label>
+                            <input type="text" name="phone_number" class="form-control">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Position</label>
+                            <input type="text" name="position" class="form-control" required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Assignment</label>
+                            <input type="text" name="assignment" class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        Save Official
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <script>
         // LIVE SEARCH
         document.getElementById('searchInput').addEventListener('keyup', function () {
@@ -73,5 +110,4 @@
             });
         });
     </script>
-
 </x-app-layout>

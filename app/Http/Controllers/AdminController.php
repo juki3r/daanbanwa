@@ -2,46 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notification;
 use App\Models\User;
-use Illuminate\Http\Request;
 use App\Services\FirebaseService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
 class AdminController extends Controller
 {
-
-    // public function sendToOne($id)
-    // {
-    //     try {
-    //         $user = User::findOrFail($id);
-
-    //         if (!$user->fcm_token) {
-    //             return response()->json([
-    //                 'status'  => 'error',
-    //                 'message' => 'User has no FCM token registered.'
-    //             ], 400);
-    //         }
-
-    //         $title = request('title');
-    //         $body  = request('body');
-
-    //         (new \App\Services\FirebaseService)->sendNotification(
-    //             $user->fcm_token,
-    //             $title,
-    //             $body
-    //         );
-
-    //         return response()->json([
-    //             'status'  => 'success',
-    //             'message' => "Notification sent successfully."
-    //         ]);
-    //     } catch (\Exception $e) {
-    //         return response()->json([
-    //             'status'  => 'error',
-    //             'message' => $e->getMessage()
-    //         ], 500);
-    //     }
-    // }
 
     public function sendToOne($id)
     {
@@ -57,6 +25,12 @@ class AdminController extends Controller
 
             $title = request('title');
             $body  = request('body');
+
+            // 1️⃣ SAVE FIRST (audit trail)
+            $log = Notification::create([
+                'title'   => $title,
+                'body'    => $body,
+            ]);
 
             // 1️⃣ SEND FIREBASE PUSH
             (new \App\Services\FirebaseService)->sendNotification(

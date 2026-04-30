@@ -61,7 +61,7 @@ Route::get('/admin/officials', function () {
                     ->orWhere('assignment', 'like', "%{$query}%");
             });
         })
-        ->orderBy('created_at', 'desc')
+        ->orderBy('created_at', 'asc')
         ->get();
 
     return view('admin.officials.index', compact('officials', 'query'));

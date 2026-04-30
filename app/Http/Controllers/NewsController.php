@@ -20,7 +20,7 @@ class NewsController extends Controller
             'image' => 'nullable|image|max:2048', // Optional image upload
         ]);
         \App\Models\News::create($validatedData);
-        return redirect()->route('admin.news.index')->with('success', 'News item created successfully.');
+        return redirect()->route('news.index')->with('success', 'News item created successfully.');
     }
 
     public function update(Request $request, $id)
@@ -32,13 +32,13 @@ class NewsController extends Controller
             'image' => 'nullable|image|max:2048', // Optional image upload
         ]);
         $news->update($validatedData);
-        return redirect()->route('admin.news.index')->with('success', 'News item updated successfully.');
+        return redirect()->route('news.index')->with('success', 'News item updated successfully.');
     }
 
     public function destroy($id)
     {
         $news = \App\Models\News::findOrFail($id);
         $news->delete();
-        return redirect()->route('admin.news.index')->with('success', 'News item deleted successfully.');
+        return redirect()->route('news.index')->with('success', 'News item deleted successfully.');
     }
 }

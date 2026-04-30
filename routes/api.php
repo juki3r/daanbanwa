@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -20,3 +21,7 @@ Route::post('/send-forgot-otp', [AuthController::class, 'sendForgotOtp']);
 Route::post('/verify-reset-otp', [AuthController::class, 'verifyResetOtp']);
 Route::post('/reset-password', [AuthController::class, 'resetPassword']);
 Route::post('/save-fcm-token', [AuthController::class, 'saveFcmToken']);
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/officials', [UserController::class, 'getOfficials']);
+});

@@ -72,7 +72,7 @@ class AdminController extends Controller
             'phone_number' => [
                 'required',
                 'string',
-                'regex:/^09\d{9}$/', // 👈 strict PH format
+                'regex:/^09\d{9}$/', //  strict PH format
                 'unique:officials,phone_number'
             ],
             'position'     => 'required|string|max:255',

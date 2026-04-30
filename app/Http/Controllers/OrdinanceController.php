@@ -37,6 +37,18 @@ class OrdinanceController extends Controller
 
         $ordinance = Ordinance::create($request->all());
 
+        // get all user tokens
+        $tokens = \App\Models\User::whereNotNull('fcm_token')->pluck('fcm_token')->toArray();
+
+        // send notification to all
+        foreach ($tokens as $token) {
+            (new \App\Services\FirebaseService)->sendNotification(
+                $token,
+                $ordinance->ordinance_no,
+                \Illuminate\Support\Str::limit($ordinance->title, 160)
+            );
+        }
+
         return redirect()
             ->back()
             ->with('success', 'Ordinance added successfully.');

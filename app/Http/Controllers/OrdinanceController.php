@@ -45,7 +45,7 @@ class OrdinanceController extends Controller
         foreach ($tokens as $token) {
             (new \App\Services\FirebaseService)->sendNotification(
                 $token,
-                $ordinance->title,
+                $ordinance->ordinance_no . ': ' . $ordinance->title,
                 \Illuminate\Support\Str::limit($ordinance->description, 160),
                 [
                     'screen' => 'Ordinance',

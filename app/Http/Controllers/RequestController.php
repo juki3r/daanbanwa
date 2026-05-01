@@ -8,9 +8,7 @@ class RequestController extends Controller
 {
     public function index()
     {
-        $requests = Request::with('user')
-            ->latest()
-            ->get();
+        $requests = Request::all();
 
         return view('admin.requests.index', compact('requests'));
     }

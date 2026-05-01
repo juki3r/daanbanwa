@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Request as BarangayRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 
 class RequestController extends Controller
 {
@@ -25,6 +27,9 @@ class RequestController extends Controller
     {
         // 🔐 Get authenticated user (requires Sanctum middleware)
         $user = $request->user();
+        // Get admin user
+        $admins = User::where('role', 'admin')->get();
+        $firebase = new \App\Services\FirebaseService;
 
         $request->validate([
             'full_name' => 'required|string',
@@ -58,6 +63,39 @@ class RequestController extends Controller
             'company_name' => $request->company_name,
             'business_nature' => $request->business_nature,
         ]);
+
+        //Add notification here for admin/staff/captain
+        $title = 'New Document Request';
+        $body = $request->document_type . ', ' . $request->full_name . ' is requesting document for ' . $request->purpose;
+        $message = "[Daan Banwa ALERT]\n{$title}\n{$body}";
+        // Send to admin
+        foreach ($admins as $admin) {
+            // 1️⃣ Send Push Notification
+            if ($admin->fcm_token) {
+                $firebase->sendNotification(
+                    $admin->fcm_token,
+                    $title,
+                    $body
+                );
+            }
+
+            // 2️⃣ Send SMS
+            if ($admin->phone) {
+                try {
+                    Http::withHeaders([
+                        'X-API-KEY' => env('SMS_API_KEY')
+                    ])->post('https://carlesppo.com/api/send-sms-api', [
+                        'phone_number' => $admin->phone,
+                        'message' => $message
+                    ]);
+                } catch (\Exception $e) {
+                    \Log::error("SMS failed for admin {$admin->id}: " . $e->getMessage());
+                }
+            }
+        }
+
+
+
 
         return response()->json([
             'message' => 'Request submitted successfully',

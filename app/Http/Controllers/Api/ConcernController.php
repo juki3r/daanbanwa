@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Concern;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use Log;
 
 class ConcernController extends Controller
 {
@@ -16,6 +19,8 @@ class ConcernController extends Controller
             'description' => 'required',
         ]);
 
+        $user = $request->user();
+
         $concern = Concern::create([
             'user_id' => $request->user()->id,
             'title' => $request->title,
@@ -24,6 +29,43 @@ class ConcernController extends Controller
             'status' => 'submitted',
             'progress' => 10,
         ]);
+
+        // Get admin user
+        $admins = User::where('role', 'admin')->get();
+        $firebase = new \App\Services\FirebaseService;
+
+        // Notification content
+        $title = 'New Concern Submitted';
+        $body = "{$user->name} submitted a concern: {$request->title} at {$request->location}";
+        $message = "[Daan Banwa ALERT]\n{$title}\n{$body}";
+
+        // Send to admin
+        foreach ($admins as $admin) {
+            // 1️⃣ Send Push Notification
+            if ($admin->fcm_token) {
+                $firebase->sendNotification(
+                    $admin->fcm_token,
+                    $title,
+                    $body
+                );
+            }
+
+            // 2️⃣ Send SMS
+            if ($admin->phone) {
+                try {
+                    Http::withHeaders([
+                        'X-API-KEY' => env('SMS_API_KEY')
+                    ])->post('https://carlesppo.com/api/send-sms-api', [
+                        'phone_number' => $admin->phone,
+                        'message' => $message
+                    ]);
+                } catch (\Exception $e) {
+                    Log::error("SMS failed for admin {$admin->id}: " . $e->getMessage());
+                }
+            }
+        }
+
+
 
         return response()->json([
             'message' => 'Concern submitted successfully',

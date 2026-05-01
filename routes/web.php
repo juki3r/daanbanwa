@@ -95,6 +95,13 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     Route::delete('/requests/{id}', [RequestController::class, 'destroy'])
         ->name('requests.destroy');
+
+    Route::get('/concern', [RequestController::class, 'index'])->name('concern.index');
+    Route::put('/concern/{id}/status', [RequestController::class, 'updateStatus'])
+        ->name('concern.updateStatus');
+
+    Route::delete('/concern/{id}', [RequestController::class, 'destroy'])
+        ->name('concern.destroy');
 });
 
 

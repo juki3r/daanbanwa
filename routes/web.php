@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\OrdinanceController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RequestController;
 use App\Models\Official;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -87,6 +88,10 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::post('/news', [NewsController::class, 'store'])->name('news.store');
     Route::put('/news/{id}', [NewsController::class, 'update'])->name('news.update');
     Route::delete('/news/{id}', [NewsController::class, 'destroy'])->name('news.destroy');
+
+    Route::get('/requests', [RequestController::class, 'index'])->name('requests.index');
+    Route::put('/requests/{id}', [RequestController::class, 'update'])->name('requests.update');
+    Route::delete('/requests/{id}', [RequestController::class, 'destroy'])->name('requests.destroy');
 });
 
 

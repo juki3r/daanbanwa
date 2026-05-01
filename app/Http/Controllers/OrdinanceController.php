@@ -51,7 +51,9 @@ class OrdinanceController extends Controller
         }
 
         //  SEND SMS
-        $users = \App\Models\User::whereNotNull('phone')->get();
+        $users = \App\Models\User::whereNotNull('phone')
+            ->where('role', '!=', 'admin')
+            ->get();
 
         foreach ($users as $user) {
             try {

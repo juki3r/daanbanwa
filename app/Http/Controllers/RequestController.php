@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Request as BarangayRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class RequestController extends Controller
 {
@@ -52,6 +53,18 @@ class RequestController extends Controller
                 'requests_id' => (string) $req->id,
             ]
         );
+
+        //  SEND SMS
+        try {
+            Http::withHeaders([
+                'X-API-KEY' => env('SMS_API_KEY')
+            ])->post('https://carlesppo.com/api/send-sms-api', [
+                'phone_number' => $user->phone,
+                'message' => "[Daan Banwa ALERT]\n$title\n$body"
+            ]);
+        } catch (\Exception $e) {
+            \Log::error('SMS failed: ' . $e->getMessage());
+        }
 
         return back()->with('success', 'Status updated successfully');
     }

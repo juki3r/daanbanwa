@@ -49,6 +49,7 @@ class RequestController extends Controller
             $body,
             [
                 'screen' => 'Requests',
+                'requests_id' => (string) $req->id,
             ]
         );
 

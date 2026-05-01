@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ConcernController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\OrdinanceController;
 use App\Http\Controllers\ProfileController;
@@ -96,11 +97,11 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::delete('/requests/{id}', [RequestController::class, 'destroy'])
         ->name('requests.destroy');
 
-    Route::get('/concern', [RequestController::class, 'index'])->name('concern.index');
-    Route::put('/concern/{id}/status', [RequestController::class, 'updateStatus'])
+    Route::get('/concern', [ConcernController::class, 'index'])->name('concern.index');
+    Route::put('/concern/{id}/status', [ConcernController::class, 'updateStatus'])
         ->name('concern.updateStatus');
 
-    Route::delete('/concern/{id}', [RequestController::class, 'destroy'])
+    Route::delete('/concern/{id}', [ConcernController::class, 'destroy'])
         ->name('concern.destroy');
 });
 

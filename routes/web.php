@@ -90,8 +90,11 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::delete('/news/{id}', [NewsController::class, 'destroy'])->name('news.destroy');
 
     Route::get('/requests', [RequestController::class, 'index'])->name('requests.index');
-    Route::put('/requests/{id}', [RequestController::class, 'update'])->name('requests.update');
-    Route::delete('/requests/{id}', [RequestController::class, 'destroy'])->name('requests.destroy');
+    Route::put('/requests/{id}/status', [RequestController::class, 'updateStatus'])
+        ->name('requests.updateStatus');
+
+    Route::delete('/requests/{id}', [RequestController::class, 'destroy'])
+        ->name('requests.destroy');
 });
 
 

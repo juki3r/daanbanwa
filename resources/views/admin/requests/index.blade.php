@@ -12,17 +12,6 @@
         </div>
     @endif
 
-    @if ($errors->any())
-        <div class="alert alert-danger alert-dismissible fade show">
-            <ul class="mb-0">
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    @endif
-
     <div class="container py-4">
         <div class="card shadow-sm">
             <div class="card-body">
@@ -47,6 +36,7 @@
                                 <th>Purpose</th>
                                 <th>Company</th>
                                 <th>Nature</th>
+                                <th>Status</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -63,19 +53,33 @@
                                     <td>{{ $request->company_name ?: 'N/A' }}</td>
                                     <td>{{ $request->business_nature ?: 'N/A' }}</td>
 
+                                    <!-- STATUS -->
+                                    <td>
+                                        <span class="badge
+                                            @if($request->status == 'pending') bg-warning
+                                            @elseif($request->status == 'approved') bg-success
+                                            @elseif($request->status == 'rejected') bg-danger
+                                            @else bg-secondary
+                                            @endif
+                                        ">
+                                            {{ ucfirst($request->status) }}
+                                        </span>
+                                    </td>
+
+                                    <!-- ACTIONS -->
                                     <td class="d-flex gap-2">
 
-                                        <!-- EDIT -->
+                                        <!-- UPDATE STATUS -->
                                         <button class="btn btn-sm btn-primary"
                                             data-bs-toggle="modal"
-                                            data-bs-target="#editModal{{ $request->id }}">
-                                            Edit
+                                            data-bs-target="#statusModal{{ $request->id }}">
+                                            Status
                                         </button>
 
                                         <!-- DELETE -->
                                         <form action="{{ route('requests.destroy', $request->id) }}"
                                             method="POST"
-                                            onsubmit="return confirm('Are you sure you want to delete this request?')">
+                                            onsubmit="return confirm('Delete this request?')">
                                             @csrf
                                             @method('DELETE')
                                             <button class="btn btn-sm btn-danger">
@@ -95,12 +99,13 @@
         </div>
     </div>
 
-    <!-- EDIT MODALS (MUST BE OUTSIDE TABLE) -->
+    <!-- STATUS MODALS -->
     @foreach($requests as $request)
-    <div class="modal fade" id="editModal{{ $request->id }}" tabindex="-1">
-        <div class="modal-dialog modal-lg">
 
-            <form action="{{ route('requests.update', $request->id) }}"
+    <div class="modal fade" id="statusModal{{ $request->id }}" tabindex="-1">
+        <div class="modal-dialog">
+
+            <form action="{{ route('requests.updateStatus', $request->id) }}"
                 method="POST"
                 class="modal-content">
 
@@ -108,56 +113,20 @@
                 @method('PUT')
 
                 <div class="modal-header">
-                    <h5 class="modal-title">Edit Request</h5>
+                    <h5 class="modal-title">Update Status</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
 
                 <div class="modal-body">
-                    <div class="row g-3">
 
-                        <div class="col-md-6">
-                            <label>Full Name</label>
-                            <input type="text" name="full_name"
-                                value="{{ $request->full_name }}"
-                                class="form-control">
-                        </div>
+                    <label class="form-label">Status</label>
 
-                        <div class="col-md-3">
-                            <label>Age</label>
-                            <input type="number" name="age"
-                                value="{{ $request->age }}"
-                                class="form-control">
-                        </div>
+                    <select name="status" class="form-select" required>
+                        <option value="pending" {{ $request->status == 'pending' ? 'selected' : '' }}>Pending</option>
+                        <option value="approved" {{ $request->status == 'approved' ? 'selected' : '' }}>Approved</option>
+                        <option value="rejected" {{ $request->status == 'rejected' ? 'selected' : '' }}>Rejected</option>
+                    </select>
 
-                        <div class="col-md-3">
-                            <label>Gender</label>
-                            <input type="text" name="gender"
-                                value="{{ $request->gender }}"
-                                class="form-control">
-                        </div>
-
-                        <div class="col-md-12">
-                            <label>Address</label>
-                            <input type="text" name="address"
-                                value="{{ $request->address }}"
-                                class="form-control">
-                        </div>
-
-                        <div class="col-md-6">
-                            <label>Document Type</label>
-                            <input type="text" name="document_type"
-                                value="{{ $request->document_type }}"
-                                class="form-control">
-                        </div>
-
-                        <div class="col-md-6">
-                            <label>Purpose</label>
-                            <input type="text" name="purpose"
-                                value="{{ $request->purpose }}"
-                                class="form-control">
-                        </div>
-
-                    </div>
                 </div>
 
                 <div class="modal-footer">
@@ -165,16 +134,18 @@
                         Cancel
                     </button>
                     <button class="btn btn-success">
-                        Update
+                        Save
                     </button>
                 </div>
 
             </form>
+
         </div>
     </div>
+
     @endforeach
 
-    <!-- LIVE SEARCH SCRIPT -->
+    <!-- LIVE SEARCH -->
     <script>
         document.getElementById('searchInput').addEventListener('keyup', function () {
             let value = this.value.toLowerCase();

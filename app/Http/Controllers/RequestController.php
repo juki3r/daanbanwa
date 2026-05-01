@@ -13,26 +13,20 @@ class RequestController extends Controller
         return view('admin.requests.index', compact('requests'));
     }
 
-    public function update(Request $request, $id)
+    public function updateStatus(Request $request, $id)
     {
         $req = Request::findOrFail($id);
 
         $req->update([
-            'full_name' => $request->full_name,
-            'age' => $request->age,
-            'gender' => $request->gender,
-            'address' => $request->address,
-            'document_type' => $request->document_type,
-            'purpose' => $request->purpose,
+            'status' => $request->status
         ]);
 
-        return back()->with('success', 'Request updated successfully');
+        return back()->with('success', 'Status updated successfully');
     }
 
     public function destroy($id)
     {
-        $req = Request::findOrFail($id);
-        $req->delete();
+        Request::findOrFail($id)->delete();
 
         return back()->with('success', 'Request deleted successfully');
     }

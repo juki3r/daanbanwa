@@ -96,7 +96,7 @@
     <div class="modal fade" id="statusModal{{ $concern->id }}" tabindex="-1">
         <div class="modal-dialog">
 
-            <form action="{{ route('concern.updateStatus', $request->id) }}"
+            <form action="{{ route('concern.updateStatus', $concern->id) }}"
                 method="POST"
                 class="modal-content">
 

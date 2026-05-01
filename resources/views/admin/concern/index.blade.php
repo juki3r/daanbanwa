@@ -45,12 +45,12 @@
                                     <!-- STATUS -->
                                     <td>
                                         <span class="badge
-                                            @if($concern->status == 'received') bg-warning
+                                            @if($concern->status == 'received') bg-primary
                                             @elseif($concern->status == 'under_review') bg-info
-                                            @elseif($concern->status == 'in_progress') bg-primary
+                                            @elseif($concern->status == 'in_progress') bg-secondary
                                             @elseif($concern->status == 'resolved') bg-success
                                             @elseif($concern->status == 'rejected') bg-danger
-                                            @else bg-secondary
+                                            @else bg-warning
                                             @endif
                                         ">
                                             {{ ucfirst($concern->status) }}

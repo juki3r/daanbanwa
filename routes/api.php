@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\ConcernController;
 use App\Http\Controllers\Api\RequestController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -31,4 +32,12 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/requests', [RequestController::class, 'store']);
     Route::get('/my-requests', [RequestController::class, 'myRequests']);
+
+    // USER
+    Route::post('/concerns', [ConcernController::class, 'store']);
+    Route::get('/my-concerns', [ConcernController::class, 'myConcerns']);
+
+    // ADMIN
+    Route::get('/concerns', [ConcernController::class, 'index']);
+    Route::post('/concerns/{id}/status', [ConcernController::class, 'updateStatus']);
 });

@@ -1,0 +1,26 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Concern extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'user_id',
+        'title',
+        'location',
+        'description',
+        'status',
+        'progress',
+        'admin_reply',
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+}

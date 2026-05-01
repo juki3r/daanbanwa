@@ -15,6 +15,10 @@ class RequestController extends Controller
 
     public function updateStatus(Request $request, $id)
     {
+        $request->validate([
+            'status' => 'required|in:pending,approved,rejected'
+        ]);
+
         $req = Request::findOrFail($id);
 
         $req->update([

@@ -42,7 +42,7 @@ class ConcernController extends Controller
         }
 
         $title = "Concern Update !";
-        $body  = "Your concern is" . $request->status;
+        $body  = "Your concern is " . $request->status;
 
         (new \App\Services\FirebaseService)->sendNotification(
             $user->fcm_token,

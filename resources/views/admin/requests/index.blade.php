@@ -52,13 +52,116 @@
                         </thead>
 
                         <tbody>
-                            @foreach($news as $news_item)
+                            @foreach($requests as $request)
                                 <tr>
-                                    <td>{{ $news_item->id }}</td>
-                                    <td class="text-capitalize">{{ $news_item->title }}</td>
-                                    <td>{{ $news_item->content }}</td>
-                                    <td>{{ $news_item->created_at }}</td>
+                                    <td>{{ $request->full_name }}</td>
+                                    <td>{{ $request->age }}</td>
+                                    <td class="text-capitalize">{{ $request->gender }}</td>
+                                    <td>{{ $request->address }}</td>
+                                    <td>{{ $request->document_type }}</td>
+                                    <td>{{ $request->purpose }}</td>
+                                    <td>{{ $request->company_name }}</td>
+                                    <td>{{ $request->business_nature }}</td>
+
+                                    <td>
+                                        <div class="d-flex gap-2">
+
+                                            <!-- EDIT BUTTON -->
+                                            <button class="btn btn-sm btn-primary"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#editModal{{ $request->id }}">
+                                                Edit
+                                            </button>
+
+                                            <!-- DELETE BUTTON -->
+                                            <form action="{{ route('requests.destroy', $request->id) }}"
+                                                method="POST"
+                                                onsubmit="return confirm('Are you sure?')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="btn btn-sm btn-danger">
+                                                    Delete
+                                                </button>
+                                            </form>
+
+                                        </div>
+                                    </td>
                                 </tr>
+
+                                <!-- EDIT MODAL -->
+                                <div class="modal fade" id="editModal{{ $request->id }}" tabindex="-1">
+                                    <div class="modal-dialog modal-lg">
+                                        <form action="{{ route('requests.update', $request->id) }}"
+                                            method="POST"
+                                            class="modal-content">
+                                            @csrf
+                                            @method('PUT')
+
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Edit Request</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                            </div>
+
+                                            <div class="modal-body">
+                                                <div class="row g-3">
+
+                                                    <div class="col-md-6">
+                                                        <label>Full Name</label>
+                                                        <input type="text" name="full_name"
+                                                            value="{{ $request->full_name }}"
+                                                            class="form-control" required>
+                                                    </div>
+
+                                                    <div class="col-md-3">
+                                                        <label>Age</label>
+                                                        <input type="number" name="age"
+                                                            value="{{ $request->age }}"
+                                                            class="form-control">
+                                                    </div>
+
+                                                    <div class="col-md-3">
+                                                        <label>Gender</label>
+                                                        <input type="text" name="gender"
+                                                            value="{{ $request->gender }}"
+                                                            class="form-control">
+                                                    </div>
+
+                                                    <div class="col-md-12">
+                                                        <label>Address</label>
+                                                        <input type="text" name="address"
+                                                            value="{{ $request->address }}"
+                                                            class="form-control">
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <label>Document Type</label>
+                                                        <input type="text" name="document_type"
+                                                            value="{{ $request->document_type }}"
+                                                            class="form-control">
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <label>Purpose</label>
+                                                        <input type="text" name="purpose"
+                                                            value="{{ $request->purpose }}"
+                                                            class="form-control">
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button class="btn btn-light" data-bs-dismiss="modal" type="button">
+                                                    Cancel
+                                                </button>
+                                                <button class="btn btn-success">
+                                                    Update
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
                             @endforeach
                         </tbody>
                     </table>
@@ -67,54 +170,4 @@
             </div>
         </div>
     </div>
-
-    <!-- ADD NEWS MODAL -->
-    <div class="modal fade" id="addNewsModal" tabindex="-1" aria-labelledby="addNewsModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <form action="{{ route('news.store') }}" method="POST" class="modal-content">
-                @csrf
-
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addNewsModalLabel">Add News</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-
-                <div class="modal-body">
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <label class="form-label">Title</label>
-                            <input type="text" name="title" class="form-control" required>
-                        </div>
-
-                        <div class="col-md-6">
-                            <label class="form-label">Content</label>
-                            <textarea name="content" class="form-control" required></textarea>
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">
-                        Cancel
-                    </button>
-                    <button type="submit" class="btn btn-primary">
-                        Save News
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <script>
-        // LIVE SEARCH
-        document.getElementById('searchInput').addEventListener('keyup', function () {
-            let value = this.value.toLowerCase();
-            let rows = document.querySelectorAll("#newsTable tbody tr");
-
-            rows.forEach(row => {
-                row.style.display = row.innerText.toLowerCase().includes(value) ? "" : "none";
-            });
-        });
-    </script>
 </x-app-layout>

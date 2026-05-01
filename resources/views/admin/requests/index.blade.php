@@ -48,6 +48,7 @@
                                 <th>Purpose</th>
                                 <th>Company name</th>
                                 <th>Nature of business</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
 
@@ -60,8 +61,8 @@
                                     <td>{{ $request->address }}</td>
                                     <td>{{ $request->document_type }}</td>
                                     <td>{{ $request->purpose }}</td>
-                                    <td>{{ $request->company_name }}</td>
-                                    <td>{{ $request->business_nature }}</td>
+                                    <td>{{ $request->company_name ?: 'N/A' }}</td>
+                                    <td>{{ $request->business_nature ?: 'N/A' }}</td>
 
                                     <td>
                                         <div class="d-flex gap-2">

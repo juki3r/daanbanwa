@@ -17,20 +17,21 @@ class ConcernController extends Controller
 
     public function updateStatus(Request $request, $id)
     {
+
         $request->validate([
             'status' => 'required|in:received,under_review,in_progress,resolved,rejected'
         ]);
 
-        // Get request record
-        $req = Concern::findOrFail($id);
+        $concern = Concern::findOrFail($id);
 
-        // Update status
-        $req->update([
+        $concern->update([
             'status' => $request->status
         ]);
 
+
+
         // Get user from request (IMPORTANT FIX)
-        $user = User::find($req->user_id);
+        $user = User::find($concern->user_id);
 
         if (!$user) {
             return back()->with('error', 'User not found');
@@ -49,7 +50,7 @@ class ConcernController extends Controller
             $body,
             [
                 'screen' => 'Concerns',
-                'concerns_id' => (string) $req->id,
+                'concerns_id' => (string) $concern->id,
             ]
         );
 

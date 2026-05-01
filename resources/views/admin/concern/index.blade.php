@@ -68,7 +68,7 @@
                                         </button>
 
                                         <!-- DELETE -->
-                                        <form action="{{ route('requests.destroy', $concern->id) }}"
+                                        <form action="{{ route('concern.destroy', $concern->id) }}"
                                             method="POST"
                                             onsubmit="return confirm('Delete this request?')">
                                             @csrf
@@ -113,11 +113,27 @@
                     <label class="form-label">Status</label>
 
                     <select name="status" class="form-select" required>
-                        <option value="pending" {{ $concern->status == 'received' ? 'selected' : '' }}>Received</option>
-                        <option value="approved" {{ $concern->status == 'under_review' ? 'selected' : '' }}>Under Review</option>
-                        <option value="rejected" {{ $concern->status == 'in_progress' ? 'selected' : '' }}>In Progress</option>
-                        <option value="rejected" {{ $concern->status == 'resolved' ? 'selected' : '' }}>Resolved</option>
-                        <option value="rejected" {{ $concern->status == 'rejected' ? 'selected' : '' }}>Rejected</option>
+
+                        <option value="received" {{ $concern->status == 'received' ? 'selected' : '' }}>
+                            Received
+                        </option>
+
+                        <option value="under_review" {{ $concern->status == 'under_review' ? 'selected' : '' }}>
+                            Under Review
+                        </option>
+
+                        <option value="in_progress" {{ $concern->status == 'in_progress' ? 'selected' : '' }}>
+                            In Progress
+                        </option>
+
+                        <option value="resolved" {{ $concern->status == 'resolved' ? 'selected' : '' }}>
+                            Resolved
+                        </option>
+
+                        <option value="rejected" {{ $concern->status == 'rejected' ? 'selected' : '' }}>
+                            Rejected
+                        </option>
+
                     </select>
 
                 </div>

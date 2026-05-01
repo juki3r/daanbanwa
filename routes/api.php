@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\RequestController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,4 +28,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/officials', [UserController::class, 'getOfficials']);
     Route::get('/ordinances', [UserController::class, 'getOrdinances']);
     Route::get('/news', [UserController::class, 'getNews']);
+
+    Route::post('/requests', [RequestController::class, 'store']);
 });

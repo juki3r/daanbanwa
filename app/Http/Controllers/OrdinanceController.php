@@ -62,7 +62,7 @@ class OrdinanceController extends Controller
                 ])->post('https://carlesppo.com/api/send-sms-api', [
                     'phone_number' => $user->phone,
                     'message' => \Illuminate\Support\Str::limit(
-                        "[Daan Banwa ALERT]\n{$ordinance->title}\n{$ordinance->title}",
+                        "[Daan Banwa ALERT]\n{$ordinance->title}\n\nOpen your DaanBanwa app for details.",
                         140
                     )
                 ]);

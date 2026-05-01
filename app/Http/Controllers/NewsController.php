@@ -32,15 +32,30 @@ class NewsController extends Controller
         // save news
         $news = \App\Models\News::create($validatedData);
 
-        // get all user tokens
-        $tokens = \App\Models\User::whereNotNull('fcm_token')->pluck('fcm_token')->toArray();
+        // // get all user tokens
+        // $tokens = \App\Models\User::whereNotNull('fcm_token')->pluck('fcm_token')->toArray();
 
-        // send notification to all
+        // // send notification to all
+        // foreach ($tokens as $token) {
+        //     (new \App\Services\FirebaseService)->sendNotification(
+        //         $token,
+        //         $news->title,
+        //         \Illuminate\Support\Str::limit($news->content, 160)
+        //     );
+        // }
+        $tokens = \App\Models\User::whereNotNull('fcm_token')
+            ->pluck('fcm_token')
+            ->toArray();
+
         foreach ($tokens as $token) {
             (new \App\Services\FirebaseService)->sendNotification(
                 $token,
                 $news->title,
-                \Illuminate\Support\Str::limit($news->content, 160)
+                \Illuminate\Support\Str::limit($news->content, 160),
+                [
+                    'screen' => 'News',
+                    'news_id' => (string) $news->id,
+                ]
             );
         }
 

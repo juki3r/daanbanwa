@@ -91,7 +91,7 @@
     </div>
 
     <!-- STATUS MODALS -->
-    @foreach($requests as $request)
+    @foreach($concerns as $concern)
 
     <div class="modal fade" id="statusModal{{ $concern->id }}" tabindex="-1">
         <div class="modal-dialog">

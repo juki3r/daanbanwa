@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Request;
+use Illuminate\Http\Request;
+use App\Models\Request as BarangayRequest;
 
 class RequestController extends Controller
 {
     public function index()
     {
-        $requests = Request::all();
+        $requests = BarangayRequest::all();
 
         return view('admin.requests.index', compact('requests'));
     }
@@ -19,7 +20,7 @@ class RequestController extends Controller
             'status' => 'required|in:pending,approved,rejected'
         ]);
 
-        $req = Request::findOrFail($id);
+        $req = BarangayRequest::findOrFail($id);
 
         $req->update([
             'status' => $request->status
@@ -30,7 +31,7 @@ class RequestController extends Controller
 
     public function destroy($id)
     {
-        Request::findOrFail($id)->delete();
+        BarangayRequest::findOrFail($id)->delete();
 
         return back()->with('success', 'Request deleted successfully');
     }

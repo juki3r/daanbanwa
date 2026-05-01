@@ -30,4 +30,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/news', [UserController::class, 'getNews']);
 
     Route::post('/requests', [RequestController::class, 'store']);
+    Route::get('/my-requests', [RequestController::class, 'myRequests']);
 });

@@ -3,17 +3,22 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Request as BarangayRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RequestController extends Controller
 {
-    // GET /api/requests
-    public function index()
+    // ✅ GET MY REQUESTS
+    public function myRequests()
     {
-        return response()->json(
-            BarangayRequest::latest()->get()
-        );
+        $user = Auth::user();
+
+        $requests = BarangayRequest::where('user_id', $user->id)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return response()->json($requests);
     }
 
     public function store(Request $request)

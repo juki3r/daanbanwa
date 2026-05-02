@@ -16,6 +16,15 @@ class BlotterController extends Controller
 
         return response()->json($blotters);
     }
+    //Admin gets all blotters
+    public function allindex(Request $request)
+    {
+        $blotters = Blotter::orderBy('created_at', 'desc')->get();
+
+        return response()->json([
+            'blotters' => $blotters
+        ]);
+    }
 
     public function store(Request $request)
     {

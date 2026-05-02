@@ -47,7 +47,7 @@
                                         <span class="badge
                                             @if($blotter->status == 'pending') bg-warning text-dark
                                             @elseif($blotter->status == 'approved') bg-success
-                                            @else bg-secondary
+                                            @else bg-danger
                                             @endif
                                         ">
                                             {{ ucfirst($blotter->status) }}
@@ -118,6 +118,11 @@
                         <option value="approved" {{ $blotter->status == 'approved' ? 'selected' : '' }}>
                             Approved
                         </option>
+
+                        <option value="declined" {{ $blotter->status == 'declined' ? 'selected' : '' }}>
+                            Approved
+                        </option>
+
 
                     </select>
 

@@ -20,7 +20,7 @@ class BlotterController extends Controller
     {
 
         $request->validate([
-            'status' => 'required|in:pending,approved',
+            'status' => 'required|in:pending,approved,declined',
         ]);
 
         $blotter = Blotter::findOrFail($id);

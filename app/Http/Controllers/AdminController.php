@@ -88,11 +88,15 @@ class AdminController extends Controller
                 'is_read' => false,
             ]);
 
-            // 2️⃣ FIREBASE PUSH
+            // FIREBASE PUSH
             (new \App\Services\FirebaseService)->sendNotification(
                 $user->fcm_token,
                 $title,
-                $body
+                \Illuminate\Support\Str::limit($body, 160),
+                [
+                    'screen' => 'Request',
+                    'request_id' => (string) $user->id,
+                ]
             );
 
             // 3️⃣ SMS

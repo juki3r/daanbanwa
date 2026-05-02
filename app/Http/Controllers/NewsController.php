@@ -191,18 +191,32 @@ class NewsController extends Controller
     }
 
     //Send all news that is not view by user via api.
-    public function getNews(Request $request)
+    // public function getNews(Request $request)
+    // {
+    //     $userId = $request->user()->id;
+
+    //     $news = News::whereDoesntHave('views', function ($query) use ($userId) {
+    //         $query->where('user_id', $userId);
+    //     })
+    //         ->latest()
+    //         ->get();
+
+    //     return response()->json([
+    //         'news' => $news
+    //     ]);
+    // }
+    public function unreadNews(Request $request)
     {
         $userId = $request->user()->id;
 
-        $news = News::whereDoesntHave('views', function ($query) use ($userId) {
-            $query->where('user_id', $userId);
+        $news = News::whereDoesntHave('views', function ($q) use ($userId) {
+            $q->where('user_id', $userId);
         })
             ->latest()
             ->get();
 
         return response()->json([
-            'news' => $news
+            'notifications' => $news
         ]);
     }
 }

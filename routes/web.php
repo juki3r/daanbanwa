@@ -109,6 +109,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/blotter', [BlotterController::class, 'index'])->name('blotter.index');
     Route::put('/blotter/{id}/status', [BlotterController::class, 'updateStatus'])
         ->name('blotter.updateStatus');
+    Route::delete('/blotter/{id}', [ConcernController::class, 'destroy'])
+        ->name('blotter.destroy');
 });
 
 

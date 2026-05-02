@@ -25,7 +25,9 @@ class RequestController extends Controller
 
     public function allRequest()
     {
-        $requests = BarangayRequest::orderBy('created_at', 'desc')->get();
+        $requests = BarangayRequest::whereNotIn('status', ['approved', 'rejected'])
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         return response()->json([
             'requests' => $requests

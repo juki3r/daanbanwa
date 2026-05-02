@@ -11,7 +11,7 @@ class BlotterController extends Controller
     public function index(Request $request)
     {
         $blotters = Blotter::where('user_id', $request->user()->id)
-            ->latest()
+            ->orderBy('created_at', 'asc')
             ->get();
 
         return response()->json($blotters);

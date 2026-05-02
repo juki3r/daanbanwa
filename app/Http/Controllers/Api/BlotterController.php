@@ -26,7 +26,7 @@ class BlotterController extends Controller
             ->get();
 
         return response()->json([
-            'data' => $blotters
+            'blotters' => $blotters
         ]);
     }
 

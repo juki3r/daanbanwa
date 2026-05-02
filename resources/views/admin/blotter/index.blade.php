@@ -120,7 +120,7 @@
                         </option>
 
                         <option value="declined" {{ $blotter->status == 'declined' ? 'selected' : '' }}>
-                            Approved
+                            Declined
                         </option>
 
 

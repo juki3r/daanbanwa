@@ -94,8 +94,8 @@ class AdminController extends Controller
                 $title,
                 \Illuminate\Support\Str::limit($body, 160),
                 [
-                    'screen' => 'Request',
-                    'request_id' => (string) $user->id,
+                    'screen' => 'Requests',
+                    'requests_id' => (string) $user->id,
                 ]
             );
 

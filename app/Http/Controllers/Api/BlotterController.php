@@ -22,7 +22,7 @@ class BlotterController extends Controller
         $blotters = Blotter::orderBy('created_at', 'desc')->get();
 
         return response()->json([
-            'blotters' => $blotters
+            'data' => $blotters
         ]);
     }
 

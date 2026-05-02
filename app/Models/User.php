@@ -58,4 +58,11 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function viewedNews()
+    {
+        return $this->belongsToMany(News::class, 'news_views')
+            ->withPivot('viewed_at')
+            ->withTimestamps();
+    }
 }

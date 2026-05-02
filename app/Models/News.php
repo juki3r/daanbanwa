@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\NewsView;
 use Illuminate\Database\Eloquent\Model;
 
 class News extends Model
@@ -15,4 +16,10 @@ class News extends Model
         'published_at',
         'status',
     ];
+
+
+    public function views()
+    {
+        return $this->hasMany(NewsView::class);
+    }
 }

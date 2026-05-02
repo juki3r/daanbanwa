@@ -35,6 +35,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/requests', [RequestController::class, 'store']);
     Route::get('/my-requests', [RequestController::class, 'myRequests']);
+    //Admin gets all the Request
+    Route::get('/all-requests', [RequestController::class, 'allRequest']);
 
     // USER
     Route::post('/concerns', [ConcernController::class, 'store']);

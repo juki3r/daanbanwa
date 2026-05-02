@@ -23,6 +23,14 @@ class RequestController extends Controller
         return response()->json($requests);
     }
 
+    //Admin gets all the request
+    public function allRequest()
+    {
+        $requests = BarangayRequest::orderBy('created_at', 'desc')->get();
+
+        return response()->json($requests);
+    }
+
     public function store(Request $request)
     {
         // 🔐 Get authenticated user (requires Sanctum middleware)

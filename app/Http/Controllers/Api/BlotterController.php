@@ -19,7 +19,9 @@ class BlotterController extends Controller
     //Admin gets all blotters
     public function allindex(Request $request)
     {
-        $blotters = Blotter::orderBy('created_at', 'desc')->get();
+        $blotters = Blotter::whereNotIn('status', ['approved', 'rejected'])
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         return response()->json([
             'data' => $blotters

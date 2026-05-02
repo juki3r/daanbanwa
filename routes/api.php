@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BlotterController;
 use App\Http\Controllers\Api\ConcernController;
 use App\Http\Controllers\Api\RequestController;
+use App\Http\Controllers\AppStatusController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -48,4 +49,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/blotters', [BlotterController::class, 'index']);
     Route::post('/blotters', [BlotterController::class, 'store']);
+
+    Route::get('/app-status', [AppStatusController::class, 'index']);
 });

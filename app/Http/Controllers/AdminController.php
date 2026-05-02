@@ -83,7 +83,7 @@ class AdminController extends Controller
             Notification::create([
                 'user_id' => $user->id,
                 'title'   => $title,
-                'message' => $body,
+                'body' => $body,
                 'type'    => 'admin_message',
                 'is_read' => false,
             ]);

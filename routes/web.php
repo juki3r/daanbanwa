@@ -103,6 +103,11 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     Route::delete('/concern/{id}', [ConcernController::class, 'destroy'])
         ->name('concern.destroy');
+
+
+    Route::get('/blotter', [ConcernController::class, 'index'])->name('blotter.index');
+    Route::put('/blotter/{id}/status', [ConcernController::class, 'updateStatus'])
+        ->name('blotter.updateStatus');
 });
 
 

@@ -13,8 +13,22 @@ return new class extends Migration
     {
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
+
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+
             $table->string('title');
             $table->text('body');
+
+            $table->string('type')->nullable();
+            // example: news, request, concern
+
+            $table->unsignedBigInteger('reference_id')->nullable();
+            // id of news/request/concern
+
+            $table->boolean('is_read')->default(false);
+
+            $table->timestamp('read_at')->nullable();
+
             $table->timestamps();
         });
     }

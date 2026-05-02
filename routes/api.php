@@ -2,9 +2,10 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\BlotterController;
 use App\Http\Controllers\Api\ConcernController;
-use App\Http\Controllers\NewsController;
 use App\Http\Controllers\Api\RequestController;
+use App\Http\Controllers\NewsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -44,4 +45,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/news/{id}/view', [NewsController::class, 'markViewed']);
     Route::get('/unreadNews', [NewsController::class, 'unreadNews']);
+
+    Route::get('/blotters', [BlotterController::class, 'index']);
+    Route::post('/blotters', [BlotterController::class, 'store']);
 });

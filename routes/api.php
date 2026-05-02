@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ConcernController;
+use App\Http\Controllers\api\NewsController;
 use App\Http\Controllers\Api\RequestController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -40,4 +41,6 @@ Route::middleware('auth:sanctum')->group(function () {
     // ADMIN
     Route::get('/concerns', [ConcernController::class, 'index']);
     Route::post('/concerns/{id}/status', [ConcernController::class, 'updateStatus']);
+
+    Route::post('/news/{id}/view', [NewsController::class, 'markViewed']);
 });

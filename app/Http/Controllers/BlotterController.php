@@ -26,7 +26,7 @@ class BlotterController extends Controller
         $blotter = Blotter::findOrFail($id);
 
         $blotter->update([
-            'status' => $request->status
+            'status' => strtolower($request->status),
         ]);
 
 

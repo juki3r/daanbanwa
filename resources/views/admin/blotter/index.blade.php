@@ -45,9 +45,9 @@
                                     <!-- STATUS -->
                                     <td>
                                         <span class="badge
-                                            @if($blotter->status == 'pending') bg-warning
-                                            @elseif($blotter->status == 'under_review') bg-success
-                                            @else bg-warning
+                                            @if($blotter->status == 'pending') bg-warning text-dark
+                                            @elseif($blotter->status == 'approved') bg-success
+                                            @else bg-secondary
                                             @endif
                                         ">
                                             {{ ucfirst($blotter->status) }}
@@ -111,11 +111,11 @@
 
                     <select name="status" class="form-select" required>
 
-                        <option value="received" {{ $blotter->status == 'pending' ? 'selected' : '' }}>
+                        <option value="pending" {{ $blotter->status == 'pending' ? 'selected' : '' }}>
                             Pending
                         </option>
 
-                        <option value="under_review" {{ $blotter->status == 'approved' ? 'selected' : '' }}>
+                        <option value="approved" {{ $blotter->status == 'approved' ? 'selected' : '' }}>
                             Approved
                         </option>
 

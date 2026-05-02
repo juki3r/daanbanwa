@@ -112,11 +112,11 @@
                     <select name="status" class="form-select" required>
 
                         <option value="received" {{ $blotter->status == 'pending' ? 'selected' : '' }}>
-                            Received
+                            Pending
                         </option>
 
                         <option value="under_review" {{ $blotter->status == 'approved' ? 'selected' : '' }}>
-                            Under Review
+                            Approved
                         </option>
 
                     </select>

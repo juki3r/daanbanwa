@@ -216,7 +216,8 @@ class NewsController extends Controller
             ->get();
 
         return response()->json([
-            'notifications' => $news
+            'notifications' => $news,
+            'unread_count' => $news->count()
         ]);
     }
 }

@@ -56,6 +56,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/blotters', [BlotterController::class, 'store']);
     //Admin gets all the blotters
     Route::get('/all-blotters', [BlotterController::class, 'allindex']);
+    //Admin update the status
+    Route::put('/blotter/{id}/status', [BlotterController::class, 'updateStatus']);
 
     // Route::get('/app-status', [AppStatusController::class, 'index']);
 });

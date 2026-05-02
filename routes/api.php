@@ -5,7 +5,6 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BlotterController;
 use App\Http\Controllers\Api\ConcernController;
 use App\Http\Controllers\Api\RequestController;
-use App\Http\Controllers\AppStatusController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -37,6 +36,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/my-requests', [RequestController::class, 'myRequests']);
     //Admin gets all the Request
     Route::get('/all-requests', [RequestController::class, 'allRequest']);
+    //Admin update the status
+    Route::put('/requests/{id}/status', [RequestController::class, 'updateStatus']);
 
     // USER
     Route::post('/concerns', [ConcernController::class, 'store']);

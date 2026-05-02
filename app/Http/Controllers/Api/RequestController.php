@@ -111,6 +111,63 @@ class RequestController extends Controller
         ], 201);
     }
 
+    public function updateStatus(Request $request, $id)
+    {
+        $request->validate([
+            'status' => 'required|in:pending,approved,rejected'
+        ]);
+
+        // Get request record
+        $req = BarangayRequest::findOrFail($id);
+
+        // Update status
+        $req->update([
+            'status' => $request->status
+        ]);
+
+        // Get user from request (IMPORTANT FIX)
+        $user = User::find($req->user_id);
+
+        if (!$user) {
+            return back()->with('error', 'User not found');
+        }
+
+        if (!$user->fcm_token) {
+            return back()->with('error', 'User has no FCM token registered.');
+        }
+
+        $title = "Certification Request Update";
+        $body  = "Your request has been " . $request->status;
+
+        (new \App\Services\FirebaseService)->sendNotification(
+            $user->fcm_token,
+            $title,
+            $body,
+            [
+                'screen' => 'Requests',
+                'requests_id' => (string) $req->id,
+            ]
+        );
+
+        //  SEND SMS
+        try {
+            Http::withHeaders([
+                'X-API-KEY' => env('SMS_API_KEY')
+            ])->post('https://carlesppo.com/api/send-sms-api', [
+                'phone_number' => $user->phone,
+                'message' => "[Daan Banwa ALERT]\n$title\n$body"
+            ]);
+        } catch (\Exception $e) {
+            \Log::error('SMS failed: ' . $e->getMessage());
+        }
+
+        return back()->with('success', 'Status updated successfully');
+    }
+
+
+
+
+
     // GET /api/requests/{id}
     public function show($id)
     {

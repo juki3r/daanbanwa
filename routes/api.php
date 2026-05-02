@@ -43,4 +43,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/concerns/{id}/status', [ConcernController::class, 'updateStatus']);
 
     Route::post('/news/{id}/view', [NewsController::class, 'markViewed']);
+    Route::post('/news/unview', [NewsController::class, 'getNews']);
 });

@@ -149,7 +149,7 @@ class NewsController extends Controller
         }
     }
 
-
+    //Mark news views from api mobile app
     public function markViewed(Request $request, $id)
     {
         try {
@@ -188,5 +188,21 @@ class NewsController extends Controller
                 'error' => $e->getMessage(),
             ], 500);
         }
+    }
+
+    //Send all news that is not view by user via api.
+    public function getNews(Request $request)
+    {
+        $userId = $request->user()->id;
+
+        $news = News::whereDoesntHave('views', function ($query) use ($userId) {
+            $query->where('user_id', $userId);
+        })
+            ->latest()
+            ->get();
+
+        return response()->json([
+            'news' => $news
+        ]);
     }
 }

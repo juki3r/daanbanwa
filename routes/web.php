@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BlotterController;
 use App\Http\Controllers\ConcernController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\OrdinanceController;
@@ -105,8 +106,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
         ->name('concern.destroy');
 
 
-    Route::get('/blotter', [ConcernController::class, 'index'])->name('blotter.index');
-    Route::put('/blotter/{id}/status', [ConcernController::class, 'updateStatus'])
+    Route::get('/blotter', [BlotterController::class, 'index'])->name('blotter.index');
+    Route::put('/blotter/{id}/status', [BlotterController::class, 'updateStatus'])
         ->name('blotter.updateStatus');
 });
 

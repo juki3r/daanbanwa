@@ -85,9 +85,11 @@ class ConcernController extends Controller
     //Admin gets all Concerns
     public function allConcerns(Request $request)
     {
-        $concerns = Concern::all();
+        $concerns = Concern::orderBy('created_at', 'desc')->get();
 
-        return response()->json($concerns);
+        return response()->json([
+            'concerns' => $concerns
+        ]);
     }
 
     private function getProgress($status)

@@ -57,6 +57,12 @@
             <span>News</span>
         </a>
 
+        <a href="{{ route('notifications.index') }}"
+        class="nav-link d-flex align-items-center gap-2 {{ request()->routeIs('notifications.*') ? 'active-nav' : 'text-dark' }}">
+            <i class="bi bi-bell-fill"></i>
+            <span>Notifications</span>
+        </a>
+
     </nav>
 
     {{-- Logout --}}

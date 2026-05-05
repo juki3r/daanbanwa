@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BlotterController;
 use App\Http\Controllers\ConcernController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OrdinanceController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RequestController;
@@ -114,6 +115,10 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
         ->name('blotter.destroy');
 
 
+    //admin notifications
+    Route::get('/notifications', [NotificationController::class, 'index']);
+    Route::post('/notifications/{id}/read', [NotificationController::class, 'markAsRead']);
+    Route::post('/notifications/read-all', [NotificationController::class, 'markAllAsRead']);
 
 
 

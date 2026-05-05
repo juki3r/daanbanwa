@@ -28,7 +28,10 @@
             <div class="d-flex min-vh-100">
 
                 {{-- Sidebar --}}
-                <div class="sidebar-wrapper d-none d-md-block">
+                {{-- <div class="sidebar-wrapper d-none d-md-block">
+                    @include('layouts.navigation')
+                </div> --}}
+                <div class="sidebar-wrapper d-none d-md-block position-sticky top-0 vh-100 flex-shrink-0">
                     @include('layouts.navigation')
                 </div>
 
@@ -36,7 +39,8 @@
                 <div class="flex-grow-1 d-flex flex-column bg-body-tertiary overflow-hidden" style="min-height: 0;">
 
                     {{-- Header --}}
-                    <header class="admin-header px-3 px-md-4 py-3">
+                    {{-- <header class="admin-header px-3 px-md-4 py-3"> --}}
+                    <header class="admin-header px-3 px-md-4 py-3 position-sticky top-0 bg-body-tertiary border-bottom" style="z-index: 1030;">
 
                         {{-- TOAST CONTAINER (below header, right side) --}}
                             <div class="position-fixed top-0 end-0 p-3" style="z-index: 2000; margin-top: 80px;">
@@ -112,7 +116,8 @@
 
 
                     {{-- Page Content --}}
-                    <main class="flex-grow-1 p-3 p-md-4 overflow-auto" style="min-height: 0;">
+                    {{-- <main class="flex-grow-1 p-3 p-md-4 overflow-auto" style="min-height: 0;"> --}}
+                    <main class="flex-grow-1 p-3 p-md-4 overflow-auto" style="min-height: 0; height: 0;">
                         <div class="admin-content-card">
                             {{ $slot }}
                         </div>

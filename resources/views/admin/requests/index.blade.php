@@ -90,6 +90,12 @@
                                         </div>
                                     </td>
                                 </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="11" class="text-center py-4 text-muted">
+                                            No records found.
+                                        </td>
+                                    </tr>
                             @endforeach
                         </tbody>
                         

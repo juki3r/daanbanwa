@@ -23,4 +23,8 @@ class Request extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    protected $casts = [
+        'admin_read' => 'boolean',
+    ];
 }

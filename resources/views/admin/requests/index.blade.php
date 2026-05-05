@@ -175,7 +175,7 @@
                             <option value="">Choose resident</option>
                             @foreach($users as $user)
                                 <option value="{{ $user->id }}">
-                                    {{ $user->first_name }} {{ $user->middle_name ?? '' }} {{ $user->last_name }}
+                                    {{ $user->first_name }} {{ $user->middle_name ?}} {{ $user->last_name }}
                                 </option>
                             @endforeach
                         </select>

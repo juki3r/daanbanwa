@@ -25,7 +25,7 @@
                         <tbody>
                             @forelse($unreadRequests as $request)
                                 <tr>
-                                    <td>{{ $loop->iteration + ($unreadRequests->firstItem() - 1) }}</td>
+                                  
                                    
                                 </tr>
                                 @empty

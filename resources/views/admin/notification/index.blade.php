@@ -25,8 +25,15 @@
                         <tbody>
                             @forelse($unreadRequests as $unreadRequest)
                                 <tr>
-                                  
-                                   
+                                  <td>{{ $loop->iteration }}</td>
+                                    <td>
+                                        <strong>{{ $unreadRequest->user->full_name }}</strong><br>
+                                        {{ $unreadRequest->document_type }} <br>
+                                        {{ $unreadRequest->purpose }}
+                                    </td>
+                                    <td>
+                                        {{-- <a href="{{ route('notifications.markAsRead', $unreadRequest->id) }}" class="btn btn-sm btn-primary">Mark as Read</a> --}}
+                                    </td>
                                 </tr>
                                 @empty
                                     <tr>

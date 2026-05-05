@@ -265,6 +265,17 @@
                     : "none";
             });
         });
+
+        const documentTypeSelect = document.getElementById('documentTypeSelect');
+            const businessFields = document.querySelectorAll('.business-fields');
+
+            documentTypeSelect.addEventListener('change', function () {
+                if (this.value === 'Business Clearance') {
+                    businessFields.forEach(field => field.classList.remove('d-none'));
+                } else {
+                    businessFields.forEach(field => field.classList.add('d-none'));
+                }
+            });
     </script>
 
 </x-app-layout>

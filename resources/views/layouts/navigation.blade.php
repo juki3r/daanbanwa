@@ -3,7 +3,9 @@
 
     {{-- Logo --}}
     <div class="text-center border-bottom pb-3 mb-3">
-        <img src="{{ asset('images/logo.png') }}" alt="Logo" width="80">
+        <a href="{{ route('admin.dashboard') }}">
+            <img src="{{ asset('images/logo.png') }}" alt="Logo" width="80">
+        </a>
         <div class="mt-2">
             <strong class="d-block">Daan Banwa</strong>
             <small>Estancia, Iloilo</small>

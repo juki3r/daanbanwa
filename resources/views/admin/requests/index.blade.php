@@ -68,9 +68,11 @@
                                         <div class="d-flex flex-row align-items-center justify-content-center gap-2">
 
                                             <!-- UPDATE STATUS -->
-                                            <button class="btn btn-sm btn-primary"
+                                            <button class="btn btn-sm btn-primary d-flex align-items-center gap-1"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#statusModal{{ $request->id }}">
+                                                
+                                                <i class="bi bi-pencil-square"></i>
                                                 Status
                                             </button>
 
@@ -79,10 +81,14 @@
                                                 method="POST"
                                                 onsubmit="return confirm('Delete this request?')"
                                                 class="m-0">
+
                                                 @csrf
                                                 @method('DELETE')
 
-                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                <button type="submit"
+                                                    class="btn btn-sm btn-danger d-flex align-items-center gap-1">
+
+                                                    <i class="bi bi-trash"></i>
                                                     Delete
                                                 </button>
                                             </form>

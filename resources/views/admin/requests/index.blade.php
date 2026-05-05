@@ -169,13 +169,13 @@
                 <div class="modal-body row g-3">
 
                     <!-- Resident -->
-                    <div class="col-md-12">
+                    <div class="col-md-12 d-none">
                         <label class="form-label">Select Resident</label>
                         <select name="user_id" class="form-select" required>
                             <option value="">Choose resident</option>
                             @foreach($users as $user)
                                 <option value="{{ $user->id }}">
-                                    {{ $user->first_name }} {{ $user->middle_name ?}} {{ $user->last_name }}
+                                    {{ $user->name }} - {{ $user->email }}
                                 </option>
                             @endforeach
                         </select>

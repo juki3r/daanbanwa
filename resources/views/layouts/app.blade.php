@@ -8,11 +8,11 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
         <link rel="shortcut icon" href="{{asset('/images/logo.png')}}" type="image/x-icon">
 
-        <link rel="stylesheet" href="{{asset('build/bootstrap/custom.css')}}">
-       
+        <link rel="stylesheet" href="{{asset('/bootstrap/bootstrap.css')}}">
+        <script src="{{asset('/bootstrap/bootstrap.js')}}"></script>
 
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> --}}
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -21,7 +21,6 @@
 
         <!-- Scripts -->
         {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
-
     </head>
     <body class="font-sans antialiased">
 

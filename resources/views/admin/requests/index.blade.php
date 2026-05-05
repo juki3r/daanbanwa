@@ -9,17 +9,12 @@
         <div class="card shadow-sm">
             <div class="card-body">
 
-                <div class="d-flex justify-content-between align-items-center mb-3">
+                <div class="d-flex justify-content-end align-items-center mb-3">
                     <button class="btn btn-success"
                         data-bs-toggle="modal"
                         data-bs-target="#createRequestModal">
                         + Create Request
                     </button>
-
-                    <input type="text"
-                        id="searchInput"
-                        class="form-control w-25"
-                        placeholder="Search requests...">
                 </div>
 
                 <!-- SEARCH -->

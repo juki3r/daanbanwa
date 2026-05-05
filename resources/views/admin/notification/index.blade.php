@@ -38,9 +38,9 @@
                         </tbody>
                         
                     </table>
-                    <div class="mt-3">
+                    {{-- <div class="mt-3">
                         {{ $unreadRequests->links() }}
-                    </div>
+                    </div> --}}
                 </div>
 
             </div>

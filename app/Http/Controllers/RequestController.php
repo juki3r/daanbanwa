@@ -61,7 +61,7 @@ class RequestController extends Controller
     public function updateStatus(Request $request, $id)
     {
         $request->validate([
-            'status' => 'required|in:pending,approved,rejected'
+            'status' => 'required|in:approved,rejected'
         ]);
 
         // Get request record

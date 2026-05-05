@@ -17,12 +17,6 @@
                     </button>
                 </div>
 
-                <!-- SEARCH -->
-                {{-- <input type="text"
-                    id="searchInput"
-                    class="form-control mb-3"
-                    placeholder="Search requests..."> --}}
-
                 <!-- TABLE -->
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover align-middle" id="requestTable">
@@ -70,7 +64,7 @@
                                     </td>
 
                                     <!-- ACTIONS -->
-                                    <td class="d-flex gap-2">
+                                    <td class="d-flex gap-2 justify-content-center">
 
                                         <!-- UPDATE STATUS -->
                                         <button class="btn btn-sm btn-primary"

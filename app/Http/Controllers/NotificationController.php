@@ -13,7 +13,7 @@ class NotificationController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-        return view('admin.notification', compact('unreadRequests'));
+        return view('admin.notification.index', compact('unreadRequests'));
     }
 
     // Mark single as read then redirect back

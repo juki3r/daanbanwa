@@ -2,18 +2,88 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blotter;
+use App\Models\Concern;
 use App\Models\Request as BarangayRequest;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class NotificationController extends Controller
 {
     // Show admin notifications page
     public function index()
     {
-        $unreadRequests = BarangayRequest::where('admin_read', false)
-            ->orderBy('created_at', 'desc')
-            ->get();
+        // REQUESTS
+        $requests = BarangayRequest::with('user')
+            ->where('admin_read', false)
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'id' => $item->id,
+                    'type' => 'request',
+                    'title' => $item->document_type,
+                    'subtitle' => $item->purpose,
+                    'user' => $item->user?->full_name,
+                    'created_at' => $item->created_at,
+                    'raw' => $item,
+                ];
+            });
 
-        return view('admin.notification.index', compact('unreadRequests'));
+        // CONCERNS
+        $concerns = Concern::with('user')
+            ->where('admin_read', false)
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'id' => $item->id,
+                    'type' => 'concern',
+                    'title' => $item->title,
+                    'subtitle' => $item->description,
+                    'user' => $item->user?->full_name,
+                    'created_at' => $item->created_at,
+                    'raw' => $item,
+                ];
+            });
+
+        // BLOTTERS
+        $blotters = Blotter::with('user')
+            ->where('admin_read', false)
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'id' => $item->id,
+                    'type' => 'blotter',
+                    'title' => $item->case_number ?? 'Blotter Report',
+                    'subtitle' => $item->statement,
+                    'user' => $item->user?->full_name,
+                    'created_at' => $item->created_at,
+                    'raw' => $item,
+                ];
+            });
+
+        // MERGE + SORT
+        $notifications = $requests
+            ->merge($concerns)
+            ->merge($blotters)
+            ->sortByDesc('created_at')
+            ->values();
+
+        // MANUAL PAGINATION
+        $perPage = 10;
+        $page = LengthAwarePaginator::resolveCurrentPage();
+        $items = $notifications->slice(($page - 1) * $perPage, $perPage)->values();
+
+        $notifications = new LengthAwarePaginator(
+            $items,
+            $notifications->count(),
+            $perPage,
+            $page,
+            [
+                'path' => request()->url(),
+                'query' => request()->query(),
+            ]
+        );
+
+        return view('admin.notification.index', compact('notifications'));
     }
 
     // Mark single as read then redirect back

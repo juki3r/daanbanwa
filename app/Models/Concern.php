@@ -23,4 +23,8 @@ class Concern extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    protected $casts = [
+        'admin_read' => 'boolean',
+    ];
 }

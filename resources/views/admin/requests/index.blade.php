@@ -38,7 +38,7 @@
                         </thead>
 
                         <tbody>
-                            @foreach($requests as $request)
+                            @forelse($requests as $request)
                                 <tr>
                                     <td>{{ $loop->iteration + ($requests->firstItem() - 1) }}</td>
                                     <td>{{ $request->full_name }}</td>
@@ -96,7 +96,7 @@
                                             No records found.
                                         </td>
                                     </tr>
-                            @endforeach
+                                @endforelse
                         </tbody>
                         
                     </table>

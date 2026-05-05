@@ -171,14 +171,7 @@
                     <!-- Resident -->
                     <div class="col-md-12 d-none">
                         <label class="form-label">Select Resident</label>
-                        <select name="user_id" class="form-select" required>
-                            <option value="">Choose resident</option>
-                            @foreach($users as $user)
-                                <option value="{{ $user->id }}">
-                                    {{ $user->name }} - {{ $user->email }}
-                                </option>
-                            @endforeach
-                        </select>
+                        <input type="text" name="user_id" class="form-control" value="{{ $users->id }}" required>
                     </div>
 
                     <!-- Full Name -->

@@ -65,7 +65,7 @@
 
                                     <!-- ACTIONS -->
                                     <td class="text-center align-middle">
-                                        <div class="d-flex flex-column align-items-center justify-content-center gap-2">
+                                        <div class="d-flex flex-row align-items-center justify-content-center gap-2">
 
                                             <!-- UPDATE STATUS -->
                                             <button class="btn btn-sm btn-primary"

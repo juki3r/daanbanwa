@@ -67,7 +67,7 @@
                                     <td class="d-flex gap-2 justify-content-center align-items-center">
 
                                         <!-- UPDATE STATUS -->
-                                        <button class="btn btn-sm btn-primary"
+                                        <button class="btn btn-sm btn-primary m-auto"
                                             data-bs-toggle="modal"
                                             data-bs-target="#statusModal{{ $request->id }}">
                                             Status
@@ -79,7 +79,7 @@
                                             onsubmit="return confirm('Delete this request?')">
                                             @csrf
                                             @method('DELETE')
-                                            <button class="btn btn-sm btn-danger">
+                                            <button class="btn btn-sm btn-danger m-auto">
                                                 Delete
                                             </button>
                                         </form>

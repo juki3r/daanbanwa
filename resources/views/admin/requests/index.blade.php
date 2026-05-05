@@ -64,26 +64,30 @@
                                     </td>
 
                                     <!-- ACTIONS -->
-                                    <td class="d-flex flex-column gap-2 justify-content-center align-items-center">
+                                    <td class="text-center align-middle">
+                                        <div class="d-flex flex-column align-items-center justify-content-center gap-2">
 
-                                        <!-- UPDATE STATUS -->
-                                        <button class="btn btn-sm btn-primary m-auto"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#statusModal{{ $request->id }}">
-                                            Status
-                                        </button>
-
-                                        <!-- DELETE -->
-                                        <form action="{{ route('requests.destroy', $request->id) }}"
-                                            method="POST"
-                                            onsubmit="return confirm('Delete this request?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="btn btn-sm btn-danger m-auto">
-                                                Delete
+                                            <!-- UPDATE STATUS -->
+                                            <button class="btn btn-sm btn-primary"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#statusModal{{ $request->id }}">
+                                                Status
                                             </button>
-                                        </form>
 
+                                            <!-- DELETE -->
+                                            <form action="{{ route('requests.destroy', $request->id) }}"
+                                                method="POST"
+                                                onsubmit="return confirm('Delete this request?')"
+                                                class="m-0">
+                                                @csrf
+                                                @method('DELETE')
+
+                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                    Delete
+                                                </button>
+                                            </form>
+
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach

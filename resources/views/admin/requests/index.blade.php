@@ -64,7 +64,7 @@
                                     </td>
 
                                     <!-- ACTIONS -->
-                                    <td class="d-flex gap-2 justify-content-center">
+                                    <td class="d-flex gap-2 justify-content-center align-items-center">
 
                                         <!-- UPDATE STATUS -->
                                         <button class="btn btn-sm btn-primary"

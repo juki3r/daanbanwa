@@ -116,7 +116,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
 
     //admin notifications
-    Route::get('/notifications', [NotificationController::class, 'index']);
+    Route::get('/notifications', [NotificationController::class, 'notification.index']);
     Route::post('/notifications/{id}/read', [NotificationController::class, 'markAsRead']);
     Route::post('/notifications/read-all', [NotificationController::class, 'markAllAsRead']);
 

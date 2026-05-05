@@ -171,7 +171,7 @@
                     <!-- Resident -->
                     <div class="col-md-12 d-none">
                         <label class="form-label">Select Resident</label>
-                        <input type="text" name="user_id" class="form-control" value="{{ $users->id }}" required>
+                        <input type="text" name="user_id" class="form-control" value="{{ auth()->id() }}" required>
                     </div>
 
                     <!-- Full Name -->

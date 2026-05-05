@@ -1,146 +1,138 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
-    <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
-            <div class="flex">
-                <!-- Logo -->
-                <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
-                    </a>
-                </div>
+{{-- Desktop / Tablet Sidebar --}}
+<div class="d-none d-md-flex flex-column h-100 bg-white border-end p-3">
 
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
-                </div>
-
-                @if(Auth::user()->role === 'admin')
-
-                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('admin.users')" :active="request()->routeIs('admin.users')">
-                            {{ __('Users Management') }}
-                        </x-nav-link>
-                    </div>
-
-                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('admin.officials')" :active="request()->routeIs('admin.officials')">
-                            {{ __('Officials Management') }}
-                        </x-nav-link>
-                    </div>
-
-                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('ordinances.index')" :active="request()->routeIs('ordinances.index')">
-                            {{ __('Ordinances Management') }}
-                        </x-nav-link>
-                    </div>
-
-                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('news.index')" :active="request()->routeIs('news.index')">
-                            {{ __('News Management') }}
-                        </x-nav-link>
-                    </div>
-
-                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('requests.index')" :active="request()->routeIs('requests.index')">
-                            {{ __('Requests Management') }}
-                        </x-nav-link>
-                    </div>
-
-                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('concern.index')" :active="request()->routeIs('concern.index')">
-                            {{ __('Concerns Management') }}
-                        </x-nav-link>
-                    </div>
-
-                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('blotter.index')" :active="request()->routeIs('blotter.index')">
-                            {{ __('Blotter Management') }}
-                        </x-nav-link>
-                    </div>
-
-                @endif
-            </div>
-
-            <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ms-6">
-                <x-dropdown align="right" width="48">
-                    <x-slot name="trigger">
-                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                            <div>{{ Auth::user()->name }}</div>
-
-                            <div class="ms-1">
-                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                        </button>
-                    </x-slot>
-
-                    <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('Profile') }}
-                        </x-dropdown-link>
-
-                        <!-- Authentication -->
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-
-                            <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault();
-                                                this.closest('form').submit();">
-                                {{ __('Log Out') }}
-                            </x-dropdown-link>
-                        </form>
-                    </x-slot>
-                </x-dropdown>
-            </div>
-
-            <!-- Hamburger -->
-            <div class="-me-2 flex items-center sm:hidden">
-                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
-                    <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                        <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
+    {{-- Logo --}}
+    <div class="text-center border-bottom pb-3 mb-3">
+        <img src="{{ asset('images/logo.png') }}" alt="Logo" width="80">
+        <div class="mt-2">
+            <strong class="d-block">Daan Banwa</strong>
+            <small>Estancia, Iloilo</small>
         </div>
     </div>
 
-    <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
+    {{-- Menu --}}
+    <nav class="nav flex-column gap-2">
+
+        <a href="{{ route('admin.dashboard') }}"
+        class="nav-link d-flex align-items-center gap-2 {{ request()->routeIs('admin.dashboard') ? 'active-nav' : 'text-dark' }}">
+            <i class="bi bi-grid-fill"></i>
+            <span>Dashboard</span>
+        </a>
+
+        <a href="{{ route('residents.index') }}"
+        class="nav-link d-flex align-items-center gap-2 {{ request()->routeIs('residents.*') ? 'active-nav' : 'text-dark' }}">
+            <i class="bi bi-people-fill"></i>
+            <span>Residents</span>
+        </a>
+
+        <a href="{{ route('requests.index') }}"
+        class="nav-link d-flex align-items-center gap-2 {{ request()->routeIs('requests.index') ? 'active-nav' : 'text-dark' }}">
+            <i class="bi bi-file-earmark-text-fill"></i>
+            <span>Certificates</span>
+        </a>
+
+        <a href="{{ route('concerns.index') }}"
+        class="nav-link d-flex align-items-center gap-2 {{ request()->routeIs('concerns.*') ? 'active-nav' : 'text-dark' }}">
+            <i class="bi bi-chat-dots-fill"></i>
+            <span>Concerns</span>
+        </a>
+
+        <a href="{{ route('blotters.index') }}"
+        class="nav-link d-flex align-items-center gap-2 {{ request()->routeIs('blotters.*') ? 'active-nav' : 'text-dark' }}">
+            <i class="bi bi-journal-text"></i>
+            <span>Blotters</span>
+        </a>
+
+        <a href="{{ route('users.index') }}"
+        class="nav-link d-flex align-items-center gap-2 {{ request()->routeIs('users.*') ? 'active-nav' : 'text-dark' }}">
+            <i class="bi bi-phone-fill"></i>
+            <span>App Users</span>
+        </a>
+
+        <a href="{{ route('news.index') }}"
+        class="nav-link d-flex align-items-center gap-2 {{ request()->routeIs('news.*') ? 'active-nav' : 'text-dark' }}">
+            <i class="bi bi-newspaper"></i>
+            <span>News</span>
+        </a>
+
+    </nav>
+
+    {{-- Logout --}}
+    <div class="mt-auto pt-3 border-top">
+        <a href="" class="nav-link d-flex align-items-center gap-2 text-danger">
+            <i class="bi bi-box-arrow-right"></i>
+            <span>Logout</span>
+        </a>
+    </div>
+</div>
+
+{{-- Mobile Sidebar (Offcanvas) --}}
+<div class="offcanvas offcanvas-start d-md-none" tabindex="-1" id="mobileSidebar">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Daan Banwa</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>
+
+    <div class="offcanvas-body d-flex flex-column">
+        <div class="text-center border-bottom pb-3 mb-3">
+            <img src="{{ asset('images/logo.png') }}" alt="Logo" width="80">
+            <div class="mt-2">
+                <strong class="d-block">Daan Banwa</strong>
+                <small>Estancia, Iloilo</small>
+            </div>
         </div>
 
-        <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200">
-            <div class="px-4">
-                <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
-                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
-            </div>
+        <nav class="nav flex-column gap-2">
 
-            <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
-                </x-responsive-nav-link>
+        <a href="{{ route('admin.dashboard') }}"
+        class="nav-link d-flex align-items-center gap-2 {{ request()->routeIs('admin.dashboard') ? 'active-nav' : 'text-dark' }}">
+            <i class="bi bi-grid-fill"></i>
+            <span>Dashboard</span>
+        </a>
 
-                <!-- Authentication -->
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
+        <a href="{{ route('residents.index') }}"
+        class="nav-link d-flex align-items-center gap-2 {{ request()->routeIs('residents.*') ? 'active-nav' : 'text-dark' }}">
+            <i class="bi bi-people-fill"></i>
+            <span>Residents</span>
+        </a>
 
-                    <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                        {{ __('Log Out') }}
-                    </x-responsive-nav-link>
-                </form>
-            </div>
+        <a href="{{ route('requests.index') }}"
+        class="nav-link d-flex align-items-center gap-2 {{ request()->routeIs('requests.index') ? 'active-nav' : 'text-dark' }}">
+            <i class="bi bi-file-earmark-text-fill"></i>
+            <span>Certificates</span>
+        </a>
+
+        <a href="{{ route('concerns.index') }}"
+        class="nav-link d-flex align-items-center gap-2 {{ request()->routeIs('concerns.*') ? 'active-nav' : 'text-dark' }}">
+            <i class="bi bi-chat-dots-fill"></i>
+            <span>Concerns</span>
+        </a>
+
+        <a href="{{ route('blotters.index') }}"
+        class="nav-link d-flex align-items-center gap-2 {{ request()->routeIs('blotters.*') ? 'active-nav' : 'text-dark' }}">
+            <i class="bi bi-journal-text"></i>
+            <span>Blotters</span>
+        </a>
+
+        <a href="{{ route('users.index') }}"
+        class="nav-link d-flex align-items-center gap-2 {{ request()->routeIs('users.*') ? 'active-nav' : 'text-dark' }}">
+            <i class="bi bi-phone-fill"></i>
+            <span>App Users</span>
+        </a>
+
+        <a href="{{ route('news.index') }}"
+        class="nav-link d-flex align-items-center gap-2 {{ request()->routeIs('news.*') ? 'active-nav' : 'text-dark' }}">
+            <i class="bi bi-newspaper"></i>
+            <span>News</span>
+        </a>
+
+    </nav>
+
+        <div class="mt-auto pt-3 border-top">
+            <a href="" class="nav-link d-flex align-items-center gap-2 text-danger">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Logout</span>
+            </a>
         </div>
     </div>
-</nav>
+</div>

@@ -18,4 +18,9 @@ class Request extends Model
         'business_nature',
         'status',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

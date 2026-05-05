@@ -1,20 +1,26 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="d-flex justify-content-between align-items-center">
-            <h2 class="h4 mb-0">Requests Management</h2>
+            <h2 class="h4 mb-0">Cerificate Management</h2>
         </div>
     </x-slot>
 
-    @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show">
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    @endif
-
-    <div class="container py-4">
+    <div class="container-fluid py-4">
         <div class="card shadow-sm">
             <div class="card-body">
+
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <button class="btn btn-success"
+                        data-bs-toggle="modal"
+                        data-bs-target="#createRequestModal">
+                        + Create Request
+                    </button>
+
+                    <input type="text"
+                        id="searchInput"
+                        class="form-control w-25"
+                        placeholder="Search requests...">
+                </div>
 
                 <!-- SEARCH -->
                 <input type="text"
@@ -28,6 +34,7 @@
 
                         <thead class="table-dark">
                             <tr>
+                                <th>#</th>
                                 <th>Name</th>
                                 <th>Age</th>
                                 <th>Gender</th>
@@ -44,6 +51,7 @@
                         <tbody>
                             @foreach($requests as $request)
                                 <tr>
+                                    <td>{{ $loop->iteration + ($requests->firstItem() - 1) }}</td>
                                     <td>{{ $request->full_name }}</td>
                                     <td>{{ $request->age }}</td>
                                     <td class="text-capitalize">{{ $request->gender }}</td>
@@ -91,8 +99,11 @@
                                 </tr>
                             @endforeach
                         </tbody>
-
+                        
                     </table>
+                    <div class="mt-3">
+                        {{ $requests->links() }}
+                    </div>
                 </div>
 
             </div>
@@ -144,6 +155,103 @@
     </div>
 
     @endforeach
+
+    <div class="modal fade" id="createRequestModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <form action="{{ route('requests.store') }}" method="POST" class="modal-content">
+                @csrf
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Create New Request</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body row g-3">
+
+                    <!-- Resident -->
+                    <div class="col-md-12">
+                        <label class="form-label">Select Resident</label>
+                        <select name="user_id" class="form-select" required>
+                            <option value="">Choose resident</option>
+                            @foreach($users as $user)
+                                <option value="{{ $user->id }}">
+                                    {{ $user->name }} - {{ $user->email }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <!-- Full Name -->
+                    <div class="col-md-6">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" name="full_name" class="form-control" required>
+                    </div>
+
+                    <!-- Age -->
+                    <div class="col-md-6">
+                        <label class="form-label">Age</label>
+                        <input type="number" name="age" class="form-control" required>
+                    </div>
+
+                    <!-- Gender -->
+                    <div class="col-md-6">
+                        <label class="form-label">Gender</label>
+                        <select name="gender" class="form-select" required>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="prefer not to say">Prefer not to say</option>
+                        </select>
+                    </div>
+
+                    <!-- Address -->
+                    <div class="col-md-6">
+                        <label class="form-label">Address</label>
+                        <input type="text" name="address" class="form-control" required>
+                    </div>
+
+                    <!-- Document Type -->
+                    <div class="col-md-12">
+                        <label class="form-label">Document Type</label>
+                        <select name="document_type" class="form-select" id="documentTypeSelect" required>
+                            <option>Barangay Certification</option>
+                            <option>Barangay Clearance</option>
+                            <option>Certificate of Residency</option>
+                            <option>Certificate of Indigency</option>
+                            <option>Business Clearance</option>
+                            <option>Certificate of Good Moral</option>
+                            <option>Certificate of Solo Parent</option>
+                            <option>Certificate of Late Registration</option>
+                            <option>First Time Job Seeker Certificate</option>
+                            <option>Certificate of Unemployment</option>
+                        </select>
+                    </div>
+
+                    <!-- Purpose -->
+                    <div class="col-md-12">
+                        <label class="form-label">Purpose</label>
+                        <textarea name="purpose" class="form-control" rows="3" required></textarea>
+                    </div>
+
+                    <!-- Business Fields -->
+                    <div class="col-md-6 business-fields d-none">
+                        <label class="form-label">Company Name</label>
+                        <input type="text" name="company_name" class="form-control">
+                    </div>
+
+                    <div class="col-md-6 business-fields d-none">
+                        <label class="form-label">Business Nature</label>
+                        <input type="text" name="business_nature" class="form-control">
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success">Submit Request</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <!-- LIVE SEARCH -->
     <script>

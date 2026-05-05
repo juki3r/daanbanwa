@@ -9,11 +9,53 @@ use Illuminate\Support\Facades\Http;
 
 class RequestController extends Controller
 {
+    // public function index()
+    // {
+    //     $requests = BarangayRequest::orderBy('created_at', 'desc')->paginate(6);
+
+    //     return view('admin.requests.index', compact('requests'));
+    // }
+
     public function index()
     {
-        $requests = BarangayRequest::all();
+        $requests = BarangayRequest::with('user')
+            ->latest()
+            ->paginate(6);
 
-        return view('admin.requests.index', compact('requests'));
+        $users = User::orderBy('first_name')->get();
+
+        return view('admin.requests.index', compact('requests', 'users'));
+    }
+
+    //Admin store data
+    public function store(Request $request)
+    {
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'full_name' => 'required|string|max:255',
+            'age' => 'required|integer|min:1',
+            'gender' => 'required|string',
+            'address' => 'required|string|max:255',
+            'document_type' => 'required|string',
+            'purpose' => 'required|string',
+            'company_name' => 'nullable|string|max:255',
+            'business_nature' => 'nullable|string|max:255',
+        ]);
+
+        BarangayRequest::create([
+            'user_id' => $request->user_id,
+            'full_name' => $request->full_name,
+            'age' => $request->age,
+            'gender' => $request->gender,
+            'address' => $request->address,
+            'document_type' => $request->document_type,
+            'purpose' => $request->purpose,
+            'company_name' => $request->company_name,
+            'business_nature' => $request->business_nature,
+            'status' => 'pending',
+        ]);
+
+        return back()->with('success', 'Request created successfully!');
     }
 
     public function updateStatus(Request $request, $id)
@@ -68,6 +110,8 @@ class RequestController extends Controller
 
         return back()->with('success', 'Status updated successfully');
     }
+
+
 
     public function destroy($id)
     {

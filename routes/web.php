@@ -94,6 +94,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/requests', [RequestController::class, 'index'])->name('requests.index');
     Route::put('/requests/{id}/status', [RequestController::class, 'updateStatus'])
         ->name('requests.updateStatus');
+    Route::post('/requests', [RequestController::class, 'store'])->name('requests.store');
 
     Route::delete('/requests/{id}', [RequestController::class, 'destroy'])
         ->name('requests.destroy');
@@ -111,6 +112,17 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
         ->name('blotter.updateStatus');
     Route::delete('/blotter/{id}', [ConcernController::class, 'destroy'])
         ->name('blotter.destroy');
+
+
+
+
+
+
+    Route::get('/residents', [AdminController::class, 'index'])->name('residents.index');
+    Route::get('/concerns', [AdminController::class, 'index'])->name('concerns.index');
+    Route::get('/blotter', [AdminController::class, 'index'])->name('blotters.index');
+    Route::get('/users', [AdminController::class, 'index'])->name('users.index');
+    Route::get('/news', [AdminController::class, 'index'])->name('news.index');
 });
 
 

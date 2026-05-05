@@ -23,9 +23,9 @@
                         </thead>
 
                         <tbody>
-                            @forelse($requests as $request)
+                            @forelse($unreadRequests as $request)
                                 <tr>
-                                    <td>{{ $loop->iteration + ($requests->firstItem() - 1) }}</td>
+                                    <td>{{ $loop->iteration + ($unreadRequests->firstItem() - 1) }}</td>
                                    
                                 </tr>
                                 @empty
@@ -39,7 +39,7 @@
                         
                     </table>
                     <div class="mt-3">
-                        {{ $requests->links() }}
+                        {{ $unreadRequests->links() }}
                     </div>
                 </div>
 

@@ -20,7 +20,7 @@ class RequestController extends Controller
     {
         $requests = BarangayRequest::with('user')
             ->latest()
-            ->paginate(10);
+            ->paginate(6);
 
         $users = User::orderBy('first_name')->get();
 

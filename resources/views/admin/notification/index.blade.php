@@ -9,101 +9,140 @@
         <div class="card shadow-sm">
             <div class="card-body">
 
-                <!-- TABLE -->
-                <div class="table-responsive">
-                    <table class="table table-bordered table-hover align-middle" id="requestTable">
+                <div class="notification-wrapper">
 
-                        <thead class="table-dark">
-                            <tr>
-                                <th>#</th>
-                                <th>Details</th>
-                                <th class="text-center">Actions</th>
-                            </tr>
-                        </thead>
+                    @forelse($notifications as $notif)
 
-                        <tbody>
-                            @forelse($notifications as $notif)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
+                        <div class="card shadow-sm border-0 mb-3 notification-card">
 
-                                    <td style="min-width: 320px;">
+                            <div class="card-body">
 
-                                    <div class="d-flex justify-content-between align-items-start">
+                                <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
 
-                                        <div>
-                                            {{-- USER --}}
-                                            <div class="fw-bold text-dark">
-                                                {{ $notif['user'] ?? 'Unknown User' }}
-                                            </div>
+                                    {{-- LEFT CONTENT --}}
+                                    <div class="flex-grow-1">
 
-                                            {{-- TITLE --}}
-                                            <div class="mt-1">
-                                                {{ $notif['title'] }}
-                                            </div>
+                                        {{-- HEADER --}}
+                                        <div class="d-flex align-items-center gap-2 mb-2 flex-wrap">
 
-                                            {{-- SUBTITLE --}}
-                                            <small class="text-muted">
-                                                {{ $notif['subtitle'] }}
-                                            </small>
-
-                                            {{-- DATE --}}
-                                            <div class="mt-2">
-                                                <small class="text-secondary">
-                                                    {{ $notif['created_at']->format('M d, Y h:i A') }}
-                                                </small>
-                                            </div>
-                                        </div>
-
-                                        {{-- TYPE BADGE --}}
-                                        <div>
                                             @if($notif['type'] === 'request')
-                                                <span class="badge bg-primary">
-                                                    Request
+                                                <span class="badge rounded-pill bg-primary px-3 py-2">
+                                                    REQUEST
                                                 </span>
 
                                             @elseif($notif['type'] === 'concern')
-                                                <span class="badge bg-warning text-dark">
-                                                    Concern
+                                                <span class="badge rounded-pill bg-warning text-dark px-3 py-2">
+                                                    CONCERN
                                                 </span>
 
                                             @elseif($notif['type'] === 'blotter')
-                                                <span class="badge bg-danger">
-                                                    Blotter
+                                                <span class="badge rounded-pill bg-danger px-3 py-2">
+                                                    BLOTTER
                                                 </span>
                                             @endif
+
+                                            <small class="text-muted">
+                                                {{ $notif['created_at']->diffForHumans() }}
+                                            </small>
+
+                                        </div>
+
+                                        {{-- USER --}}
+                                        <h5 class="fw-bold mb-1">
+                                            {{ $notif['user'] ?? 'Unknown User' }}
+                                        </h5>
+
+                                        {{-- TITLE --}}
+                                        <div class="fs-5 fw-semibold text-dark">
+                                            {{ $notif['title'] }}
+                                        </div>
+
+                                        {{-- SUBTITLE --}}
+                                        <div class="text-muted mt-1 mb-3">
+                                            {{ $notif['subtitle'] }}
+                                        </div>
+
+                                        {{-- DETAILS --}}
+                                        <div class="row g-3">
+
+                                            <div class="col-md-4">
+                                                <div class="detail-box">
+                                                    <small class="text-muted d-block">
+                                                        Notification ID
+                                                    </small>
+
+                                                    <strong>
+                                                        #{{ $notif['id'] }}
+                                                    </strong>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="detail-box">
+                                                    <small class="text-muted d-block">
+                                                        Category
+                                                    </small>
+
+                                                    <strong>
+                                                        {{ ucfirst($notif['type']) }}
+                                                    </strong>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="detail-box">
+                                                    <small class="text-muted d-block">
+                                                        Created Date
+                                                    </small>
+
+                                                    <strong>
+                                                        {{ $notif['created_at']->format('M d, Y') }}
+                                                    </strong>
+                                                </div>
+                                            </div>
+
                                         </div>
 
                                     </div>
 
-                                </td>
+                                    {{-- ACTION --}}
+                                    <div>
 
-                                    <td class="text-center">
                                         <form method="POST"
                                             action="{{ route('notifications.markAsRead', [$notif['type'], $notif['id']]) }}">
                                             @csrf
 
-                                            <button class="btn btn-sm btn-success">
-                                                Mark as Read
+                                            <button class="btn btn-success rounded-pill px-4 py-2">
+                                                Mark Read
                                             </button>
+
                                         </form>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="3" class="text-center py-4 text-muted">
-                                        No notifications found.
-                                    </td>
-                                </tr>
-                            @endforelse
-                        </tbody>
 
-                    </table>
+                                    </div>
 
-                    <!-- PAGINATION -->
-                    <div class="mt-3">
-                        {{ $notifications->links() }}
-                    </div>
+                                </div>
 
+                            </div>
+
+                        </div>
+
+                    @empty
+
+                        <div class="text-center py-5">
+
+                            <h5 class="text-muted">
+                                No notifications found
+                            </h5>
+
+                        </div>
+
+                    @endforelse
+
+                </div>
+
+                <!-- PAGINATION -->
+                <div class="mt-3">
+                    {{ $notifications->links() }}
                 </div>
 
             </div>

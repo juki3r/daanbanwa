@@ -38,7 +38,7 @@ class NotificationController extends Controller
                     'type' => 'concern',
                     'title' => $item->title,
                     'subtitle' => $item->description,
-                    'user' => $item->user?->first_name,
+                    'user' => $item->user?->first_name . ' ' . $item->user?->last_name,
                     'created_at' => $item->created_at,
                     'raw' => $item,
                 ];
@@ -54,7 +54,7 @@ class NotificationController extends Controller
                     'type' => 'blotter',
                     'title' => $item->case_number ?? 'Blotter Report',
                     'subtitle' => $item->statement,
-                    'user' => $item->user?->full_name,
+                    'user' => $item->user?->first_name . ' ' . $item->user?->last_name,
                     'created_at' => $item->created_at,
                     'raw' => $item,
                 ];

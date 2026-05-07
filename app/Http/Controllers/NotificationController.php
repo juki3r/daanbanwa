@@ -22,7 +22,7 @@ class NotificationController extends Controller
                     'type' => 'request',
                     'title' => $item->document_type,
                     'subtitle' => $item->purpose,
-                    'user' => $item->user?->full_name,
+                    'user' => $item->user?->first_name . ' ' . $item->user?->last_name,
                     'created_at' => $item->created_at,
                     'raw' => $item,
                 ];
@@ -38,7 +38,7 @@ class NotificationController extends Controller
                     'type' => 'concern',
                     'title' => $item->title,
                     'subtitle' => $item->description,
-                    'user' => $item->user?->full_name,
+                    'user' => $item->user?->first_name,
                     'created_at' => $item->created_at,
                     'raw' => $item,
                 ];

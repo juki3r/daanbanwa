@@ -68,7 +68,7 @@ class NotificationController extends Controller
             ->values();
 
         // MANUAL PAGINATION
-        $perPage = 10;
+        $perPage = 6;
         $page = LengthAwarePaginator::resolveCurrentPage();
         $items = $notifications->slice(($page - 1) * $perPage, $perPage)->values();
 

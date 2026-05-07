@@ -26,44 +26,56 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
 
-                                    <td>
-                                        <strong>{{ $notif['user'] ?? 'Unknown User' }}</strong><br>
+                                    <td style="min-width: 320px;">
+
+                                    <div class="d-flex justify-content-between align-items-start">
+
+                                        <div>
+                                            {{-- USER --}}
+                                            <div class="fw-bold text-dark">
+                                                {{ $notif['user'] ?? 'Unknown User' }}
+                                            </div>
+
+                                            {{-- TITLE --}}
+                                            <div class="mt-1">
+                                                {{ $notif['title'] }}
+                                            </div>
+
+                                            {{-- SUBTITLE --}}
+                                            <small class="text-muted">
+                                                {{ $notif['subtitle'] }}
+                                            </small>
+
+                                            {{-- DATE --}}
+                                            <div class="mt-2">
+                                                <small class="text-secondary">
+                                                    {{ $notif['created_at']->format('M d, Y h:i A') }}
+                                                </small>
+                                            </div>
+                                        </div>
 
                                         {{-- TYPE BADGE --}}
-                                        @if($notif['type'] === 'request')
-                                            <span class="badge bg-primary mb-1">
-                                                REQUEST
-                                            </span>
-                                            <br>
-                                            📄 {{ $notif['title'] }}
+                                        <div>
+                                            @if($notif['type'] === 'request')
+                                                <span class="badge bg-primary">
+                                                    Request
+                                                </span>
 
-                                        @elseif($notif['type'] === 'concern')
-                                            <span class="badge bg-warning text-dark mb-1">
-                                                CONCERN
-                                            </span>
-                                            <br>
-                                            ⚠️ {{ $notif['title'] }}
+                                            @elseif($notif['type'] === 'concern')
+                                                <span class="badge bg-warning text-dark">
+                                                    Concern
+                                                </span>
 
-                                        @elseif($notif['type'] === 'blotter')
-                                            <span class="badge bg-danger mb-1">
-                                                BLOTTER
-                                            </span>
-                                            <br>
-                                            📁 {{ $notif['title'] }}
-                                        @endif
+                                            @elseif($notif['type'] === 'blotter')
+                                                <span class="badge bg-danger">
+                                                    Blotter
+                                                </span>
+                                            @endif
+                                        </div>
 
-                                        <br>
+                                    </div>
 
-                                        <small class="text-muted">
-                                            {{ $notif['subtitle'] }}
-                                        </small>
-
-                                        <br>
-
-                                        <small class="text-secondary">
-                                            {{ $notif['created_at']->format('M d, Y h:i A') }}
-                                        </small>
-                                    </td>
+                                </td>
 
                                     <td class="text-center">
                                         <form method="POST"

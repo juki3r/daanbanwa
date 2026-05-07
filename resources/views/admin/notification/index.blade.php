@@ -29,20 +29,38 @@
                                     <td>
                                         <strong>{{ $notif['user'] ?? 'Unknown User' }}</strong><br>
 
+                                        {{-- TYPE BADGE --}}
                                         @if($notif['type'] === 'request')
-                                            📄 {{ $notif['title'] }} <br>
+                                            <span class="badge bg-primary mb-1">
+                                                REQUEST
+                                            </span>
+                                            <br>
+                                            📄 {{ $notif['title'] }}
+
                                         @elseif($notif['type'] === 'concern')
-                                            ⚠️ {{ $notif['title'] }} <br>
+                                            <span class="badge bg-warning text-dark mb-1">
+                                                CONCERN
+                                            </span>
+                                            <br>
+                                            ⚠️ {{ $notif['title'] }}
+
                                         @elseif($notif['type'] === 'blotter')
-                                            📁 {{ $notif['title'] }} <br>
+                                            <span class="badge bg-danger mb-1">
+                                                BLOTTER
+                                            </span>
+                                            <br>
+                                            📁 {{ $notif['title'] }}
                                         @endif
+
+                                        <br>
 
                                         <small class="text-muted">
                                             {{ $notif['subtitle'] }}
                                         </small>
+
                                         <br>
 
-                                        <small>
+                                        <small class="text-secondary">
                                             {{ $notif['created_at']->format('M d, Y h:i A') }}
                                         </small>
                                     </td>

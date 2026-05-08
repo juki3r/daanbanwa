@@ -232,9 +232,35 @@
                             const concern = document.getElementById('concernCountBadge');
                             const blotter = document.getElementById('blotterCountBadge');
 
-                            if (cert) cert.innerText = data.certCount;
-                            if (concern) concern.innerText = data.concernCount;
-                            if (blotter) blotter.innerText = data.blotterCount;
+                            // CERTIFICATES
+                            if (cert) {
+                                if (data.certCount > 0) {
+                                    cert.style.display = 'flex';
+                                    cert.innerText = data.certCount;
+                                } else {
+                                    cert.style.display = 'none';
+                                }
+                            }
+
+                            // CONCERNS
+                            if (concern) {
+                                if (data.concernCount > 0) {
+                                    concern.style.display = 'flex';
+                                    concern.innerText = data.concernCount;
+                                } else {
+                                    concern.style.display = 'none';
+                                }
+                            }
+
+                            // BLOTTERS
+                            if (blotter) {
+                                if (data.blotterCount > 0) {
+                                    blotter.style.display = 'flex';
+                                    blotter.innerText = data.blotterCount;
+                                } else {
+                                    blotter.style.display = 'none';
+                                }
+                            }
 
                         });
                 }

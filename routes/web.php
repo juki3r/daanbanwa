@@ -134,13 +134,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
         ->name('news.destroy');
 
 
-    //admin notifications
-    Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
-    Route::post('/notifications/read-all', [NotificationController::class, 'markAllAsRead'])->name('notifications.markAllAsRead');
-    Route::post(
-        '/notifications/read/{id}',
-        [NotificationController::class, 'markAsRead']
-    )->name('notifications.markAsRead');
+    //admin notification routes
 
     Route::get('/notifications/counts', [NotificationController::class, 'counts']);
 

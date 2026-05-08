@@ -21,8 +21,10 @@
 
         <!-- Scripts -->
         {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
-    style>
-        @include('layouts.custom-styles')
+        <style>
+            @include('layouts.custom-styles')
+        </style>
+        
     </head>
     <body class="font-sans antialiased">
 

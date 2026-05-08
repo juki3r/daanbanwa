@@ -20,7 +20,7 @@
         </span>
     </td>
 
-    <td>
+    <td class="d-flex gap-2">
         <!-- ✅ OPEN SINGLE MODAL -->
         <button class="btn btn-sm btn-primary open-status"
             data-id="{{ $blotter->id }}"

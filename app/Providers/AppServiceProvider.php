@@ -25,5 +25,13 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Paginator::useBootstrapFive();
+        View::composer('layouts.navigation', function ($view) {
+
+            $view->with([
+                'certCount' => BarangayRequest::where('admin_read', false)->count(),
+                'concernCount' => Concern::where('admin_read', false)->count(),
+                'blotterCount' => Blotter::where('admin_read', false)->count(),
+            ]);
+        });
     }
 }

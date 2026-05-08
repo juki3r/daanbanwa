@@ -1,4 +1,5 @@
-
+<style>
+    
 html, body {
     height: 100%;
 }
@@ -193,3 +194,4 @@ main::-webkit-scrollbar-thumb {
         width: 180px;
     }
 }
+</style>

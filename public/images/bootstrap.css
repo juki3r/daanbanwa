@@ -140,6 +140,26 @@ main::-webkit-scrollbar-thumb {
     font-size: 14px;
 }
 
+.nav-icon-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.nav-badge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: red;
+    color: white;
+    font-size: 10px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 
 
 .notification-card:hover{

@@ -20,6 +20,7 @@ class RequestController extends Controller
     {
         $query = BarangayRequest::with('user');
 
+
         if ($request->filled('search')) {
             $query->where(function ($q) use ($request) {
                 $q->where('full_name', 'like', "%{$request->search}%")

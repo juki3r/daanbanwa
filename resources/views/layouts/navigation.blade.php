@@ -28,20 +28,38 @@
         </a>
 
         <a href="{{ route('requests.index') }}"
-        class="nav-link d-flex align-items-center gap-2 {{ request()->routeIs('requests.index') ? 'active-nav' : 'text-dark' }}">
-            <i class="bi bi-file-earmark-text-fill"></i>
-            <span>Certificates</span>
-        </a>
+            class="nav-link d-flex align-items-center gap-2 {{ request()->routeIs('requests.index') ? 'active-nav' : 'text-dark' }}">
+
+                <span class="nav-icon-wrapper">
+                    <i class="bi bi-file-earmark-text-fill"></i>
+
+                    @if($certCount > 0)
+                        <span class="nav-badge">{{ $certCount }}</span>
+                    @endif
+                </span>
+
+                <span>Certificates</span>
+            </a>
 
         <a href="{{ route('concerns.index') }}"
         class="nav-link d-flex align-items-center gap-2 {{ request()->routeIs('concerns.*') ? 'active-nav' : 'text-dark' }}">
-            <i class="bi bi-chat-dots-fill"></i>
+            <span class="nav-icon-wrapper">
+                <i class="bi bi-chat-dots-fill"></i>
+                @if($concernCount > 0)
+                    <span class="nav-badge">{{ $concernCount }}</span>
+                @endif
+            </span>
             <span>Concerns</span>
         </a>
 
         <a href="{{ route('blotters.index') }}"
         class="nav-link d-flex align-items-center gap-2 {{ request()->routeIs('blotters.*') ? 'active-nav' : 'text-dark' }}">
-            <i class="bi bi-journal-text"></i>
+            <span class="nav-icon-wrapper">
+                <i class="bi bi-journal-text"></i>
+                @if($blotterCount > 0)
+                    <span class="nav-badge">{{ $blotterCount }}</span>
+                @endif
+            </span>
             <span>Blotters</span>
         </a>
 

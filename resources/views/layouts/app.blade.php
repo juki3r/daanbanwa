@@ -109,12 +109,12 @@
                                 </div>
 
                                 {{-- Notification --}}
-                                <button class="btn btn-light position-relative rounded-3 border">
+                                {{-- <button class="btn btn-light position-relative rounded-3 border">
                                     <i class="bi bi-bell fs-5"></i>
                                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                                         3
                                     </span>
-                                </button>
+                                </button> --}}
 
                                 {{-- Profile --}}
                                 <div class="d-flex align-items-center gap-2 admin-profile">

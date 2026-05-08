@@ -2,7 +2,7 @@
 
 <tr>
     <td>{{ $loop->iteration + ($concerns->firstItem() - 1) }}</td>
-
+    <td>{{ $concern->user->first_name }} {{ $concern->user->last_name }}</td>
     <td>{{ $concern->title }}</td>
     <td>{{ $concern->location }}</td>
     <td>{{ $concern->description }}</td>

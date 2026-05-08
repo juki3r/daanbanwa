@@ -17,6 +17,7 @@
                         <thead class="table-dark">
                             <tr>
                                 <th>#</th>
+                                <th>Submitted By</th>
                                 <th>Title</th>
                                 <th>Location</th>
                                 <th>Descriptions</th>

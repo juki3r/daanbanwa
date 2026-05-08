@@ -4,7 +4,7 @@
 
     <td>{{ $blotter->case_number }}</td>
     <td>{{ $blotter->complainant_name }}</td>
-    <td class="text-wrap">{{ $blotter->statement }}</td>
+    <td style="max-width: 300px; white-space: normal; word-break: break-word;">{{ $blotter->statement }}</td>
 
     <td>
         @php
@@ -20,18 +20,19 @@
         </span>
     </td>
 
-    <td class="d-flex gap-2">
-        <!-- ✅ OPEN SINGLE MODAL -->
-        <button class="btn btn-sm btn-primary open-status"
-            data-id="{{ $blotter->id }}"
-            data-status="{{ $blotter->status }}">
-            <i class="bi bi-pencil-square"></i> Status
-        </button>
+    <td>
+        <div class="d-flex gap-2 flex-wrap">
+            <button class="btn btn-sm btn-primary open-status"
+                data-id="{{ $blotter->id }}"
+                data-status="{{ $blotter->status }}">
+                <i class="bi bi-pencil-square"></i> Status
+            </button>
 
-        <button class="btn btn-sm btn-danger delete-btn"
-            data-id="{{ $blotter->id }}">
-            <i class="bi bi-trash me-1"></i> Delete
-        </button>
+            <button class="btn btn-sm btn-danger delete-btn"
+                data-id="{{ $blotter->id }}">
+                <i class="bi bi-trash me-1"></i> Delete
+            </button>
+        </div>
     </td>
 </tr>
 

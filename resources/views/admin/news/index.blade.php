@@ -22,7 +22,6 @@
                     <table class="table table-bordered table-hover align-middle">
                         <thead class="table-dark">
                             <tr>
-                                <th>#</th>
                                 <th>Title</th>
                                 <th>Content</th>
                                 <th>Actions</th>

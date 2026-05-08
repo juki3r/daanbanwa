@@ -2,11 +2,6 @@
 
 <tr>
 
-    <!-- ID -->
-    <td>
-        {{ $loop->iteration + ($news->firstItem() - 1) }}
-    </td>
-
     <!-- TITLE -->
     <td>
         <strong>{{ $item->title }}</strong>

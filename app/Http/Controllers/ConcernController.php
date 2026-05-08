@@ -9,11 +9,6 @@ use Illuminate\Support\Facades\Http;
 
 class ConcernController extends Controller
 {
-    // public function index()
-    // {
-    //     $concerns = Concern::all();
-    //     return view('admin.concern.index', compact('concerns'));
-    // }
     public function index(Request $request)
     {
         $query = Concern::with('user');

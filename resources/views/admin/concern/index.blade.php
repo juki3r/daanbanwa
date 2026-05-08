@@ -192,50 +192,47 @@
         attachStatusForms();
 
 
-        document.addEventListener("click", async function(e) {
+        document.addEventListener("click", async function (e) {
 
-            if (e.target.classList.contains("delete-btn")) {
+            const btn = e.target.closest(".delete-btn");
+            if (!btn) return;
 
-                let id = e.target.dataset.id;
+            let id = btn.dataset.id;
 
-                if (!confirm("Are you sure you want to delete this concern?")) return;
+            if (!confirm("Are you sure you want to delete this concern?")) return;
 
-                try {
-                    let res = await fetch(`/admin/concerns/${id}`, {
-                        method: "DELETE",
-                        headers: {
-                            "X-CSRF-TOKEN": "{{ csrf_token() }}",
-                            "Accept": "application/json"
-                        }
-                    });
-
-                    let data = await res.json();
-
-                    if (data.success) {
-
-                        // remove row instantly
-                        e.target.closest("tr").remove();
-
-                        showToast(data.message ?? "Deleted", "success");
-                        // get current page
-                        let currentPage =
-                            new URLSearchParams(window.location.search).get('page') || 1;
-
-                        // reload table
-                        let search = document.getElementById('searchInput')?.value ?? '';
-
-                        fetchData(currentPage, search)
-
-                    } else {
-                        showToast(data.message ?? "Delete failed", "danger");
+            try {
+                let res = await fetch(`/admin/concerns/${id}`, {
+                    method: "DELETE",
+                    headers: {
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                        "Accept": "application/json"
                     }
+                });
 
-                } catch (err) {
-                    console.error(err);
-                    showToast("Something went wrong", "danger");
+                let data = await res.json();
+
+                if (data.success) {
+
+                    btn.closest("tr").remove();
+
+                    showToast(data.message ?? "Deleted", "success");
+
+                    let currentPage =
+                        new URLSearchParams(window.location.search).get('page') || 1;
+
+                    let search = document.getElementById('searchInput')?.value ?? '';
+
+                    fetchData(currentPage, search);
+
+                } else {
+                    showToast(data.message ?? "Delete failed", "danger");
                 }
-            }
 
+            } catch (err) {
+                console.error(err);
+                showToast("Something went wrong", "danger");
+            }
         });
     </script>
 

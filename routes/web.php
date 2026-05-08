@@ -105,7 +105,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/concerns', [ConcernController::class, 'index'])->name('concerns.index');
     Route::put('/concerns/{id}/status', [ConcernController::class, 'updateStatus'])
         ->name('concerns.updateStatus');
-    Route::get('/concerns/fetch', [ConcernController::class, 'fetchConcern'])
+    Route::get('/concerns/fetch', [ConcernController::class, 'fetch'])
         ->name('concern.fetch');
     Route::delete('/concerns/{id}', [ConcernController::class, 'destroy'])
         ->name('concern.destroy');

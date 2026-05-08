@@ -31,7 +31,7 @@ class ConcernController extends Controller
         return view('admin.concern.index', compact('concerns'));
     }
 
-    public function fetchConcern(Request $request)
+    public function fetch(Request $request)
     {
         $query = Concern::query();
 

@@ -4,7 +4,7 @@
 
     <td>{{ $blotter->case_number }}</td>
     <td>{{ $blotter->complainant_name }}</td>
-    <td>{{ $blotter->statement }}</td>
+    <td class="text-wrap">{{ $blotter->statement }}</td>
 
     <td>
         @php

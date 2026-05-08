@@ -13,7 +13,7 @@
     </td>
 
     <!-- CONTENT -->
-    <td>
+    <td class="text-wrap">
         {{ $item->content }}
     </td>
 

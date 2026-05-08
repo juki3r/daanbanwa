@@ -1,7 +1,7 @@
 @forelse($blotters as $blotter)
 
-<tr>
-    
+<tr class="{{ $blotter->admin_read == 0 ? 'table-warning' : '' }}">
+
     <td>{{ $blotter->case_number }}</td>
     <td>{{ $blotter->complainant_name }}</td>
     <td>{{ $blotter->statement }}</td>

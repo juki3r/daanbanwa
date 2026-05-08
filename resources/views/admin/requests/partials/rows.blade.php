@@ -1,6 +1,6 @@
 @forelse($requests as $request)
 
-<tr>
+<tr class="{{ $request->admin_read == 0 ? 'table-warning' : '' }}">
     <td>{{ $loop->iteration + ($requests->firstItem() - 1) }}</td>
 
     <td>{{ $request->full_name }}</td>

@@ -97,7 +97,8 @@ class RequestController extends Controller
 
         // Update status
         $req->update([
-            'status' => $request->status
+            'status' => $request->status,
+            'admin_read' => true
         ]);
 
         // Get user from request (IMPORTANT FIX)

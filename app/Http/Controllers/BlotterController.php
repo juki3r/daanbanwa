@@ -85,45 +85,46 @@ class BlotterController extends Controller
 
         $blotter->update([
             'status' => strtolower($request->status),
+            'admin_read' => true
         ]);
 
 
 
         // Get user from request (IMPORTANT FIX)
-        // $user = User::find($blotter->user_id);
+        $user = User::find($blotter->user_id);
 
-        // if (!$user) {
-        //     return back()->with('error', 'User not found');
-        // }
+        if (!$user) {
+            return back()->with('error', 'User not found');
+        }
 
-        // if (!$user->fcm_token) {
-        //     return back()->with('error', 'User has no FCM token registered.');
-        // }
+        if (!$user->fcm_token) {
+            return back()->with('error', 'User has no FCM token registered.');
+        }
 
-        // $title = "Blotter Update !";
-        // $body  = "Your blotter is " . $request->status;
+        $title = "Blotter Update !";
+        $body  = "Your blotter is " . $request->status;
 
-        // (new \App\Services\FirebaseService)->sendNotification(
-        //     $user->fcm_token,
-        //     $title,
-        //     $body,
-        //     [
-        //         'screen' => 'Requests',
-        //         'blotter_id' => (string) $blotter->id,
-        //     ]
-        // );
+        (new \App\Services\FirebaseService)->sendNotification(
+            $user->fcm_token,
+            $title,
+            $body,
+            [
+                'screen' => 'Requests',
+                'blotter_id' => (string) $blotter->id,
+            ]
+        );
 
-        // //  SEND SMS
-        // try {
-        //     Http::withHeaders([
-        //         'X-API-KEY' => env('SMS_API_KEY')
-        //     ])->post('https://carlesppo.com/api/send-sms-api', [
-        //         'phone_number' => $user->phone,
-        //         'message' => "[Daan Banwa ALERT]\n$title\n$body"
-        //     ]);
-        // } catch (\Exception $e) {
-        //     \Log::error('SMS failed: ' . $e->getMessage());
-        // }
+        //  SEND SMS
+        try {
+            Http::withHeaders([
+                'X-API-KEY' => env('SMS_API_KEY')
+            ])->post('https://carlesppo.com/api/send-sms-api', [
+                'phone_number' => $user->phone,
+                'message' => "[Daan Banwa ALERT]\n$title\n$body"
+            ]);
+        } catch (\Exception $e) {
+            \Log::error('SMS failed: ' . $e->getMessage());
+        }
 
         return response()->json([
             'success' => true,

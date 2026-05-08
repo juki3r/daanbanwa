@@ -67,7 +67,8 @@ class ConcernController extends Controller
         $concern = Concern::findOrFail($id);
 
         $concern->update([
-            'status' => $request->status
+            'status' => $request->status,
+            'admin_read' => true
         ]);
 
 

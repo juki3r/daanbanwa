@@ -21,7 +21,7 @@
     <td>
 
         <!-- DELETE -->
-        <button class="btn btn-sm btn-danger delete-btn"
+        <button class="btn btn-sm btn-danger delete-btn d-flex align-items-center justify-content-center gap-1"
                 data-id="{{ $item->id }}">
 
             <i class="bi bi-trash me-1"></i>

@@ -24,15 +24,15 @@
         </span>
     </td>
 
-    <td>
+    <td class="d-flex gap-2">
         <!-- ✅ OPEN SINGLE MODAL -->
-        <button class="btn btn-sm btn-primary open-status"
+        <button class="btn btn-sm btn-primary open-status d-flex align-items-center gap-1"
             data-id="{{ $request->id }}"
             data-status="{{ $request->status }}">
             <i class="bi bi-pencil-square"></i> Status
         </button>
 
-        <button class="btn btn-sm btn-danger delete-btn"
+        <button class="btn btn-sm btn-danger delete-btn d-flex align-items-center gap-1"
             data-id="{{ $request->id }}">
             <i class="bi bi-trash me-1"></i> Delete
         </button>

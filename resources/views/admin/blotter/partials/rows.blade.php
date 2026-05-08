@@ -1,6 +1,6 @@
 @forelse($blotters as $blotter)
 
-<tr class="{{ $blotter->admin_read == 0 ? 'table-warning' : '' }}">
+<tr id="blotter-row-{{ $blotter->id }}" class="{{ $blotter->admin_read == 0 ? 'table-warning' : '' }}">
 
     <td>{{ $blotter->case_number }}</td>
     <td>{{ $blotter->complainant_name }}</td>

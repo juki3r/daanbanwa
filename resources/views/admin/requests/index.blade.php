@@ -264,6 +264,11 @@
                 else if (data.status === "rejected") badge.classList.add("bg-danger");
                 else badge.classList.add("bg-warning", "text-dark");
             }
+            // ✅ REMOVE UNREAD HIGHLIGHT LIVE
+                const row = document.getElementById(`request-row-${id}`);
+                if (row) {
+                    row.classList.remove('table-warning');
+                }
 
             bootstrap.Modal.getInstance(document.getElementById("statusModal")).hide();
 

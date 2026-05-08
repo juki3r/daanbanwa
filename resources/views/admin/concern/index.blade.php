@@ -164,6 +164,11 @@
                         };
 
                         badge.className = "badge " + (classMap[data.status] || "bg-danger");
+                }       
+                // ✅ REMOVE UNREAD HIGHLIGHT LIVE
+                const row = document.getElementById(`concern-row-${id}`);
+                if (row) {
+                    row.classList.remove('table-warning');
                 }
 
                 bootstrap.Modal.getInstance(document.getElementById("statusModal")).hide();

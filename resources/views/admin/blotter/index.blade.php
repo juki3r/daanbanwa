@@ -215,6 +215,11 @@
 
                 badge.className = "badge " + (classMap[data.status] || "bg-secondary");
             }
+            // ✅ REMOVE UNREAD HIGHLIGHT LIVE
+                const row = document.getElementById(`blotter-row-${id}`);
+                if (row) {
+                    row.classList.remove('table-warning');
+                }
 
             bootstrap.Modal.getInstance(document.getElementById("statusModal")).hide();
 

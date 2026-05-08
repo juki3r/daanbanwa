@@ -1,6 +1,6 @@
 @forelse($concerns as $concern)
 
-<tr class="{{ $concern->admin_read == 0 ? 'table-warning' : '' }}">
+<tr id="concern-row-{{ $concern->id }}" class="{{ $concern->admin_read == 0 ? 'table-warning' : '' }}">
     <td>{{ $loop->iteration + ($concerns->firstItem() - 1) }}</td>
     <td>{{ $concern->user->first_name }} {{ $concern->user->last_name }}</td>
     <td>{{ $concern->title }}</td>

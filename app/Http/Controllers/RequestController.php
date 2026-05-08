@@ -16,15 +16,42 @@ class RequestController extends Controller
     //     return view('admin.requests.index', compact('requests'));
     // }
 
-    public function index()
+    public function index(Request $request)
     {
-        $requests = BarangayRequest::with('user')
-            ->latest()
-            ->paginate(6);
+        $query = BarangayRequest::with('user');
 
-        $users = User::orderBy('first_name')->get();
+        if ($request->filled('search')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('full_name', 'like', "%{$request->search}%")
+                    ->orWhere('document_type', 'like', "%{$request->search}%")
+                    ->orWhere('address', 'like', "%{$request->search}%");
+            });
+        }
 
-        return view('admin.requests.index', compact('requests', 'users'));
+        $requests = $query->latest()->paginate(7);
+
+        return view('admin.requests.index', compact('requests'));
+    }
+
+    public function fetch(Request $request)
+    {
+        $query = BarangayRequest::query();
+
+        if ($request->search) {
+            $query->where(function ($q) use ($request) {
+                $q->where('full_name', 'like', "%{$request->search}%")
+                    ->orWhere('document_type', 'like', "%{$request->search}%")
+                    ->orWhere('address', 'like', "%{$request->search}%")
+                    ->orWhere('purpose', 'like', "%{$request->search}%");
+            });
+        }
+
+        $requests = $query->latest()->paginate(7);
+
+        return response()->json([
+            'html' => view('admin.requests.partials.rows', compact('requests'))->render(),
+            'pagination' => (string) $requests->links(),
+        ]);
     }
 
     //Admin store data
@@ -76,11 +103,19 @@ class RequestController extends Controller
         $user = User::find($req->user_id);
 
         if (!$user) {
-            return back()->with('error', 'User not found');
+            return response()->json([
+                'success' => false,
+                'status' => $req->status,
+                'message' => 'User not found'
+            ]);
         }
 
         if (!$user->fcm_token) {
-            return back()->with('error', 'User has no FCM token registered.');
+            return response()->json([
+                'success' => false,
+                'status' => $req->status,
+                'message' => 'FCM not found for user'
+            ]);
         }
 
         $title = "Certification Request Update";
@@ -108,15 +143,24 @@ class RequestController extends Controller
             \Log::error('SMS failed: ' . $e->getMessage());
         }
 
-        return back()->with('success', 'Status updated successfully');
+        // return back()->with('success', 'Status updated successfully');
+        return response()->json([
+            'success' => true,
+            'status' => $req->status,
+            'message' => 'Status updated successfully'
+        ]);
     }
 
 
-
+    //Delete request
     public function destroy($id)
     {
-        BarangayRequest::findOrFail($id)->delete();
+        $request = BarangayRequest::findOrFail($id);
+        $request->delete();
 
-        return back()->with('success', 'Request deleted successfully');
+        return response()->json([
+            'success' => true,
+            'message' => 'Request deleted successfully'
+        ]);
     }
 }

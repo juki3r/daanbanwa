@@ -19,8 +19,8 @@
 
                 <!-- TABLE -->
                 <div class="table-responsive">
+                    <table class="table table-bordered table-hover align-middle" id="requestTable">
 
-                    <table class="table table-bordered table-hover align-middle">
                         <thead class="table-dark">
                             <tr>
                                 <th>#</th>
@@ -28,19 +28,85 @@
                                 <th>Age</th>
                                 <th>Gender</th>
                                 <th>Address</th>
-                                <th>Document</th>
+                                <th>Document Type</th>
                                 <th>Purpose</th>
+                                <th>Company</th>
+                                <th>Nature</th>
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
 
-                        <tbody id="tableBody">
-                            @include('admin.requests.partials.rows')
-                        </tbody>
-                    </table>
+                        <tbody>
+                            @forelse($requests as $request)
+                                <tr>
+                                    <td>{{ $loop->iteration + ($requests->firstItem() - 1) }}</td>
+                                    <td>{{ $request->full_name }}</td>
+                                    <td>{{ $request->age }}</td>
+                                    <td class="text-capitalize">{{ $request->gender }}</td>
+                                    <td>{{ $request->address }}</td>
+                                    <td>{{ $request->document_type }}</td>
+                                    <td>{{ $request->purpose }}</td>
+                                    <td>{{ $request->company_name ?: 'N/A' }}</td>
+                                    <td>{{ $request->business_nature ?: 'N/A' }}</td>
 
-                    <div id="pagination" class="mt-3">
+                                    <!-- STATUS -->
+                                    <td>
+                                        <span class="badge
+                                            @if($request->status == 'pending') bg-warning
+                                            @elseif($request->status == 'approved') bg-success
+                                            @elseif($request->status == 'rejected') bg-danger
+                                            @else bg-secondary
+                                            @endif
+                                        ">
+                                            {{ ucfirst($request->status) }}
+                                        </span>
+                                    </td>
+
+                                    <!-- ACTIONS -->
+                                    <td class="text-center align-middle">
+                                        <div class="d-flex flex-row align-items-center justify-content-center gap-2">
+
+                                            <!-- UPDATE STATUS -->
+                                            <button class="btn btn-sm btn-primary d-flex align-items-center gap-1"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#statusModal{{ $request->id }}">
+                                                
+                                                <i class="bi bi-pencil-square"></i>
+                                                Status
+                                            </button>
+
+                                            <!-- DELETE -->
+                                            <form action="{{ route('requests.destroy', $request->id) }}"
+                                                method="POST"
+                                                onsubmit="return confirm('Delete this request?')"
+                                                class="m-0">
+
+                                                @csrf
+                                                @method('DELETE')
+
+                                                <button type="submit"
+                                                    class="btn btn-sm btn-danger d-flex align-items-center gap-1">
+
+                                                    <i class="bi bi-trash"></i>
+                                                    Delete
+                                                </button>
+                                            </form>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="11" class="text-center py-4 text-muted">
+                                            No records found.
+                                        </td>
+                                    </tr>
+                                @endforelse
+                        </tbody>
+                        
+                    </table>
+                    <div class="mt-3">
                         {{ $requests->links() }}
                     </div>
                 </div>
@@ -49,14 +115,18 @@
         </div>
     </div>
 
-    <!-- ===================== SINGLE STATUS MODAL ===================== -->
-    <div class="modal fade" id="statusModal" tabindex="-1">
+    <!-- STATUS MODALS -->
+    @foreach($requests as $request)
+
+    <div class="modal fade" id="statusModal{{ $request->id }}" tabindex="-1">
         <div class="modal-dialog">
-            <form class="modal-content" id="statusForm">
+
+            <form action="{{ route('requests.updateStatus', $request->id) }}"
+                method="POST"
+                class="modal-content">
+
                 @csrf
                 @method('PUT')
-
-                <input type="hidden" id="requestId">
 
                 <div class="modal-header">
                     <h5 class="modal-title">Update Status</h5>
@@ -64,19 +134,31 @@
                 </div>
 
                 <div class="modal-body">
-                    <select name="status" id="statusSelect" class="form-select">
-                        <option value="approved">Approved</option>
-                        <option value="rejected">Rejected</option>
+
+                    <label class="form-label">Status</label>
+
+                    <select name="status" class="form-select" required>
+                        <option value="approved" {{ $request->status == 'approved' ? 'selected' : '' }}>Approved</option>
+                        <option value="rejected" {{ $request->status == 'rejected' ? 'selected' : '' }}>Rejected</option>
                     </select>
+
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
-                    <button class="btn btn-success">Save</button>
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+                    <button class="btn btn-success">
+                        Save
+                    </button>
                 </div>
+
             </form>
+
         </div>
     </div>
+
+    @endforeach
 
     <div class="modal fade" id="createRequestModal" tabindex="-1">
         <div class="modal-dialog modal-lg">
@@ -170,168 +252,33 @@
 
     <!-- LIVE SEARCH -->
     <script>
-    
-    let timer;
+        // document.getElementById('searchInput').addEventListener('keyup', function () {
+        //     let value = this.value.toLowerCase();
+        //     let rows = document.querySelectorAll("#requestTable tbody tr");
 
-    // ================= FETCH DATA =================
-    function fetchData(page = 1, search = '') {
+        //     rows.forEach(row => {
+        //         row.style.display = row.innerText.toLowerCase().includes(value)
+        //             ? ""
+        //             : "none";
+        //     });
+        // });
 
-        fetch(`{{ route('requests.fetch') }}?page=${page}&search=${search}`)
-            .then(res => res.json())
-            .then(data => {
+        document.getElementById('searchInput').addEventListener('keyup', function () {
+            let value = this.value;
 
-                document.getElementById('tableBody').innerHTML = data.html;
-                document.getElementById('pagination').innerHTML = data.pagination;
-
-                attachPagination();
-            });
-    }
-
-    // ================= SEARCH =================
-    document.getElementById('searchInput').addEventListener('keyup', function () {
-
-        clearTimeout(timer);
-
-        timer = setTimeout(() => {
-            fetchData(1, this.value);
-        }, 300);
-    });
-
-    // ================= PAGINATION =================
-    function attachPagination() {
-
-        document.querySelectorAll('#pagination a').forEach(link => {
-
-            link.addEventListener('click', function (e) {
-                e.preventDefault();
-
-                let page = this.href.split('page=')[1];
-                let search = document.getElementById('searchInput').value;
-
-                fetchData(page, search);
-            });
-
-        });
-    }
-
-    attachPagination();
-
-    // ================= OPEN MODAL =================
-    document.addEventListener("click", function (e) {
-
-        const btn = e.target.closest(".open-status");
-        if (!btn) return;
-
-        document.getElementById("requestId").value = btn.dataset.id;
-        document.getElementById("statusSelect").value = btn.dataset.status;
-
-        bootstrap.Modal.getOrCreateInstance(
-            document.getElementById("statusModal")
-        ).show();
-
-    });
-
-    // ================= UPDATE STATUS =================
-    document.getElementById("statusForm").addEventListener("submit", async function (e) {
-        e.preventDefault();
-
-        const id = document.getElementById("requestId").value;
-        const formData = new FormData(this);
-
-        const res = await fetch(`/admin/requests/${id}/status`, {
-            method: "POST",
-            headers: {
-                "X-CSRF-TOKEN": "{{ csrf_token() }}",
-                "X-HTTP-Method-Override": "PUT",
-                "Accept": "application/json"
-            },
-            body: formData
+            window.location.href = "?search=" + value;
         });
 
-        const data = await res.json();
+        const documentTypeSelect = document.getElementById('documentTypeSelect');
+            const businessFields = document.querySelectorAll('.business-fields');
 
-        if (data.success) {
-
-            // update badge instantly
-            let badge = document.getElementById(`status-badge-${id}`);
-
-            if (badge) {
-                badge.innerText = data.status.charAt(0).toUpperCase() + data.status.slice(1);
-
-                badge.className = "badge";
-
-                if (data.status === "approved") badge.classList.add("bg-success");
-                else if (data.status === "rejected") badge.classList.add("bg-danger");
-                else badge.classList.add("bg-warning", "text-dark");
-            }
-
-            bootstrap.Modal.getInstance(document.getElementById("statusModal")).hide();
-
-            showToast("Status updated", "success");
-
-        } else {
-            showToast("Update failed", "danger");
-        }
-    });
-
-
-    // ---------------- BUSINESS FIELDS ----------------
-    const documentTypeSelect = document.getElementById('documentTypeSelect');
-    const businessFields = document.querySelectorAll('.business-fields');
-
-    documentTypeSelect.addEventListener('change', function () {
-        if (this.value === 'Business Clearance') {
-            businessFields.forEach(field => field.classList.remove('d-none'));
-        } else {
-            businessFields.forEach(field => field.classList.add('d-none'));
-        }
-    });
-
-    document.addEventListener("click", async function (e) {
-
-        if (e.target.classList.contains("delete-btn")) {
-
-            let id = e.target.dataset.id;
-
-            if (!confirm("Are you sure you want to delete this request?")) return;
-
-            try {
-                let res = await fetch(`/admin/requests/${id}`, {
-                    method: "DELETE",
-                    headers: {
-                        "X-CSRF-TOKEN": "{{ csrf_token() }}",
-                        "Accept": "application/json"
-                    }
-                });
-
-                let data = await res.json();
-
-                if (data.success) {
-
-                    // remove row instantly
-                    e.target.closest("tr").remove();
-
-                    showToast(data.message ?? "Deleted", "success");
-                    // get current page
-                    let currentPage =
-                        new URLSearchParams(window.location.search).get('page') || 1;
-
-                    // reload table
-                    let search = document.getElementById('searchInput')?.value ?? '';
-
-                    fetchData(currentPage, search)
-
+            documentTypeSelect.addEventListener('change', function () {
+                if (this.value === 'Business Clearance') {
+                    businessFields.forEach(field => field.classList.remove('d-none'));
                 } else {
-                    showToast(data.message ?? "Delete failed", "danger");
+                    businessFields.forEach(field => field.classList.add('d-none'));
                 }
-
-            } catch (err) {
-                console.error(err);
-                showToast("Something went wrong", "danger");
-            }
-        }
-
-    });
-</script>
+            });
+    </script>
 
 </x-app-layout>

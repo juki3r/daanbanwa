@@ -2,119 +2,270 @@
     <x-slot name="header">
         <div class="d-flex justify-content-between align-items-center">
             <h2 class="h4 mb-0">News Management</h2>
-
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addNewsModal">
-                Add News
-            </button>
         </div>
     </x-slot>
 
-
-    @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show">
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    @endif
-
-    @if ($errors->any())
-        <div class="alert alert-danger alert-dismissible fade show">
-            <ul class="mb-0">
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    @endif
-    <div class="container py-4">
+    <div class="container-fluid py-4">
         <div class="card shadow-sm">
             <div class="card-body">
 
-                <!-- SEARCH -->
-                <div class="mb-3">
-                    <input type="text"
-                        id="searchInput"
-                        class="form-control"
-                        placeholder="Search news items...">
+                <div class="d-flex justify-content-end align-items-center mb-3">
+                    <button class="btn btn-success"
+                        data-bs-toggle="modal"
+                        data-bs-target="#createNewsModal">
+                        + Create News
+                    </button>
                 </div>
 
                 <!-- TABLE -->
                 <div class="table-responsive">
-                    <table class="table table-bordered table-hover align-middle" id="newsTable">
+
+                    <table class="table table-bordered table-hover align-middle">
                         <thead class="table-dark">
                             <tr>
-                                <th>ID</th>
+                                <th>#</th>
                                 <th>Title</th>
                                 <th>Content</th>
-                                <th>Published At</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
 
-                        <tbody>
-                            @foreach($news as $news_item)
-                                <tr>
-                                    <td>{{ $news_item->id }}</td>
-                                    <td class="text-capitalize">{{ $news_item->title }}</td>
-                                    <td>{{ $news_item->content }}</td>
-                                    <td>{{ $news_item->created_at }}</td>
-                                </tr>
-                            @endforeach
+                        <tbody id="tableBody">
+                            @include('admin.news.partials.rows')
                         </tbody>
                     </table>
+
+                    <div id="pagination" class="mt-3">
+                        {{ $news->links() }}
+                    </div>
                 </div>
 
             </div>
         </div>
     </div>
 
-    <!-- ADD NEWS MODAL -->
-    <div class="modal fade" id="addNewsModal" tabindex="-1" aria-labelledby="addNewsModalLabel" aria-hidden="true">
+<!-- ========================================= -->
+    <!-- CREATE NEWS MODAL -->
+    <!-- ========================================= -->
+
+    <div class="modal fade" id="createNewsModal" tabindex="-1">
+
         <div class="modal-dialog modal-lg">
-            <form action="{{ route('news.store') }}" method="POST" class="modal-content">
+
+            <form action="{{ route('news.store') }}"
+                  method="POST"
+                  enctype="multipart/form-data"
+                  class="modal-content">
+
                 @csrf
 
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addNewsModalLabel">Add News</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+
+                    <h5 class="modal-title">
+                        Create News
+                    </h5>
+
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal">
+                    </button>
+
                 </div>
 
                 <div class="modal-body">
+
                     <div class="row g-3">
-                        <div class="col-md-6">
-                            <label class="form-label">Title</label>
-                            <input type="text" name="title" class="form-control" required>
+
+                        <!-- TITLE -->
+                        <div class="col-12">
+
+                            <label class="form-label">
+                                Title
+                            </label>
+
+                            <input type="text"
+                                   name="title"
+                                   class="form-control"
+                                   required>
+
                         </div>
 
-                        <div class="col-md-6">
-                            <label class="form-label">Content</label>
-                            <textarea name="content" class="form-control" required></textarea>
+                        <!-- CONTENT -->
+                        <div class="col-12">
+
+                            <label class="form-label">
+                                Content
+                            </label>
+
+                            <textarea name="content"
+                                      rows="5"
+                                      class="form-control"
+                                      required></textarea>
+
                         </div>
 
                     </div>
+
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+
+                    <button type="button"
+                            class="btn btn-light"
+                            data-bs-dismiss="modal">
                         Cancel
                     </button>
-                    <button type="submit" class="btn btn-primary">
-                        Save News
+
+                    <button type="submit"
+                            class="btn btn-success">
+                        Create News
                     </button>
+
                 </div>
+
             </form>
+
         </div>
+
     </div>
 
-    <script>
-        // LIVE SEARCH
-        document.getElementById('searchInput').addEventListener('keyup', function () {
-            let value = this.value.toLowerCase();
-            let rows = document.querySelectorAll("#newsTable tbody tr");
 
-            rows.forEach(row => {
-                row.style.display = row.innerText.toLowerCase().includes(value) ? "" : "none";
+
+    <!-- ========================================= -->
+    <!-- SCRIPTS -->
+    <!-- ========================================= -->
+
+    <script>
+
+        let timer;
+
+        // =========================================
+        // FETCH DATA
+        // =========================================
+        function fetchData(page = 1, search = '') {
+
+            fetch(`{{ route('news.fetch') }}?page=${page}&search=${search}`)
+                .then(res => res.json())
+                .then(data => {
+
+                    document.getElementById('tableBody').innerHTML = data.html;
+
+                    document.getElementById('pagination').innerHTML = data.pagination;
+
+                    attachPagination();
+
+                });
+
+        }
+
+
+        // =========================================
+        // LIVE SEARCH
+        // =========================================
+        document.getElementById('searchInput')
+            .addEventListener('keyup', function () {
+
+                clearTimeout(timer);
+
+                timer = setTimeout(() => {
+
+                    fetchData(1, this.value);
+
+                }, 300);
+
             });
+
+
+        // =========================================
+        // PAGINATION
+        // =========================================
+        function attachPagination() {
+
+            document.querySelectorAll('#pagination a')
+                .forEach(link => {
+
+                    link.addEventListener('click', function (e) {
+
+                        e.preventDefault();
+
+                        let page = this.href.split('page=')[1];
+
+                        let search =
+                            document.getElementById('searchInput').value;
+
+                        fetchData(page, search);
+
+                    });
+
+                });
+
+        }
+
+        attachPagination();
+
+
+        // =========================================
+        // DELETE NEWS
+        // =========================================
+        document.addEventListener("click", async function (e) {
+
+            const btn = e.target.closest(".delete-btn");
+
+            if (btn) {
+
+                let id = btn.dataset.id;
+
+                if (!confirm("Are you sure you want to delete this news?")) {
+                    return;
+                }
+
+                try {
+
+                    let res = await fetch(`/admin/news/${id}`, {
+
+                        method: "DELETE",
+
+                        headers: {
+                            "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                            "Accept": "application/json"
+                        }
+
+                    });
+
+                    let data = await res.json();
+
+                    if (data.success) {
+
+                        btn.closest("tr").remove();
+
+                         showToast("News deleted successfully", "success");
+                         // get current page
+                        let currentPage =
+                            new URLSearchParams(window.location.search).get('page') || 1;
+
+                        // reload table
+                        let search = document.getElementById('searchInput')?.value ?? '';
+
+                        fetchData(currentPage, search)
+
+                    } else {
+
+                         showToast("Failed to delete news", "danger");
+
+                    }
+
+                } catch (err) {
+
+                    console.error(err);
+
+                     showToast("An error occurred", "danger");
+
+                }
+
+            }
+
         });
+
     </script>
+
 </x-app-layout>

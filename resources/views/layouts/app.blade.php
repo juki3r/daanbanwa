@@ -43,11 +43,11 @@
                     <header class="admin-header px-3 px-md-4 py-3 position-sticky top-0 bg-body-tertiary border-bottom" style="z-index: 1030;">
 
                         {{-- TOAST CONTAINER (below header, right side) --}}
-                            <div class="position-fixed top-0 end-0 p-3" style="z-index: 2000; margin-top: 80px;">
+                    
                                 
                                 @if(session('success'))
-                                    <div id="successToast" class="toast align-items-center text-bg-success border-0 show"
-                                        role="alert" aria-live="assertive" aria-atomic="true">
+                                    <div id="successToast" class="toast align-items-center text-bg-success border-0 show position-fixed top-0 end-0 m-3"
+                                        role="alert" aria-live="assertive" aria-atomic="true" style="z-index: 2000;">
 
                                         <div class="d-flex">
                                             <div class="toast-body">
@@ -61,7 +61,7 @@
                                     </div>
                                 @endif
 
-                            </div>
+                        
                         <div class="d-flex align-items-center justify-content-between gap-3">
 
                             {{-- Left --}}
@@ -86,10 +86,26 @@
                             <div class="d-flex align-items-center gap-3">
 
                                 {{-- Search --}}
-                                <div class="d-none d-md-flex align-items-center admin-search px-3">
+                                {{-- <div class="d-none d-md-flex align-items-center admin-search px-3">
                                     <i class="bi bi-search text-muted me-2"></i>
                                     <input type="text" class="form-control border-0 shadow-none p-0"
                                         placeholder="Search..." id="searchInput">
+                                </div> --}}
+                                <div class="d-none d-md-flex align-items-center admin-search px-3 position-relative">
+                                    <i class="bi bi-search text-muted me-2"></i>
+
+                                    <input type="text"
+                                        class="form-control border-0 shadow-none p-0 pe-4"
+                                        placeholder="Search..."
+                                        id="searchInput">
+
+                                    <!-- CLEAR BUTTON -->
+                                    <button type="button"
+                                        id="clearSearch"
+                                        class="btn btn-sm btn-link text-muted position-absolute end-0 me-2 d-none"
+                                        style="text-decoration: none;">
+                                        <i class="bi bi-x-circle-fill"></i>
+                                    </button>
                                 </div>
 
                                 {{-- Notification --}}
@@ -143,6 +159,65 @@
                     }, 3000);
                 }
             });
+
+            function showToast(message, type = 'success') {
+                const successToast = 'dynamicToast';
+
+                let existing = document.getElementById(successToast);
+                if (existing) existing.remove();
+
+                const toastHtml = `
+                <div id="${successToast}" class="toast align-items-center text-bg-${type} border-0 show position-fixed top-0 end-0 m-3"
+                    style="z-index: 2000;">
+                    <div class="d-flex">
+                        <div class="toast-body">
+                            ${message}
+                        </div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto"
+                            onclick="this.closest('.toast').remove()"></button>
+                    </div>
+                </div>`;
+
+                document.body.insertAdjacentHTML('beforeend', toastHtml);
+
+                setTimeout(() => {
+                    let el = document.getElementById(successToast);
+                    if (el) el.remove();
+                }, 3000);
+            }
+
+            const searchInput = document.getElementById('searchInput');
+            const clearBtn = document.getElementById('clearSearch');
+
+            // show/hide X button
+            if (searchInput) {
+
+                searchInput.addEventListener('input', function () {
+
+                    if (this.value.length > 0) {
+                        clearBtn.classList.remove('d-none');
+                    } else {
+                        clearBtn.classList.add('d-none');
+                    }
+
+                });
+
+            }
+
+            if (clearBtn) {
+
+                    clearBtn.addEventListener('click', function () {
+
+                        searchInput.value = '';
+                        clearBtn.classList.add('d-none');
+
+                        if (typeof fetchData === 'function') {
+                            fetchData(1, '');
+                        }
+
+                    });
+
+                }
         </script>
     </body>
 </html>

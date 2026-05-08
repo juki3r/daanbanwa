@@ -8,6 +8,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OrdinanceController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RequestController;
+use App\Models\Concern;
 use App\Models\Official;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -87,47 +88,67 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::put('/ordinances/{id}', [OrdinanceController::class, 'update'])->name('ordinances.update');
     Route::delete('/ordinances/{id}', [OrdinanceController::class, 'destroy'])->name('ordinances.destroy');
 
-    Route::get('/news', [NewsController::class, 'index'])->name('news.index');
-    Route::post('/news', [NewsController::class, 'store'])->name('news.store');
-    Route::put('/news/{id}', [NewsController::class, 'update'])->name('news.update');
-    Route::delete('/news/{id}', [NewsController::class, 'destroy'])->name('news.destroy');
 
+
+
+    //Requests | Certificates
     Route::get('/requests', [RequestController::class, 'index'])->name('requests.index');
     Route::put('/requests/{id}/status', [RequestController::class, 'updateStatus'])
         ->name('requests.updateStatus');
     Route::post('/requests', [RequestController::class, 'store'])->name('requests.store');
-
+    Route::get('/requests/fetch', [RequestController::class, 'fetch'])
+        ->name('requests.fetch');
     Route::delete('/requests/{id}', [RequestController::class, 'destroy'])
         ->name('requests.destroy');
 
-    Route::get('/concern', [ConcernController::class, 'index'])->name('concern.index');
-    Route::put('/concern/{id}/status', [ConcernController::class, 'updateStatus'])
-        ->name('concern.updateStatus');
-
-    Route::delete('/concern/{id}', [ConcernController::class, 'destroy'])
+    // Concerns
+    Route::get('/concerns', [ConcernController::class, 'index'])->name('concerns.index');
+    Route::put('/concerns/{id}/status', [ConcernController::class, 'updateStatus'])
+        ->name('concerns.updateStatus');
+    Route::get('/concerns/fetch', [ConcernController::class, 'fetchConcern'])
+        ->name('concern.fetch');
+    Route::delete('/concerns/{id}', [ConcernController::class, 'destroy'])
         ->name('concern.destroy');
 
-
-    Route::get('/blotter', [BlotterController::class, 'index'])->name('blotter.index');
+    // Blotters
+    Route::get('/blotters', [BlotterController::class, 'index'])->name('blotters.index');
     Route::put('/blotter/{id}/status', [BlotterController::class, 'updateStatus'])
-        ->name('blotter.updateStatus');
-    Route::delete('/blotter/{id}', [ConcernController::class, 'destroy'])
-        ->name('blotter.destroy');
+        ->name('blotters.updateStatus');
+    Route::get('/blotter/fetch', [BlotterController::class, 'fetch'])
+        ->name('blotters.fetch');
+    Route::delete('/blotters/{id}', [BlotterController::class, 'destroy'])
+        ->name('blotters.destroy');
+    Route::post('/blotter/store', [BlotterController::class, 'store'])
+        ->name('blotters.store');
+
+    // News
+    Route::get('/news', [NewsController::class, 'index'])->name('news.index');
+    Route::post('/news', [NewsController::class, 'store'])->name('news.store');
+    Route::put('/news/{id}', [NewsController::class, 'update'])->name('news.update');
+    Route::delete('/news/{id}', [NewsController::class, 'destroy'])->name('news.destroy');
+    Route::post('/news/store', [NewsController::class, 'store'])
+        ->name('news.store');
+    Route::get('/news/fetch', [NewsController::class, 'fetch'])
+        ->name('news.fetch');
+    Route::delete('/news/{id}', [NewsController::class, 'destroy'])
+        ->name('news.destroy');
 
 
     //admin notifications
     Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
-    Route::post('/notifications/{id}/read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
     Route::post('/notifications/read-all', [NotificationController::class, 'markAllAsRead'])->name('notifications.markAllAsRead');
+    Route::post(
+        '/notifications/read/{id}',
+        [NotificationController::class, 'markAsRead']
+    )->name('notifications.markAsRead');
+
+
 
 
 
 
     Route::get('/residents', [AdminController::class, 'index'])->name('residents.index');
-    Route::get('/concerns', [AdminController::class, 'index'])->name('concerns.index');
-    Route::get('/blotter', [AdminController::class, 'index'])->name('blotters.index');
     Route::get('/users', [AdminController::class, 'index'])->name('users.index');
-    Route::get('/news', [AdminController::class, 'index'])->name('news.index');
 });
 
 

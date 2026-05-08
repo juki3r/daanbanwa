@@ -13,30 +13,30 @@
 
                     @forelse($notifications as $notif)
 
-                        <div class="card shadow-sm border-0 mb-3 notification-card">
+                        <div class="card shadow-sm border-0 mb-2 notification-card">
 
-                            <div class="card-body">
+                            <div class="card-body p-3">
 
-                                <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
+                                <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
 
                                     {{-- LEFT CONTENT --}}
                                     <div class="flex-grow-1">
 
                                         {{-- HEADER --}}
-                                        <div class="d-flex align-items-center gap-2 mb-2 flex-wrap">
+                                        <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
 
                                             @if($notif['type'] === 'request')
-                                                <span class="badge rounded-pill bg-primary px-3 py-2">
+                                                <span class="badge rounded-pill bg-primary px-2 py-1 small">
                                                     REQUEST
                                                 </span>
 
                                             @elseif($notif['type'] === 'concern')
-                                                <span class="badge rounded-pill bg-warning text-dark px-3 py-2">
+                                                <span class="badge rounded-pill bg-warning text-dark px-2 py-1 small">
                                                     CONCERN
                                                 </span>
 
                                             @elseif($notif['type'] === 'blotter')
-                                                <span class="badge rounded-pill bg-danger px-3 py-2">
+                                                <span class="badge rounded-pill bg-danger px-2 py-1 small">
                                                     BLOTTER
                                                 </span>
                                             @endif
@@ -48,27 +48,27 @@
                                         </div>
 
                                         {{-- USER --}}
-                                        <h5 class="fw-bold mb-1">
+                                        <div class="fw-bold text-dark small">
                                             {{ $notif['user'] ?? 'Unknown User' }}
-                                        </h5>
+                                        </div>
 
                                         {{-- TITLE --}}
-                                        <div class="fs-5 fw-semibold text-dark">
+                                        <div class="fw-semibold text-dark">
                                             {{ $notif['title'] }}
                                         </div>
 
                                         {{-- SUBTITLE --}}
-                                        <div class="text-muted mt-1 mb-3">
+                                        <div class="text-muted small mb-2">
                                             {{ $notif['subtitle'] }}
                                         </div>
 
                                         {{-- DETAILS --}}
-                                        <div class="row g-3">
+                                        <div class="row g-2">
 
                                             <div class="col-md-4">
-                                                <div class="detail-box">
+                                                <div class="detail-box small">
                                                     <small class="text-muted d-block">
-                                                        Notification ID
+                                                        ID
                                                     </small>
 
                                                     <strong>
@@ -78,7 +78,7 @@
                                             </div>
 
                                             <div class="col-md-4">
-                                                <div class="detail-box">
+                                                <div class="detail-box small">
                                                     <small class="text-muted d-block">
                                                         Category
                                                     </small>
@@ -90,9 +90,9 @@
                                             </div>
 
                                             <div class="col-md-4">
-                                                <div class="detail-box">
+                                                <div class="detail-box small">
                                                     <small class="text-muted d-block">
-                                                        Created Date
+                                                        Date
                                                     </small>
 
                                                     <strong>
@@ -109,13 +109,12 @@
                                     <div>
 
                                         <form method="POST"
-                                            action="{{ route('notifications.markAsRead', [$notif['type'], $notif['id']]) }}">
+                                            action="{{ route('notifications.markAsRead', $notif['id']) }}">
                                             @csrf
 
-                                            <button class="btn btn-success rounded-pill px-4 py-2">
-                                                Mark Read
+                                            <button class="btn btn-success btn-sm rounded-pill px-3">
+                                                Read
                                             </button>
-
                                         </form>
 
                                     </div>

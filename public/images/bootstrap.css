@@ -35,7 +35,7 @@ body {
 }
 
 .admin-search input {
-    background: transparent;
+    background: transparent !important;
     font-size: 14px;
 }
 
@@ -142,28 +142,27 @@ main::-webkit-scrollbar-thumb {
 
 
 
-.notification-card{
-    border-radius: 18px;
-    transition: all 0.2s ease;
-    overflow: hidden;
-}
-
 .notification-card:hover{
-    transform: translateY(-3px);
+    transform: translateY(-2px);
+    background: #f8fbff;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
 }
 
 .detail-box{
     background: #f8f9fa;
-    border-radius: 14px;
-    padding: 14px;
-    height: 100%;
+    border-radius: 10px;
+    padding: 10px;
+    transition: 0.2s ease;
+}
+
+.notification-card:hover .detail-box{
+    background: #8faee8;
 }
 
 .badge{
-    font-size: 11px;
-    letter-spacing: 0.5px;
+    font-size: 10px;
+    letter-spacing: .5px;
 }
-
 
 
 

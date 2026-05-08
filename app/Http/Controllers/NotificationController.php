@@ -89,13 +89,29 @@ class NotificationController extends Controller
     // Mark single as read then redirect back
     public function markAsRead($id)
     {
-        $request = BarangayRequest::findOrFail($id);
+        // find which table it belongs to
+        $request = BarangayRequest::find($id);
 
-        $request->update([
-            'admin_read' => true,
-        ]);
+        if ($request) {
+            $request->update(['admin_read' => true]);
+            return redirect()->back()->with('success', 'Notification marked as read');
+        }
 
-        return redirect()->back()->with('success', 'Marked as read');
+        $concern = Concern::find($id);
+
+        if ($concern) {
+            $concern->update(['admin_read' => true]);
+            return redirect()->back()->with('success', 'Notification marked as read');
+        }
+
+        $blotter = Blotter::find($id);
+
+        if ($blotter) {
+            $blotter->update(['admin_read' => true]);
+            return redirect()->back()->with('success', 'Notification marked as read');
+        }
+
+        return redirect()->back()->with('error', 'Not found');
     }
 
     // Mark all as read then redirect back

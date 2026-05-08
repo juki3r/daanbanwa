@@ -9,11 +9,55 @@ use Illuminate\Support\Facades\Http;
 
 class ConcernController extends Controller
 {
-    public function index()
+    // public function index()
+    // {
+    //     $concerns = Concern::all();
+    //     return view('admin.concern.index', compact('concerns'));
+    // }
+    public function index(Request $request)
     {
-        $concerns = Concern::all();
+        $query = Concern::with('user');
+
+        if ($request->filled('search')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('title', 'like', "%{$request->search}%")
+                    ->orWhere('location', 'like', "%{$request->search}%")
+                    ->orWhere('description', 'like', "%{$request->search}%");
+            });
+        }
+
+        $concerns = $query->latest()->paginate(8);
+
         return view('admin.concern.index', compact('concerns'));
     }
+
+    public function fetchConcern(Request $request)
+    {
+        $query = Concern::query();
+
+        if ($request->search) {
+            $query->where(function ($q) use ($request) {
+                $q->where('title', 'like', "%{$request->search}%")
+                    ->orWhere('location', 'like', "%{$request->search}%")
+                    ->orWhere('description', 'like', "%{$request->search}%");
+            });
+        }
+
+        $concerns = $query->latest()->paginate(8);
+
+
+        return response()->json([
+            'html' => view('admin.concern.partials.rows', compact('concerns'))->render(),
+            'pagination' => (string) $concerns->links(),
+        ]);
+    }
+
+
+
+
+
+
+
 
     public function updateStatus(Request $request, $id)
     {
@@ -33,46 +77,61 @@ class ConcernController extends Controller
         // Get user from request (IMPORTANT FIX)
         $user = User::find($concern->user_id);
 
-        if (!$user) {
-            return back()->with('error', 'User not found');
-        }
+        // if (!$user) {
+        //     return response()->json([
+        //         'success' => false,
+        //         'message' => 'User not found for this concern'
+        //     ]);
+        // }
 
-        if (!$user->fcm_token) {
-            return back()->with('error', 'User has no FCM token registered.');
-        }
+        // if (!$user->fcm_token) {
+        //     return response()->json([
+        //         'success' => false,
+        //         'message' => 'FCM token not found for user'
+        //     ]);
+        // }
 
-        $title = "Concern Update !";
-        $body  = "Your concern is " . $request->status;
+        // $title = "Concern Update !";
+        // $body  = "Your concern is " . $request->status;
 
-        (new \App\Services\FirebaseService)->sendNotification(
-            $user->fcm_token,
-            $title,
-            $body,
-            [
-                'screen' => 'Concerns',
-                'concerns_id' => (string) $concern->id,
-            ]
-        );
+        // (new \App\Services\FirebaseService)->sendNotification(
+        //     $user->fcm_token,
+        //     $title,
+        //     $body,
+        //     [
+        //         'screen' => 'Concerns',
+        //         'concerns_id' => (string) $concern->id,
+        //     ]
+        // );
 
-        //  SEND SMS
-        try {
-            Http::withHeaders([
-                'X-API-KEY' => env('SMS_API_KEY')
-            ])->post('https://carlesppo.com/api/send-sms-api', [
-                'phone_number' => $user->phone,
-                'message' => "[Daan Banwa ALERT]\n$title\n$body"
-            ]);
-        } catch (\Exception $e) {
-            \Log::error('SMS failed: ' . $e->getMessage());
-        }
+        // //  SEND SMS
+        // try {
+        //     Http::withHeaders([
+        //         'X-API-KEY' => env('SMS_API_KEY')
+        //     ])->post('https://carlesppo.com/api/send-sms-api', [
+        //         'phone_number' => $user->phone,
+        //         'message' => "[Daan Banwa ALERT]\n$title\n$body"
+        //     ]);
+        // } catch (\Exception $e) {
+        //     \Log::error('SMS failed: ' . $e->getMessage());
+        // }
 
-        return back()->with('success', 'Status updated successfully');
+        return response()->json([
+            'success' => true,
+            'status' => $request->status,
+            'message' => 'Concern status updated successfully'
+        ]);
     }
 
+    //Delete Concern
     public function destroy($id)
     {
-        Concern::findOrFail($id)->delete();
+        $request = Concern::findOrFail($id);
+        $request->delete();
 
-        return back()->with('success', 'Request deleted successfully');
+        return response()->json([
+            'success' => true,
+            'message' => 'Concern deleted successfully'
+        ]);
     }
 }

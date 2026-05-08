@@ -12,10 +12,39 @@ use Log;
 
 class NewsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $news = \App\Models\News::latest()->get();
+        $query = News::query();
+
+        if ($request->filled('search')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('title', 'like', "%{$request->search}%")
+                    ->orWhere('content', 'like', "%{$request->search}%");
+            });
+        }
+
+        $news = $query->latest()->paginate(7);
+
         return view('admin.news.index', compact('news'));
+    }
+
+    public function fetch(Request $request)
+    {
+        $query = News::query();
+
+        if ($request->search) {
+            $query->where(function ($q) use ($request) {
+                $q->where('title', 'like', "%{$request->search}%")
+                    ->orWhere('content', 'like', "%{$request->search}%");
+            });
+        }
+
+        $news = $query->latest()->paginate(7);
+
+        return response()->json([
+            'html' => view('admin.news.partials.rows', compact('news'))->render(),
+            'pagination' => (string) $news->links(),
+        ]);
     }
 
     public function store(Request $request)
@@ -34,17 +63,7 @@ class NewsController extends Controller
         // save news
         $news = \App\Models\News::create($validatedData);
 
-        // // get all user tokens
-        // $tokens = \App\Models\User::whereNotNull('fcm_token')->pluck('fcm_token')->toArray();
 
-        // // send notification to all
-        // foreach ($tokens as $token) {
-        //     (new \App\Services\FirebaseService)->sendNotification(
-        //         $token,
-        //         $news->title,
-        //         \Illuminate\Support\Str::limit($news->content, 160)
-        //     );
-        // }
         $tokens = \App\Models\User::whereNotNull('fcm_token')
             ->pluck('fcm_token')
             ->toArray();
@@ -100,8 +119,13 @@ class NewsController extends Controller
     public function destroy($id)
     {
         $news = \App\Models\News::findOrFail($id);
+
         $news->delete();
-        return redirect()->route('news.index')->with('success', 'News item deleted successfully.');
+
+        return response()->json([
+            'success' => true,
+            'message' => 'News item deleted successfully.'
+        ]);
     }
 
     public function sendToAll()

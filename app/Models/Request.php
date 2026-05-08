@@ -17,6 +17,7 @@ class Request extends Model
         'company_name',
         'business_nature',
         'status',
+        'admin_read',
     ];
 
     public function user()

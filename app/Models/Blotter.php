@@ -15,6 +15,7 @@ class Blotter extends Model
         'statement',
         'status',
         'case_number',
+        'admin_read',
     ];
 
     public function user()

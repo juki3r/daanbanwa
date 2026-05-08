@@ -17,6 +17,7 @@ class Concern extends Model
         'status',
         'progress',
         'admin_reply',
+        'admin_read',
     ];
 
     public function user()

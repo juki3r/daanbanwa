@@ -33,19 +33,21 @@ class ConcernController extends Controller
 
     public function fetch(Request $request)
     {
-        $query = Concern::query();
+        $query = Concern::with('user');
 
         if ($request->search) {
             $query->where(function ($q) use ($request) {
                 $q->where('title', 'like', "%{$request->search}%")
-                    ->orWhere('submitted_by', 'like', "%{$request->search}%")
                     ->orWhere('location', 'like', "%{$request->search}%")
-                    ->orWhere('description', 'like', "%{$request->search}%");
+                    ->orWhere('description', 'like', "%{$request->search}%")
+                    ->orWhereHas('user', function ($userQuery) use ($request) {
+                        $userQuery->where('first_name', 'like', "%{$request->search}%")
+                            ->orWhere('last_name', 'like', "%{$request->search}%");
+                    });
             });
         }
 
         $concerns = $query->latest()->paginate(8);
-
 
         return response()->json([
             'html' => view('admin.concern.partials.rows', compact('concerns'))->render(),

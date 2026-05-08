@@ -122,4 +122,13 @@ class NotificationController extends Controller
 
         return redirect()->back()->with('success', 'All notifications marked as read');
     }
+
+    public function counts()
+    {
+        return response()->json([
+            'certCount' => BarangayRequest::where('admin_read', false)->count(),
+            'concernCount' => Concern::where('admin_read', false)->count(),
+            'blotterCount' => Blotter::where('admin_read', false)->count(),
+        ]);
+    }
 }

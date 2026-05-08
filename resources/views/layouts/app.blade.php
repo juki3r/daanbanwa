@@ -222,6 +222,25 @@
                     });
 
                 }
+
+                function updateCounts() {
+                    fetch('/admin/notifications/counts')
+                        .then(res => res.json())
+                        .then(data => {
+
+                            const cert = document.getElementById('certCountBadge');
+                            const concern = document.getElementById('concernCountBadge');
+                            const blotter = document.getElementById('blotterCountBadge');
+
+                            if (cert) cert.innerText = data.certCount;
+                            if (concern) concern.innerText = data.concernCount;
+                            if (blotter) blotter.innerText = data.blotterCount;
+
+                        });
+                }
+
+                // run every 5 seconds
+                setInterval(updateCounts, 5000);
         </script>
     </body>
 </html>

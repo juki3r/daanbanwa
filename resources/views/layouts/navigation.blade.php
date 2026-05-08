@@ -33,9 +33,9 @@
                 <span class="nav-icon-wrapper">
                     <i class="bi bi-file-earmark-text-fill"></i>
 
-                    @if($certCount > 0)
-                        <span class="nav-badge">{{ $certCount }}</span>
-                    @endif
+                    <span id="certCountBadge" class="nav-badge">
+                        {{ $certCount }}
+                    </span>
                 </span>
 
                 <span>Certificates</span>
@@ -45,9 +45,9 @@
         class="nav-link d-flex align-items-center gap-2 {{ request()->routeIs('concerns.*') ? 'active-nav' : 'text-dark' }}">
             <span class="nav-icon-wrapper">
                 <i class="bi bi-chat-dots-fill"></i>
-                @if($concernCount > 0)
-                    <span class="nav-badge">{{ $concernCount }}</span>
-                @endif
+                <span id="concernCountBadge" class="nav-badge">
+                    {{ $concernCount }}
+                </span>
             </span>
             <span>Concerns</span>
         </a>
@@ -56,9 +56,9 @@
         class="nav-link d-flex align-items-center gap-2 {{ request()->routeIs('blotters.*') ? 'active-nav' : 'text-dark' }}">
             <span class="nav-icon-wrapper">
                 <i class="bi bi-journal-text"></i>
-                @if($blotterCount > 0)
-                    <span class="nav-badge">{{ $blotterCount }}</span>
-                @endif
+                <span id="blotterCountBadge" class="nav-badge">
+                    {{ $blotterCount }}
+                </span>
             </span>
             <span>Blotters</span>
         </a>

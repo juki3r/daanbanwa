@@ -142,6 +142,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
         [NotificationController::class, 'markAsRead']
     )->name('notifications.markAsRead');
 
+    Route::get('/admin/notifications/counts', [NotificationController::class, 'counts']);
+
 
 
 

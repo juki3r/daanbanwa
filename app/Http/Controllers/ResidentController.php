@@ -25,7 +25,7 @@ class ResidentController extends Controller
         // 📊 FIXED ALPHABETICAL SORT (IMPORTANT)
         $residents = $query->orderByRaw('LOWER(TRIM(last_name)) ASC')
             ->orderByRaw('LOWER(TRIM(first_name)) ASC')
-            ->paginate(7)
+            ->paginate(9)
             ->withQueryString();
 
         return view('admin.residents.index', compact('residents'));
@@ -49,7 +49,7 @@ class ResidentController extends Controller
         // 📊 SAME SORT LOGIC (MUST MATCH INDEX)
         $residents = $query->orderByRaw('LOWER(TRIM(last_name)) ASC')
             ->orderByRaw('LOWER(TRIM(first_name)) ASC')
-            ->paginate(7);
+            ->paginate(9);
 
         return response()->json([
             'html' => view('admin.residents.partials.rows', compact('residents'))->render(),

@@ -10,14 +10,6 @@
         <div class="card shadow-sm">
             <div class="card-body">
 
-                <!-- SEARCH -->
-                <div class="mb-3">
-                    <input type="text"
-                        id="searchInput"
-                        class="form-control"
-                        placeholder="Search name or phone...">
-                </div>
-
                 <!-- TABLE -->
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover align-middle" id="usersTable">
@@ -90,7 +82,7 @@
         // ---------------- FETCH DATA ----------------
         function fetchData(page = 1, search = '') {
 
-            fetch(`{{ route('concern.fetch') }}?page=${page}&search=${search}`)
+            fetch(`{{ route('users.fetch') }}?page=${page}&search=${search}`)
                 .then(res => res.json())
                 .then(data => {
 

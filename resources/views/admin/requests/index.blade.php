@@ -9,11 +9,13 @@
         <div class="card shadow-sm">
             <div class="card-body">
 
-                <div class="d-flex justify-content-end align-items-center mb-3">
-                    <button class="btn btn-success"
+                <div class="d-flex justify-content-end align-items-center">
+                    <button class="btn btn-success btn-sm d-flex align-items-center gap-1"
                         data-bs-toggle="modal"
                         data-bs-target="#createRequestModal">
-                        + Create Request
+
+                        <i class="bi bi-plus-circle"></i>
+                        Create Request
                     </button>
                 </div>
 

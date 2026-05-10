@@ -12,8 +12,11 @@
                 <!-- TABLE -->
                 <div class="table-responsive">
                     <div class="d-flex justify-content-end mb-3">
-                        <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addBlotterModal">
-                            + Add Blotter
+                        <button class="btn btn-success d-flex align-items-center gap-2"
+                            data-bs-toggle="modal"
+                            data-bs-target="#addBlotterModal">
+                            <i class="bi bi-journal-plus"></i>
+                            Add Blotter
                         </button>
                     </div>
                     <table class="table table-bordered table-hover align-middle">

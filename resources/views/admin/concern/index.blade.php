@@ -206,6 +206,7 @@
             if (!btn) return;
 
             let id = btn.dataset.id;
+            console.log("DELETE CLICKED");
 
             if (!confirm("Are you sure you want to delete this concern?")) return;
 

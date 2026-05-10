@@ -33,7 +33,7 @@
             <i class="bi bi-pencil-square me-1"></i> Status
         </button>
 
-        <button class="btn btn-sm btn-danger delete-btn" type="button"
+        <button type="button" class="btn btn-sm btn-danger delete-btn"
             data-id="{{ $concern->id }}">
             <i class="bi bi-trash me-1"></i> Delete
         </button>

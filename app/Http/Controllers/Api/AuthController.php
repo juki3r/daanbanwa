@@ -173,7 +173,7 @@ class AuthController extends Controller
 
         if (!$user) {
             return response()->json([
-                'message' => 'Phone number not found'
+                'message' => 'Register to continue'
             ], 404);
         }
 

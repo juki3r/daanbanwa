@@ -384,7 +384,11 @@ document.addEventListener("click", function (e) {
             form.querySelector('input[name="suffix"]').value = resident.suffix ?? '';
 
             form.querySelector('select[name="sex"]').value = resident.sex ?? '';
-            form.querySelector('input[name="birth_date"]').value = resident.birth_date ?? '';
+            // form.querySelector('input[name="birth_date"]').value = resident.birth_date ?? '';
+            setTimeout(() => {
+                const birthInput = form.querySelector('input[name="birth_date"]');
+                if (birthInput) birthInput.value = resident.birth_date ?? '';
+            }, 0);
             form.querySelector('select[name="civil_status"]').value = resident.civil_status ?? '';
 
             form.querySelector('input[name="purok"]').value = resident.purok ?? '';

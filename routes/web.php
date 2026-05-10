@@ -79,7 +79,7 @@ Route::get('/admin/officials', function () {
 
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
-    Route::get('/admin/dashboard', [AdminController::class, 'index'])
+    Route::get('/dashboard', [AdminController::class, 'index'])
         ->name('admin.dashboard');
 
     Route::post('/officials', [AdminController::class, 'store_official'])

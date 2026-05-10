@@ -145,7 +145,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     // Admin route to view all residents
     Route::get('/residents', [ResidentController::class, 'index'])->name('residents.index');
-
+    Route::get('/residents/fetch', [ResidentController::class, 'fetch'])
+        ->name('residents.fetch');
 
 
 

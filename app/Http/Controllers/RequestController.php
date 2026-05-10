@@ -9,12 +9,6 @@ use Illuminate\Support\Facades\Http;
 
 class RequestController extends Controller
 {
-    // public function index()
-    // {
-    //     $requests = BarangayRequest::orderBy('created_at', 'desc')->paginate(6);
-
-    //     return view('admin.requests.index', compact('requests'));
-    // }
 
     public function index(Request $request)
     {

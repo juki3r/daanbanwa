@@ -24,9 +24,9 @@
                         </tbody>
                     </table>
 
-                    {{-- <div id="pagination" class="mt-3">
+                    <div id="pagination" class="mt-3">
                         {{ $residents->links() }}
-                    </div> --}}
+                    </div>
                 </div>
 
             </div>

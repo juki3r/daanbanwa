@@ -60,7 +60,11 @@ class UserController extends Controller
             });
         }
 
-        $users = $query->latest()->paginate(8);
+        // Alphabetical order by last name, then first name
+        $users = $query
+            ->orderBy('last_name', 'asc')
+            ->orderBy('first_name', 'asc')
+            ->paginate(8);
 
         return view('admin.users.index', compact('users'));
     }

@@ -45,21 +45,21 @@
         </span>
     </td>
     {{-- ACTIONS --}}
-    <td>
-        <div class="d-flex gap-2">
+    <div class="d-flex gap-2">
 
-            <button type="button" class="btn btn-sm btn-primary edit-btn"
-                data-id="{{ $resident->id }}">
-                Edit
-            </button>
+    <button type="button" class="btn btn-sm btn-primary edit-btn"
+        data-id="{{ $resident->id }}">
+        <i class="bi bi-pencil-square me-1"></i>
+        Edit
+    </button>
 
-            <button type="button" class="btn btn-sm btn-danger delete-btn"
-                data-id="{{ $resident->id }}">
-                Delete
-            </button>
+    <button type="button" class="btn btn-sm btn-danger delete-btn"
+        data-id="{{ $resident->id }}">
+        <i class="bi bi-trash-fill me-1"></i>
+        Delete
+    </button>
 
-        </div>
-    </td>
+</div>
 
 </tr>
 

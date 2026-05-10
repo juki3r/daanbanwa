@@ -34,25 +34,25 @@ Route::get('/dashboard', function () {
 
 
 // Admin route to view all users
-Route::get('/admin/users', function () {
+// Route::get('/admin/users', function () {
 
-    abort_unless(Auth::user()->role === 'admin', 403);
+//     abort_unless(Auth::user()->role === 'admin', 403);
 
-    $query = request('search');
+//     $query = request('search');
 
-    $users = User::where('role', 'resident')
-        ->when($query, function ($q) use ($query) {
-            $q->where(function ($sub) use ($query) {
-                $sub->where('first_name', 'like', "%{$query}%")
-                    ->orWhere('last_name', 'like', "%{$query}%")
-                    ->orWhere('phone', 'like', "%{$query}%");
-            });
-        })
-        ->orderBy('created_at', 'asc')
-        ->get();
+//     $users = User::where('role', 'resident')
+//         ->when($query, function ($q) use ($query) {
+//             $q->where(function ($sub) use ($query) {
+//                 $sub->where('first_name', 'like', "%{$query}%")
+//                     ->orWhere('last_name', 'like', "%{$query}%")
+//                     ->orWhere('phone', 'like', "%{$query}%");
+//             });
+//         })
+//         ->orderBy('created_at', 'asc')
+//         ->get();
 
-    return view('admin.users.index', compact('users', 'query'));
-})->middleware('auth')->name('admin.users');
+//     return view('admin.users.index', compact('users', 'query'));
+// })->middleware('auth')->name('admin.users');
 
 // Admin route to view all officials
 Route::get('/admin/officials', function () {

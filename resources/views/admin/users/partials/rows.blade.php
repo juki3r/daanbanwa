@@ -2,7 +2,7 @@
 
 <tr>
 
-    <td class="text-capitalize">
+    <td class="text-lowercase">
         {{ $user->first_name }} {{ $user->last_name }}
     </td>
 

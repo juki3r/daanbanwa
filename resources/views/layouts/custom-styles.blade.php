@@ -209,6 +209,11 @@ main::-webkit-scrollbar-thumb {
     text-transform: uppercase;
 }
 
+.edit-btn, .delete-btn {
+    position: relative;
+    z-index: 10;
+}
+
 
 
 

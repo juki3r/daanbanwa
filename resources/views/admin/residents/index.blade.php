@@ -316,51 +316,27 @@ document.querySelector('input[name="birth_date"]').addEventListener('change', fu
     console.log("Age:", age);
 });
 
-document.addEventListener("click", async function (e) {
-
-    if (e.target.classList.contains("delete-btn")) {
-
-        let id = e.target.dataset.id;
-
-        if (!confirm("Delete this resident?")) return;
-
-        let res = await fetch(`/admin/residents/${id}`, {
-            method: "DELETE",
-            headers: {
-                "X-CSRF-TOKEN": "{{ csrf_token() }}",
-                "Accept": "application/json"
-            }
-        });
-
-        let data = await res.json();
-
-        if (data.success) {
-            e.target.closest("tr").remove();
-        } else {
-            alert("Delete failed");
-        }
-    }
-
-});
-
 document.addEventListener("click", function (e) {
 
-    if (e.target.classList.contains("edit-btn")) {
-
-        let id = e.target.dataset.id;
-
-        fetch(`/admin/residents/${id}`)
-            .then(res => res.json())
-            .then(data => {
-
-                // reuse your existing modal
-                document.getElementById('residentDetails').innerHTML = data.html;
-
-                let modal = new bootstrap.Modal(document.getElementById('residentModal'));
-                modal.show();
-            });
+    // ✅ STOP if clicking buttons
+    if (e.target.closest(".edit-btn") || e.target.closest(".delete-btn")) {
+        return;
     }
 
+    let row = e.target.closest(".resident-row");
+    if (!row) return;
+
+    let id = row.dataset.id;
+
+    fetch(`/admin/residents/${id}`)
+        .then(res => res.json())
+        .then(data => {
+
+            document.getElementById('residentDetails').innerHTML = data.html;
+
+            let modal = new bootstrap.Modal(document.getElementById('residentModal'));
+            modal.show();
+        });
 });
 
 /* ================= INITIAL CHECK ================= */

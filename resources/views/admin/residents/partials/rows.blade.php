@@ -48,17 +48,13 @@
     <td>
         <div class="d-flex gap-2">
 
-            {{-- EDIT --}}
-            <button class="btn btn-sm btn-primary edit-btn"
-                data-id="{{ $resident->id }}"
-                onclick="event.stopPropagation()">
+            <button type="button" class="btn btn-sm btn-primary edit-btn"
+                data-id="{{ $resident->id }}">
                 Edit
             </button>
 
-            {{-- DELETE --}}
-            <button class="btn btn-sm btn-danger delete-btn"
-                data-id="{{ $resident->id }}"
-                onclick="event.stopPropagation()">
+            <button type="button" class="btn btn-sm btn-danger delete-btn"
+                data-id="{{ $resident->id }}">
                 Delete
             </button>
 

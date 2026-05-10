@@ -356,7 +356,7 @@ document.addEventListener("click", function (e) {
 
     let id = btn.dataset.id;
 
-    fetch(`/admin/residents/${id}/edit`)
+    fetch(`/admin/residents/${id}`)
         .then(res => res.json())
         .then(data => {
 

@@ -1,7 +1,14 @@
 @forelse($residents as $resident)
 
 <tr>
-    <td>{{ $resident->first_name }} {{ $resident->last_name }}</td>
+    <td>
+    {{ trim(
+        $resident->first_name . ' ' .
+        ($resident->middle_name ? $resident->middle_name . ' ' : '') .
+        $resident->last_name .
+        ($resident->suffix ? ' ' . $resident->suffix : '')
+    ) }}
+</td>
 </tr>
 
 @empty

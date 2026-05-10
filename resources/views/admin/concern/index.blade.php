@@ -90,7 +90,7 @@
                     document.getElementById('pagination').innerHTML = data.pagination;
 
                     attachPagination();
-                    attachStatusForms();
+                    // attachStatusForms();
 
                 });
 
@@ -197,7 +197,7 @@
 
         // INIT
         attachPagination();
-        attachStatusForms();
+        // attachStatusForms();
 
 
         document.addEventListener("click", async function (e) {
@@ -205,45 +205,43 @@
             const btn = e.target.closest(".delete-btn");
             if (!btn) return;
 
+            let id = btn.dataset.id;
             console.log("DELETE CLICKED");
 
-            // let id = btn.dataset.id;
-            // console.log("DELETE CLICKED");
+            if (!confirm("Are you sure you want to delete this concern?")) return;
 
-            // if (!confirm("Are you sure you want to delete this concern?")) return;
+            try {
+                let res = await fetch(`/admin/concerns/${id}`, {
+                    method: "DELETE",
+                    headers: {
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                        "Accept": "application/json"
+                    }
+                });
 
-            // try {
-            //     let res = await fetch(`/admin/concerns/${id}`, {
-            //         method: "DELETE",
-            //         headers: {
-            //             "X-CSRF-TOKEN": "{{ csrf_token() }}",
-            //             "Accept": "application/json"
-            //         }
-            //     });
+                let data = await res.json();
 
-            //     let data = await res.json();
+                if (data.success) {
 
-            //     if (data.success) {
+                    btn.closest("tr").remove();
 
-            //         btn.closest("tr").remove();
+                    showToast(data.message ?? "Deleted", "success");
 
-            //         showToast(data.message ?? "Deleted", "success");
+                    let currentPage =
+                        new URLSearchParams(window.location.search).get('page') || 1;
 
-            //         let currentPage =
-            //             new URLSearchParams(window.location.search).get('page') || 1;
+                    let search = document.getElementById('searchInput')?.value ?? '';
 
-            //         let search = document.getElementById('searchInput')?.value ?? '';
+                    fetchData(currentPage, search);
 
-            //         fetchData(currentPage, search);
+                } else {
+                    showToast(data.message ?? "Delete failed", "danger");
+                }
 
-            //     } else {
-            //         showToast(data.message ?? "Delete failed", "danger");
-            //     }
-
-            // } catch (err) {
-            //     console.error(err);
-            //     showToast("Something went wrong", "danger");
-            // }
+            } catch (err) {
+                console.error(err);
+                showToast("Something went wrong", "danger");
+            }
         });
     </script>
 

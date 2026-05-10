@@ -97,9 +97,7 @@ class ResidentController extends Controller
 
         $resident->update($request->all());
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Resident updated successfully'
-        ]);
+        return redirect()->route('residents.index')
+            ->with('success', 'Resident updated successfully!');
     }
 }

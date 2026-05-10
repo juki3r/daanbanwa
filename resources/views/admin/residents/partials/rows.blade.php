@@ -48,13 +48,13 @@
     <td>
         <div class="d-flex gap-2">
 
-            <button type="button" class="btn btn-sm btn-primary edit-btn"
+            <button type="button" class="btn btn-sm btn-primary edit-btn d-flex align-items-center"
                 data-id="{{ $resident->id }}">
                 <i class="bi bi-pencil-square me-1"></i>
                 Edit
             </button>
 
-            <button type="button" class="btn btn-sm btn-danger delete-btn"
+            <button type="button" class="btn btn-sm btn-danger delete-btn d-flex align-items-center"
                 data-id="{{ $resident->id }}">
                 <i class="bi bi-trash-fill me-1"></i>
                 Delete

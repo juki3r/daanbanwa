@@ -8,6 +8,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OrdinanceController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RequestController;
+use App\Http\Controllers\ResidentController;
 use App\Models\Concern;
 use App\Models\Official;
 use App\Models\User;
@@ -142,8 +143,14 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
 
 
+    // Admin route to view all residents
+    Route::get('/residents', [ResidentController::class, 'index'])->name('residents.index');
 
-    Route::get('/residents', [AdminController::class, 'index'])->name('residents.index');
+
+
+
+
+
     Route::get('/users', [AdminController::class, 'index'])->name('users.index');
 });
 

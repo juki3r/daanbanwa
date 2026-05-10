@@ -217,19 +217,22 @@
     attachPagination();
 
     // ================= OPEN MODAL =================
-    document.addEventListener("click", function (e) {
+        document.addEventListener("click", function (e) {
+            const btn = e.target.closest(".open-status");
+            if (!btn) return;
 
-        const btn = e.target.closest(".open-status");
-        if (!btn) return;
+            // Set request ID
+            document.getElementById("requestId").value = btn.dataset.id;
 
-        document.getElementById("requestId").value = btn.dataset.id;
-        document.getElementById("statusSelect").value = btn.dataset.status;
+            // Always default to the first option ("Approved")
+            const statusSelect = document.getElementById("statusSelect");
+            statusSelect.selectedIndex = 0;
 
-        bootstrap.Modal.getOrCreateInstance(
-            document.getElementById("statusModal")
-        ).show();
-
-    });
+            // Show modal
+            bootstrap.Modal.getOrCreateInstance(
+                document.getElementById("statusModal")
+            ).show();
+        });
 
     // ================= UPDATE STATUS =================
     document.getElementById("statusForm").addEventListener("submit", async function (e) {

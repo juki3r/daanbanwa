@@ -205,43 +205,45 @@
             const btn = e.target.closest(".delete-btn");
             if (!btn) return;
 
-            let id = btn.dataset.id;
             console.log("DELETE CLICKED");
 
-            if (!confirm("Are you sure you want to delete this concern?")) return;
+            // let id = btn.dataset.id;
+            // console.log("DELETE CLICKED");
 
-            try {
-                let res = await fetch(`/admin/concerns/${id}`, {
-                    method: "DELETE",
-                    headers: {
-                        "X-CSRF-TOKEN": "{{ csrf_token() }}",
-                        "Accept": "application/json"
-                    }
-                });
+            // if (!confirm("Are you sure you want to delete this concern?")) return;
 
-                let data = await res.json();
+            // try {
+            //     let res = await fetch(`/admin/concerns/${id}`, {
+            //         method: "DELETE",
+            //         headers: {
+            //             "X-CSRF-TOKEN": "{{ csrf_token() }}",
+            //             "Accept": "application/json"
+            //         }
+            //     });
 
-                if (data.success) {
+            //     let data = await res.json();
 
-                    btn.closest("tr").remove();
+            //     if (data.success) {
 
-                    showToast(data.message ?? "Deleted", "success");
+            //         btn.closest("tr").remove();
 
-                    let currentPage =
-                        new URLSearchParams(window.location.search).get('page') || 1;
+            //         showToast(data.message ?? "Deleted", "success");
 
-                    let search = document.getElementById('searchInput')?.value ?? '';
+            //         let currentPage =
+            //             new URLSearchParams(window.location.search).get('page') || 1;
 
-                    fetchData(currentPage, search);
+            //         let search = document.getElementById('searchInput')?.value ?? '';
 
-                } else {
-                    showToast(data.message ?? "Delete failed", "danger");
-                }
+            //         fetchData(currentPage, search);
 
-            } catch (err) {
-                console.error(err);
-                showToast("Something went wrong", "danger");
-            }
+            //     } else {
+            //         showToast(data.message ?? "Delete failed", "danger");
+            //     }
+
+            // } catch (err) {
+            //     console.error(err);
+            //     showToast("Something went wrong", "danger");
+            // }
         });
     </script>
 

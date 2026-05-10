@@ -18,7 +18,7 @@ class BlotterSeeder extends Seeder
                 'complainant_name' => 'Complainant ' . $i,
                 'statement' => 'This is a sample blotter statement number ' . $i . '. ' . Str::random(30),
                 'status' => $statuses[array_rand($statuses)],
-                'case_number' => 'CASE-' . str_pad($i, 5, '0', STR_PAD_LEFT),
+                'case_number' => 'BTL-' . str_pad($i, 5, '0', STR_PAD_LEFT),
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);

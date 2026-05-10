@@ -23,7 +23,7 @@
                             </tr>
                         </thead>
 
-                        <tbody>
+                        <tbody  id="tableBody">
                             @include('admin.users.partials.rows')
                         </tbody>
 

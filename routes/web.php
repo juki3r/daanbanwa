@@ -151,6 +151,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/residents/create', [ResidentController::class, 'create'])->name('residents.create');
     Route::post('/residents', [ResidentController::class, 'store'])->name('residents.store');
     Route::delete('/residents/{id}', [ResidentController::class, 'destroy']);
+    Route::put('/residents/{id}', [ResidentController::class, 'update'])
+        ->name('residents.update');
 
 
 

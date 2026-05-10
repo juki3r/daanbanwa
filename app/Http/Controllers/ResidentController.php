@@ -84,4 +84,22 @@ class ResidentController extends Controller
             'message' => 'Resident deleted successfully'
         ]);
     }
+
+    public function update(Request $request, $id)
+    {
+        $resident = Resident::findOrFail($id);
+
+        $resident->update($request->all());
+
+        return redirect()->back()->with('success', 'Resident updated successfully');
+    }
+
+    public function edit($id)
+    {
+        $resident = Resident::findOrFail($id);
+
+        return response()->json([
+            'html' => view('admin.residents.partials.edit', compact('resident'))->render()
+        ]);
+    }
 }

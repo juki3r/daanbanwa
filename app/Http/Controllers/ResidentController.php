@@ -91,15 +91,9 @@ class ResidentController extends Controller
 
         $resident->update($request->all());
 
-        return redirect()->back()->with('success', 'Resident updated successfully');
-    }
-
-    public function edit($id)
-    {
-        $resident = Resident::findOrFail($id);
-
         return response()->json([
-            'html' => view('admin.residents.partials.edit', compact('resident'))->render()
+            'success' => true,
+            'message' => 'Resident updated successfully'
         ]);
     }
 }

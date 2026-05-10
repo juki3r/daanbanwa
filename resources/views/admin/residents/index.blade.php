@@ -71,7 +71,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
 
-                <form method="POST" action="{{ route('residents.store') }}">
+                <form method="POST" id="residentForm" action="{{ route('residents.store') }}">
                     @csrf
 
                     <div class="modal-header">
@@ -82,6 +82,7 @@
                     <div class="modal-body">
 
                         <div class="row">
+                            <input type="hidden" name="id" id="resident_id">
 
                             {{-- FIRST NAME --}}
                             <div class="col-md-4">
@@ -358,13 +359,46 @@ document.addEventListener("click", function (e) {
 
     fetch(`/admin/residents/${id}`)
         .then(res => res.json())
-        .then(data => {
+        .then(resident => {
 
-            document.getElementById('residentDetails').innerHTML = data.html;
+            // OPEN MODAL
+            let modal = new bootstrap.Modal(document.getElementById('addResidentModal'));
+            modal.show();
 
-            new bootstrap.Modal(document.getElementById('residentModal')).show();
+            // CHANGE FORM TO UPDATE MODE
+            document.getElementById('residentForm').action = `/admin/residents/${id}`;
+            document.getElementById('residentForm').insertAdjacentHTML(
+                'beforeend',
+                '<input type="hidden" name="_method" value="PUT">'
+            );
+
+            // FILL FIELDS
+            document.querySelector('input[name="first_name"]').value = resident.first_name;
+            document.querySelector('input[name="middle_name"]').value = resident.middle_name ?? '';
+            document.querySelector('input[name="last_name"]').value = resident.last_name;
+            document.querySelector('input[name="suffix"]').value = resident.suffix ?? '';
+            document.querySelector('select[name="sex"]').value = resident.sex;
+            document.querySelector('input[name="birth_date"]').value = resident.birth_date;
+            document.querySelector('select[name="civil_status"]').value = resident.civil_status;
+            document.querySelector('input[name="purok"]').value = resident.purok;
+            document.querySelector('input[name="house_number"]').value = resident.house_number;
+            document.querySelector('input[name="street"]').value = resident.street ?? '';
+            document.querySelector('input[name="household_name"]').value = resident.household_name;
+            document.querySelector('select[name="relationship_to_head"]').value = resident.relationship_to_head;
+
         });
 
+});
+
+document.getElementById('addResidentModal').addEventListener('hidden.bs.modal', function () {
+
+    document.getElementById('residentForm').reset();
+
+    document.getElementById('residentForm').action = "{{ route('residents.store') }}";
+
+    // remove PUT method if exists
+    let method = document.querySelector('input[name="_method"]');
+    if (method) method.remove();
 });
 
 

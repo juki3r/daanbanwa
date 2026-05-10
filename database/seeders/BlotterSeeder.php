@@ -14,7 +14,7 @@ class BlotterSeeder extends Seeder
 
         for ($i = 1; $i <= 40; $i++) {
             DB::table('blotters')->insert([
-                'user_id' => 1, // change if needed
+                'user_id' => 9, // change if needed
                 'complainant_name' => 'Complainant ' . $i,
                 'statement' => 'This is a sample blotter statement number ' . $i . '. ' . Str::random(30),
                 'status' => $statuses[array_rand($statuses)],

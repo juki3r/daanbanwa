@@ -26,11 +26,11 @@ Route::get('/dashboard', function () {
         : view('dashboard');
 })->middleware('auth')->name('dashboard');
 
-Route::get('/admin/dashboard', function () {
-    abort_unless(Auth::user()->role === 'admin', 403);
+// Route::get('/admin/dashboard', function () {
+//     abort_unless(Auth::user()->role === 'admin', 403);
 
-    return view('admin.dashboard');
-})->middleware('auth')->name('admin.dashboard');
+//     return view('admin.dashboard');
+// })->middleware('auth')->name('admin.dashboard');
 
 
 // Admin route to view all users
@@ -79,7 +79,8 @@ Route::get('/admin/officials', function () {
 
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
-
+    Route::get('/admin/dashboard', [AdminController::class, 'index'])
+        ->name('admin.dashboard');
 
     Route::post('/officials', [AdminController::class, 'store_official'])
         ->name('officials.store');

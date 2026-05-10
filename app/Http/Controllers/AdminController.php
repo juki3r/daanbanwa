@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Notification;
 use App\Models\Official;
+use App\Models\Resident;
 use App\Models\User;
 use App\Services\FirebaseService;
 use Illuminate\Http\Request;
@@ -11,6 +12,43 @@ use Illuminate\Support\Facades\Http;
 
 class AdminController extends Controller
 {
+
+    public function index()
+    {
+        $totalResidents = Resident::count();
+
+        $male = Resident::where('sex', 'Male')->count();
+        $female = Resident::where('sex', 'Female')->count();
+
+        $households = Resident::distinct('household_name')->count('household_name');
+
+        $recentResidents = Resident::latest()->take(5)->get();
+
+        // AGE GROUPS
+        $ageData = [
+            Resident::whereRaw('TIMESTAMPDIFF(YEAR,birth_date,CURDATE()) BETWEEN 0 AND 17')->count(),
+            Resident::whereRaw('TIMESTAMPDIFF(YEAR,birth_date,CURDATE()) BETWEEN 18 AND 59')->count(),
+            Resident::whereRaw('TIMESTAMPDIFF(YEAR,birth_date,CURDATE()) >= 60')->count(),
+        ];
+
+        // CIVIL STATUS
+        $civilData = [
+            Resident::where('civil_status', 'Single')->count(),
+            Resident::where('civil_status', 'Married')->count(),
+            Resident::where('civil_status', 'Widow')->count(),
+            Resident::where('civil_status', 'Separated')->count(),
+        ];
+
+        return view('admin.dashboard', compact(
+            'totalResidents',
+            'male',
+            'female',
+            'households',
+            'recentResidents',
+            'ageData',
+            'civilData'
+        ));
+    }
 
     // public function sendToOne($id)
     // {

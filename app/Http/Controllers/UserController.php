@@ -35,18 +35,28 @@ class UserController extends Controller
 
 
 
+    // Controller
     public function index(Request $request)
     {
-        $query = User::where('role', 'resident')->latest();
+        $query = User::where('role', 'resident');
 
         if ($request->filled('search')) {
-            $query->where(function ($q) use ($request) {
-                $q->where('phone', 'like', "%{$request->search}%")
-                    ->orWhere('email', 'like', "%{$request->search}%")
-                    ->orWhereHas('user', function ($userQuery) use ($request) {
-                        $userQuery->where('first_name', 'like', "%{$request->search}%")
-                            ->orWhere('last_name', 'like', "%{$request->search}%");
-                    });
+            $search = $request->search;
+
+            $query->where(function ($q) use ($search) {
+                $q->where('phone', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%")
+                    ->orWhere('first_name', 'like', "%{$search}%")
+                    ->orWhere('middle_name', 'like', "%{$search}%")
+                    ->orWhere('last_name', 'like', "%{$search}%")
+                    ->orWhereRaw(
+                        "CONCAT(first_name, ' ', last_name) LIKE ?",
+                        ["%{$search}%"]
+                    )
+                    ->orWhereRaw(
+                        "CONCAT(first_name, ' ', middle_name, ' ', last_name) LIKE ?",
+                        ["%{$search}%"]
+                    );
             });
         }
 
@@ -57,16 +67,25 @@ class UserController extends Controller
 
     public function fetch(Request $request)
     {
-        $query = User::where('role', 'resident')->latest();
+        $query = User::where('role', 'resident');
 
-        if ($request->search) {
-            $query->where(function ($q) use ($request) {
-                $q->where('phone', 'like', "%{$request->search}%")
-                    ->orWhere('email', 'like', "%{$request->search}%")
-                    ->orWhereHas('user', function ($userQuery) use ($request) {
-                        $userQuery->where('first_name', 'like', "%{$request->search}%")
-                            ->orWhere('last_name', 'like', "%{$request->search}%");
-                    });
+        if ($request->filled('search')) {
+            $search = $request->search;
+
+            $query->where(function ($q) use ($search) {
+                $q->where('phone', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%")
+                    ->orWhere('first_name', 'like', "%{$search}%")
+                    ->orWhere('middle_name', 'like', "%{$search}%")
+                    ->orWhere('last_name', 'like', "%{$search}%")
+                    ->orWhereRaw(
+                        "CONCAT(first_name, ' ', last_name) LIKE ?",
+                        ["%{$search}%"]
+                    )
+                    ->orWhereRaw(
+                        "CONCAT(first_name, ' ', middle_name, ' ', last_name) LIKE ?",
+                        ["%{$search}%"]
+                    );
             });
         }
 

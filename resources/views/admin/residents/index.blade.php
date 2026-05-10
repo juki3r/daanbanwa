@@ -16,6 +16,15 @@
                         <thead class="table-dark">
                             <tr>
                                 <th>Name</th>
+                                <th>Purok</th>
+                                <th>Household</th>
+                                <th>Sex</th>
+                                <th>Birth Date</th>
+                                <th>Age</th>
+                                <th>Civil Status</th>
+                                <th>Voter</th>
+                                <th>PWD</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
 

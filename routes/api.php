@@ -25,6 +25,7 @@ Route::post('/send-forgot-otp', [AuthController::class, 'sendForgotOtp']);
 Route::post('/verify-reset-otp', [AuthController::class, 'verifyResetOtp']);
 Route::post('/reset-password', [AuthController::class, 'resetPassword']);
 Route::post('/save-fcm-token', [AuthController::class, 'saveFcmToken']);
+Route::post('/send-otp', [AuthController::class, 'sendOtp']);
 
 Route::middleware('auth:sanctum')->group(function () {
 

@@ -246,24 +246,7 @@ function attachPagination() {
     });
 }
 
-document.addEventListener("click", function (e) {
 
-    let row = e.target.closest(".resident-row");
-
-    if (!row) return;
-
-    let id = row.dataset.id;
-
-    fetch(`/admin/residents/${id}`)
-        .then(res => res.json())
-        .then(data => {
-
-            document.getElementById('residentDetails').innerHTML = data.html;
-
-            let modal = new bootstrap.Modal(document.getElementById('residentModal'));
-            modal.show();
-        });
-});
 
 const form = document.querySelector('#addResidentModal form');
 const submitBtn = document.getElementById('submitBtn');
@@ -316,9 +299,10 @@ document.querySelector('input[name="birth_date"]').addEventListener('change', fu
     console.log("Age:", age);
 });
 
+
+/* ================= ROW CLICK (CLEAN FIX) ================= */
 document.addEventListener("click", function (e) {
 
-    // ✅ STOP if clicking buttons
     if (e.target.closest(".edit-btn") || e.target.closest(".delete-btn")) {
         return;
     }
@@ -334,10 +318,55 @@ document.addEventListener("click", function (e) {
 
             document.getElementById('residentDetails').innerHTML = data.html;
 
-            let modal = new bootstrap.Modal(document.getElementById('residentModal'));
-            modal.show();
+            new bootstrap.Modal(document.getElementById('residentModal')).show();
         });
 });
+
+/* ================= DELETE ================= */
+document.addEventListener("click", function (e) {
+
+    let btn = e.target.closest(".delete-btn");
+    if (!btn) return;
+
+    let id = btn.dataset.id;
+
+    if (!confirm("Delete this resident?")) return;
+
+    fetch(`/admin/residents/${id}`, {
+        method: "DELETE",
+        headers: {
+            "X-CSRF-TOKEN": "{{ csrf_token() }}",
+            "Accept": "application/json"
+        }
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            btn.closest("tr").remove();
+        }
+    });
+
+});
+
+/* ================= EDIT ================= */
+document.addEventListener("click", function (e) {
+
+    let btn = e.target.closest(".edit-btn");
+    if (!btn) return;
+
+    let id = btn.dataset.id;
+
+    fetch(`/admin/residents/${id}`)
+        .then(res => res.json())
+        .then(data => {
+
+            document.getElementById('residentDetails').innerHTML = data.html;
+
+            new bootstrap.Modal(document.getElementById('residentModal')).show();
+        });
+
+});
+
 
 /* ================= INITIAL CHECK ================= */
 validateForm();

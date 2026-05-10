@@ -65,4 +65,12 @@ class ResidentController extends Controller
             'html' => view('admin.residents.partials.show', compact('resident'))->render()
         ]);
     }
+
+    public function store(Request $request)
+    {
+        Resident::create($request->all());
+
+        return redirect()->route('residents.index')
+            ->with('success', 'Resident added successfully!');
+    }
 }

@@ -63,6 +63,115 @@
         </div>
     </div>
 
+    {{-- Modal for adding new resident --}}
+    <div class="modal fade" id="addResidentModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <form method="POST" action="{{ route('residents.store') }}">
+                    @csrf
+
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add Resident</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+
+                    <div class="modal-body">
+
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                <label>First Name</label>
+                                <input type="text" name="first_name" class="form-control" required>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label>Middle Name</label>
+                                <input type="text" name="middle_name" class="form-control">
+                            </div>
+
+                            <div class="col-md-4">
+                                <label>Last Name</label>
+                                <input type="text" name="last_name" class="form-control" required>
+                            </div>
+
+                            <div class="col-md-3 mt-2">
+                                <label>Suffix</label>
+                                <input type="text" name="suffix" class="form-control">
+                            </div>
+
+                            <div class="col-md-3 mt-2">
+                                <label>Sex</label>
+                                <select name="sex" class="form-control">
+                                    <option>Male</option>
+                                    <option>Female</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-3 mt-2">
+                                <label>Birth Date</label>
+                                <input type="date" name="birth_date" class="form-control">
+                            </div>
+
+                            <div class="col-md-3 mt-2">
+                                <label>Civil Status</label>
+                                <select name="civil_status" class="form-control">
+                                    <option>Single</option>
+                                    <option>Married</option>
+                                    <option>Widow</option>
+                                    <option>Separated</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-4 mt-2">
+                                <label>Purok</label>
+                                <input type="text" name="purok" class="form-control">
+                            </div>
+
+                            <div class="col-md-4 mt-2">
+                                <label>House Number</label>
+                                <input type="text" name="house_number" class="form-control">
+                            </div>
+
+                            <div class="col-md-4 mt-2">
+                                <label>Street</label>
+                                <input type="text" name="street" class="form-control">
+                            </div>
+
+                            <div class="col-md-6 mt-2">
+                                <label>Household Name</label>
+                                <input type="text" name="household_name" class="form-control">
+                            </div>
+
+                            <div class="col-md-6 mt-2">
+                                <label>Relationship to Head</label>
+                                <select name="relationship_to_head" class="form-control">
+                                    <option>Head</option>
+                                    <option>Spouse</option>
+                                    <option>Child</option>
+                                    <option>Relative</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Cancel
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            Save Resident
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+
     
 
    <script>

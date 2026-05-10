@@ -11,9 +11,12 @@
 
                 <!-- TABLE -->
                 <div class="table-responsive">
-                    <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addResidentModal">
-                        + Add Resident
-                    </button>
+                    <div class="d-flex justify-content-end mb-3">
+                        <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addResidentModal">
+                            <i class="bi bi-person-plus-fill me-1"></i>
+                            Add Resident
+                        </button>
+                    </div>
                     <table class="table table-bordered table-hover align-middle">
                         <thead class="table-dark">
                             <tr>

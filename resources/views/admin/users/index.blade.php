@@ -125,6 +125,8 @@
 
         }
 
+        attachPagination();
+
         // BOOTSTRAP MODAL
         let modal = new bootstrap.Modal(document.getElementById('notifModal'));
 

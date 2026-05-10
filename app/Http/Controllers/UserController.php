@@ -31,4 +31,24 @@ class UserController extends Controller
             'news' => \App\Models\News::latest()->get()
         ]);
     }
+
+
+
+    function index(Request $request)
+    {
+        $query = $request->input('search');
+
+        $users = \App\Models\User::where('role', 'resident')
+            ->when($query, function ($q) use ($query) {
+                $q->where(function ($sub) use ($query) {
+                    $sub->where('first_name', 'like', "%{$query}%")
+                        ->orWhere('last_name', 'like', "%{$query}%")
+                        ->orWhere('phone', 'like', "%{$query}%");
+                });
+            })
+            ->orderBy('created_at', 'asc')
+            ->get();
+
+        return view('admin.users.index', compact('users', 'query'));
+    }
 }

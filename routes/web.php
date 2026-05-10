@@ -9,6 +9,7 @@ use App\Http\Controllers\OrdinanceController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\ResidentController;
+use App\Http\Controllers\UserController;
 use App\Models\Concern;
 use App\Models\Official;
 use App\Models\User;
@@ -156,10 +157,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::put('/residents/{id}', [ResidentController::class, 'update']);
 
 
-
-
-
-    Route::get('/users', [AdminController::class, 'index'])->name('users.index');
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
 });
 
 

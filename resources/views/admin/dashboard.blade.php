@@ -69,7 +69,7 @@
                         Age Distribution
                     </div>
                     <div class="card-body">
-                        <canvas id="ageChart" height="80"></canvas>
+                        <canvas id="ageChart" height="140"></canvas>
                     </div>
                 </div>
             </div>
@@ -80,7 +80,7 @@
                         Civil Status
                     </div>
                     <div class="card-body">
-                        <canvas id="civilChart" height="80"></canvas>
+                        <canvas id="civilChart" height="140"></canvas>
                     </div>
                 </div>
             </div>

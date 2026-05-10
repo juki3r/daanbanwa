@@ -2,14 +2,10 @@
 
 <tr>
     {{-- NAME --}}
-    <td>
-        {{ trim(
-            $resident->first_name . ' ' .
-            ($resident->middle_name ? $resident->middle_name . ' ' : '') .
-            $resident->last_name .
-            ($resident->suffix ? ' ' . $resident->suffix : '')
-        ) }}
-    </td>
+    <td>{{ $resident->last_name }}</td>
+    <td>{{ $resident->first_name }}</td>
+    <td>{{ $resident->middle_name }}</td>
+    <td>{{ $resident->suffix }}</td>
 
     <td>{{ $resident->purok }}</td>
 
@@ -53,7 +49,7 @@
 @empty
 
 <tr>
-    <td colspan="10" class="text-center text-muted py-3">
+    <td colspan="13" class="text-center text-muted py-3">
         No records found
     </td>
 </tr>

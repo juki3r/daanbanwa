@@ -15,7 +15,10 @@
                     <table class="table table-bordered table-hover align-middle">
                         <thead class="table-dark">
                             <tr>
-                                <th>Name</th>
+                                <th>Last Name</th>
+                                <th>First Name</th>
+                                <th>Middle Name</th>
+                                <th>Suffix</th>
                                 <th>Purok</th>
                                 <th>Household</th>
                                 <th>Sex</th>

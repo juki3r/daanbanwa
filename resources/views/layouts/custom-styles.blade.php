@@ -185,6 +185,12 @@ main::-webkit-scrollbar-thumb {
     letter-spacing: .5px;
 }
 
+.delete-btn {
+    position: relative;
+    z-index: 10;
+    pointer-events: auto;
+}
+
 
 
 

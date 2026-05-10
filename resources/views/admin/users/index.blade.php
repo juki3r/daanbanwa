@@ -16,7 +16,6 @@
 
                         <thead class="table-dark">
                             <tr>
-                                <th>#</th>
                                 <th>Name</th>
                                 <th>Phone</th>
                                 <th>Role</th>
@@ -125,7 +124,6 @@
 
         }
 
-        attachPagination();
 
         // BOOTSTRAP MODAL
         let modal = new bootstrap.Modal(document.getElementById('notifModal'));

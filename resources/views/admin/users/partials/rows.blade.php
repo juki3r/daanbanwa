@@ -2,8 +2,6 @@
 
 <tr>
 
-    <td>{{ $loop->iteration }}</td>
-
     <td class="text-capitalize">
         {{ $user->first_name }} {{ $user->last_name }}
     </td>

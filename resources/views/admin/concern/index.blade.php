@@ -179,17 +179,20 @@
 
 
         document.addEventListener("click", function (e) {
-
             const btn = e.target.closest(".open-status");
             if (!btn) return;
 
+            // Set hidden concern ID
             document.getElementById("concernId").value = btn.dataset.id;
-            document.getElementById("statusSelect").value = btn.dataset.status;
 
+            // Always select the first option: "Received"
+            const statusSelect = document.getElementById("statusSelect");
+            statusSelect.selectedIndex = 0;
+
+            // Open modal
             bootstrap.Modal.getOrCreateInstance(
                 document.getElementById("statusModal")
             ).show();
-
         });
 
         // INIT

@@ -364,7 +364,7 @@ document.addEventListener("click", function (e) {
             // open modal
             let modal = new bootstrap.Modal(document.getElementById('addResidentModal'));
             modal.show();
-
+            
             // change form to update mode
             let form = document.getElementById('residentForm');
             form.action = `/admin/residents/${id}`;
@@ -393,19 +393,12 @@ document.addEventListener("click", function (e) {
 
             form.querySelector('input[name="household_name"]').value = resident.household_name ?? '';
             form.querySelector('select[name="relationship_to_head"]').value = resident.relationship_to_head ?? '';
+            validateForm();
+            submitBtn.disabled = false;
+        
         });
 });
 
-// document.getElementById('addResidentModal').addEventListener('hidden.bs.modal', function () {
-
-//     document.getElementById('residentForm').reset();
-
-//     document.getElementById('residentForm').action = "{{ route('residents.store') }}";
-
-//     // remove PUT method if exists
-//     let method = document.querySelector('input[name="_method"]');
-//     if (method) method.remove();
-// });
 document.getElementById('addResidentModal').addEventListener('hidden.bs.modal', function () {
 
     let form = document.getElementById('residentForm');

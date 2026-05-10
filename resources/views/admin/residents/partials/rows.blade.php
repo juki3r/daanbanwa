@@ -34,6 +34,26 @@
             {{ $resident->is_pwd ? 'Yes' : 'No' }}
         </span>
     </td>
+    {{-- ACTIONS --}}
+    <td>
+        <div class="d-flex gap-2">
+
+            {{-- EDIT --}}
+            <button class="btn btn-sm btn-primary edit-btn"
+                data-id="{{ $resident->id }}"
+                onclick="event.stopPropagation()">
+                Edit
+            </button>
+
+            {{-- DELETE --}}
+            <button class="btn btn-sm btn-danger delete-btn"
+                data-id="{{ $resident->id }}"
+                onclick="event.stopPropagation()">
+                Delete
+            </button>
+
+        </div>
+    </td>
 
     {{-- STATUS --}}
     <td>
@@ -49,7 +69,7 @@
 @empty
 
 <tr>
-    <td colspan="13" class="text-center text-muted py-3">
+    <td colspan="14" class="text-center text-muted py-3">
         No records found
     </td>
 </tr>

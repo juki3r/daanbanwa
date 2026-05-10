@@ -30,6 +30,7 @@
                                 <th>Voter</th>
                                 <th>PWD</th>
                                 <th>Status</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
 
@@ -313,6 +314,53 @@ document.querySelector('input[name="birth_date"]').addEventListener('change', fu
     }
 
     console.log("Age:", age);
+});
+
+document.addEventListener("click", async function (e) {
+
+    if (e.target.classList.contains("delete-btn")) {
+
+        let id = e.target.dataset.id;
+
+        if (!confirm("Delete this resident?")) return;
+
+        let res = await fetch(`/admin/residents/${id}`, {
+            method: "DELETE",
+            headers: {
+                "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                "Accept": "application/json"
+            }
+        });
+
+        let data = await res.json();
+
+        if (data.success) {
+            e.target.closest("tr").remove();
+        } else {
+            alert("Delete failed");
+        }
+    }
+
+});
+
+document.addEventListener("click", function (e) {
+
+    if (e.target.classList.contains("edit-btn")) {
+
+        let id = e.target.dataset.id;
+
+        fetch(`/admin/residents/${id}`)
+            .then(res => res.json())
+            .then(data => {
+
+                // reuse your existing modal
+                document.getElementById('residentDetails').innerHTML = data.html;
+
+                let modal = new bootstrap.Modal(document.getElementById('residentModal'));
+                modal.show();
+            });
+    }
+
 });
 
 /* ================= INITIAL CHECK ================= */

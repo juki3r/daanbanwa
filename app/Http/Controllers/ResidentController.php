@@ -73,4 +73,15 @@ class ResidentController extends Controller
         return redirect()->route('residents.index')
             ->with('success', 'Resident added successfully!');
     }
+
+    public function destroy($id)
+    {
+        $resident = Resident::findOrFail($id);
+        $resident->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Resident deleted successfully'
+        ]);
+    }
 }

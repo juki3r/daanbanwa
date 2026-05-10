@@ -11,7 +11,9 @@
 
                 <!-- TABLE -->
                 <div class="table-responsive">
-
+                    <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addResidentModal">
+                        + Add Resident
+                    </button>
                     <table class="table table-bordered table-hover align-middle">
                         <thead class="table-dark">
                             <tr>

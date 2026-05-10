@@ -214,6 +214,10 @@ main::-webkit-scrollbar-thumb {
     z-index: 10;
 }
 
+#f_cap {
+    text-transform: capitalize !important;
+}
+
 
 
 

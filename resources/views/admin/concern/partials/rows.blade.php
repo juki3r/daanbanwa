@@ -27,13 +27,13 @@
     </td>
 
     <td>
-        <button class="btn btn-sm btn-primary open-status"
+        <button class="btn btn-sm btn-primary open-status" type="button"
             data-id="{{ $concern->id }}"
             data-status="{{ $concern->status }}">
             <i class="bi bi-pencil-square me-1"></i> Status
         </button>
 
-        <button class="btn btn-sm btn-danger delete-btn"
+        <button class="btn btn-sm btn-danger delete-btn" type="button"
             data-id="{{ $concern->id }}">
             <i class="bi bi-trash me-1"></i> Delete
         </button>

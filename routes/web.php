@@ -147,6 +147,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/residents', [ResidentController::class, 'index'])->name('residents.index');
     Route::get('/residents/fetch', [ResidentController::class, 'fetch'])
         ->name('residents.fetch');
+    Route::get('/residents/{id}', [ResidentController::class, 'show']);
 
 
 

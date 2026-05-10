@@ -45,6 +45,24 @@
         </div>
     </div>
 
+    {{-- Modal to show resident details --}}
+    <div class="modal fade" id="residentModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Resident Profile</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body" id="residentDetails">
+                    Loading...
+                </div>
+
+            </div>
+        </div>
+    </div>
+
     
 
    <script>
@@ -91,6 +109,25 @@ function attachPagination() {
 
     });
 }
+
+document.addEventListener("click", function (e) {
+
+    let row = e.target.closest(".resident-row");
+
+    if (!row) return;
+
+    let id = row.dataset.id;
+
+    fetch(`/admin/residents/${id}`)
+        .then(res => res.json())
+        .then(data => {
+
+            document.getElementById('residentDetails').innerHTML = data.html;
+
+            let modal = new bootstrap.Modal(document.getElementById('residentModal'));
+            modal.show();
+        });
+});
 
 attachPagination();
 

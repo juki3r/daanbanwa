@@ -1,6 +1,6 @@
 @forelse($residents as $resident)
 
-<tr>
+<tr class="resident-row" data-id="{{ $resident->id }}" style="cursor:pointer;">
     {{-- NAME --}}
     <td>{{ $resident->last_name }}</td>
     <td>{{ $resident->first_name }}</td>

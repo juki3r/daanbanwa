@@ -56,4 +56,13 @@ class ResidentController extends Controller
             'pagination' => (string) $residents->links(),
         ]);
     }
+
+    public function show($id)
+    {
+        $resident = Resident::findOrFail($id);
+
+        return response()->json([
+            'html' => view('admin.residents.partials.show', compact('resident'))->render()
+        ]);
+    }
 }

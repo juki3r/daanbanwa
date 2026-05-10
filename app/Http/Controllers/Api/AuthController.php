@@ -101,7 +101,7 @@ class AuthController extends Controller
         }
 
         return response()->json([
-            'message' => 'OTP sent',
+            'message' => 'OTP sent, please verify to continue',
             'user' => $user,
             'token' => $token,
             'phone_verified' => false,

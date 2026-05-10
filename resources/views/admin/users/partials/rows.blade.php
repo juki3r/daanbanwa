@@ -1,4 +1,4 @@
-@forelse($users as $item)
+@forelse($users as $user)
 
 <tr>
 

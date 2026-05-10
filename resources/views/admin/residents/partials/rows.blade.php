@@ -34,6 +34,16 @@
             {{ $resident->is_pwd ? 'Yes' : 'No' }}
         </span>
     </td>
+    
+    {{-- STATUS --}}
+    <td>
+        <span class="badge
+            @if($resident->resident_status == 'Active') bg-success
+            @elseif($resident->resident_status == 'Moved Out') bg-warning
+            @else bg-danger @endif">
+            {{ $resident->resident_status }}
+        </span>
+    </td>
     {{-- ACTIONS --}}
     <td>
         <div class="d-flex gap-2">
@@ -55,15 +65,6 @@
         </div>
     </td>
 
-    {{-- STATUS --}}
-    <td>
-        <span class="badge
-            @if($resident->resident_status == 'Active') bg-success
-            @elseif($resident->resident_status == 'Moved Out') bg-warning
-            @else bg-danger @endif">
-            {{ $resident->resident_status }}
-        </span>
-    </td>
 </tr>
 
 @empty

@@ -43,7 +43,7 @@ class AuthController extends Controller
         $token = $user->createToken('daanbanwa-mobile')->plainTextToken;
 
         return response()->json([
-            'message' => 'Registered successfully',
+            'message' => 'Registered successfully, login to continue',
             'user' => $user,
             'token' => $token,
         ]);

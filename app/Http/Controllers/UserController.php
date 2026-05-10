@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Official;
 use App\Models\Ordinance;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -34,21 +35,46 @@ class UserController extends Controller
 
 
 
-    function index(Request $request)
+    public function index(Request $request)
     {
-        $query = $request->input('search');
+        $query = User::where('role', 'resident')->latest();
 
-        $users = \App\Models\User::where('role', 'resident')
-            ->when($query, function ($q) use ($query) {
-                $q->where(function ($sub) use ($query) {
-                    $sub->where('first_name', 'like', "%{$query}%")
-                        ->orWhere('last_name', 'like', "%{$query}%")
-                        ->orWhere('phone', 'like', "%{$query}%");
-                });
-            })
-            ->orderBy('created_at', 'asc')
-            ->get();
+        if ($request->filled('search')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('phone', 'like', "%{$request->search}%")
+                    ->orWhere('email', 'like', "%{$request->search}%")
+                    ->orWhereHas('user', function ($userQuery) use ($request) {
+                        $userQuery->where('first_name', 'like', "%{$request->search}%")
+                            ->orWhere('last_name', 'like', "%{$request->search}%");
+                    });
+            });
+        }
 
-        return view('admin.users.index', compact('users', 'query'));
+        $users = $query->latest()->paginate(8);
+
+        return view('admin.users.index', compact('users'));
+    }
+
+    public function fetch(Request $request)
+    {
+        $query = User::where('role', 'resident')->latest();
+
+        if ($request->search) {
+            $query->where(function ($q) use ($request) {
+                $q->where('phone', 'like', "%{$request->search}%")
+                    ->orWhere('email', 'like', "%{$request->search}%")
+                    ->orWhereHas('user', function ($userQuery) use ($request) {
+                        $userQuery->where('first_name', 'like', "%{$request->search}%")
+                            ->orWhere('last_name', 'like', "%{$request->search}%");
+                    });
+            });
+        }
+
+        $users = $query->latest()->paginate(8);
+
+        return response()->json([
+            'html' => view('admin.users.partials.rows', compact('users'))->render(),
+            'pagination' => (string) $users->links(),
+        ]);
     }
 }

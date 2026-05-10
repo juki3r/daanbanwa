@@ -24,7 +24,7 @@
 
                         <thead class="table-dark">
                             <tr>
-                                <th>ID</th>
+                                <th>#</th>
                                 <th>Name</th>
                                 <th>Phone</th>
                                 <th>Role</th>
@@ -33,9 +33,12 @@
                         </thead>
 
                         <tbody>
-                            @foreach($users as $user)
+                           
+                            @include('admin.users.partials.rows')
+                        
+                            {{-- @foreach($users as $user)
                                 <tr>
-                                    <td>{{ $user->id }}</td>
+                                    <td>{{ $loop->iteration }}</td>
 
                                     <td class="text-capitalize">
                                         {{ $user->first_name }} {{ $user->last_name }}
@@ -62,10 +65,13 @@
                                         </button>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @endforeach --}}
                         </tbody>
 
                     </table>
+                    <div id="pagination" class="mt-3">
+                        {{ $users->links() }}
+                    </div>
                 </div>
 
             </div>
@@ -111,15 +117,53 @@
 
     <!-- ================= SCRIPT ================= -->
     <script>
-        // LIVE SEARCH
-        document.getElementById('searchInput').addEventListener('keyup', function () {
-            let value = this.value.toLowerCase();
-            let rows = document.querySelectorAll("#usersTable tbody tr");
+        let timer;
 
-            rows.forEach(row => {
-                row.style.display = row.innerText.toLowerCase().includes(value) ? "" : "none";
-            });
+        // ---------------- FETCH DATA ----------------
+        function fetchData(page = 1, search = '') {
+
+            fetch(`{{ route('concern.fetch') }}?page=${page}&search=${search}`)
+                .then(res => res.json())
+                .then(data => {
+
+                    document.getElementById('tableBody').innerHTML = data.html;
+                    document.getElementById('pagination').innerHTML = data.pagination;
+
+                    attachPagination();
+                    // attachStatusForms();
+
+                });
+
+        }
+
+        // // ---------------- SEARCH ----------------
+        document.getElementById('searchInput').addEventListener('keyup', function() {
+
+            clearTimeout(timer);
+
+            timer = setTimeout(() => {
+                fetchData(1, this.value);
+            }, 300);
+
         });
+
+        // ---------------- PAGINATION ----------------
+        function attachPagination() {
+
+            document.querySelectorAll('#pagination a').forEach(link => {
+
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+
+                    let page = this.href.split('page=')[1];
+                    let search = document.getElementById('searchInput').value;
+
+                    fetchData(page, search);
+                });
+
+            });
+
+        }
 
         // BOOTSTRAP MODAL
         let modal = new bootstrap.Modal(document.getElementById('notifModal'));

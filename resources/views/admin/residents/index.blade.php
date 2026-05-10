@@ -35,101 +35,53 @@
 
     
 
-    <!-- LIVE SEARCH -->
-    <script>
-    
-    let timer;
+   <script>
 
-    // ================= FETCH DATA =================
-    function fetchData(page = 1, search = '') {
+let timer;
 
-        fetch(`{{ route('requests.fetch') }}?page=${page}&search=${search}`)
-            .then(res => res.json())
-            .then(data => {
+// ================= FETCH DATA =================
+function fetchData(page = 1, search = '') {
 
-                document.getElementById('tableBody').innerHTML = data.html;
-                document.getElementById('pagination').innerHTML = data.pagination;
+    fetch(`{{ route('residents.fetch') }}?page=${page}&search=${search}`)
+        .then(res => res.json())
+        .then(data => {
 
-                attachPagination();
-            });
-    }
+            document.getElementById('tableBody').innerHTML = data.html;
+            document.getElementById('pagination').innerHTML = data.pagination;
 
-    // ================= SEARCH =================
-    document.getElementById('searchInput').addEventListener('keyup', function () {
-
-        clearTimeout(timer);
-
-        timer = setTimeout(() => {
-            fetchData(1, this.value);
-        }, 300);
-    });
-
-    // ================= PAGINATION =================
-    function attachPagination() {
-
-        document.querySelectorAll('#pagination a').forEach(link => {
-
-            link.addEventListener('click', function (e) {
-                e.preventDefault();
-
-                let page = this.href.split('page=')[1];
-                let search = document.getElementById('searchInput').value;
-
-                fetchData(page, search);
-            });
-
+            attachPagination();
         });
-    }
+}
 
-    attachPagination();
+// ================= SEARCH =================
+document.getElementById('searchInput').addEventListener('keyup', function () {
 
-    
+    clearTimeout(timer);
 
-    document.addEventListener("click", async function (e) {
+    timer = setTimeout(() => {
+        fetchData(1, this.value);
+    }, 300);
+});
 
-        if (e.target.classList.contains("delete-btn")) {
+// ================= PAGINATION =================
+function attachPagination() {
 
-            let id = e.target.dataset.id;
+    document.querySelectorAll('#pagination a').forEach(link => {
 
-            if (!confirm("Are you sure you want to delete this request?")) return;
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
 
-            try {
-                let res = await fetch(`/admin/requests/${id}`, {
-                    method: "DELETE",
-                    headers: {
-                        "X-CSRF-TOKEN": "{{ csrf_token() }}",
-                        "Accept": "application/json"
-                    }
-                });
+            let page = this.href.split('page=')[1];
+            let search = document.getElementById('searchInput').value;
 
-                let data = await res.json();
-
-                if (data.success) {
-
-                    // remove row instantly
-                    e.target.closest("tr").remove();
-
-                    showToast(data.message ?? "Deleted", "success");
-                    // get current page
-                    let currentPage =
-                        new URLSearchParams(window.location.search).get('page') || 1;
-
-                    // reload table
-                    let search = document.getElementById('searchInput')?.value ?? '';
-
-                    fetchData(currentPage, search)
-
-                } else {
-                    showToast(data.message ?? "Delete failed", "danger");
-                }
-
-            } catch (err) {
-                console.error(err);
-                showToast("Something went wrong", "danger");
-            }
-        }
+            fetchData(page, search);
+        });
 
     });
+}
+
+attachPagination();
+
 </script>
 
 </x-app-layout>

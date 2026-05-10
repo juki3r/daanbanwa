@@ -182,8 +182,8 @@
             line-height: 1.8;
         }
 
-        /* Show warning on screens <= 1024px (tablet and phone) */
-        @media (max-width: 1024px) {
+        /* Show warning on screens <= 1000px (tablet and phone) */
+        @media (max-width: 1000px) {
             .desktop-page {
                 display: none;
             }

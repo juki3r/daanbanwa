@@ -22,9 +22,9 @@ class ResidentController extends Controller
             });
         }
 
-        // 📊 PAGINATION + ALPHABETICAL SORT
-        $residents = $query->orderBy('last_name')
-            ->orderBy('first_name')
+        // 📊 FIXED ALPHABETICAL SORT (IMPORTANT)
+        $residents = $query->orderByRaw('LOWER(TRIM(last_name)) ASC')
+            ->orderByRaw('LOWER(TRIM(first_name)) ASC')
             ->paginate(7)
             ->withQueryString();
 
@@ -46,8 +46,9 @@ class ResidentController extends Controller
             });
         }
 
-        $residents = $query->orderBy('last_name')
-            ->orderBy('first_name')
+        // 📊 SAME SORT LOGIC (MUST MATCH INDEX)
+        $residents = $query->orderByRaw('LOWER(TRIM(last_name)) ASC')
+            ->orderByRaw('LOWER(TRIM(first_name)) ASC')
             ->paginate(7);
 
         return response()->json([

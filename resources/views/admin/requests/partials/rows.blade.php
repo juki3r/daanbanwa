@@ -24,7 +24,7 @@
         </span>
     </td>
 
-    <td class="d-flex gap-2 justify-content-center">
+    <td class="d-flex gap-2 justify-content-center align-items-center">
         <!-- ✅ OPEN SINGLE MODAL -->
         <button class="btn btn-sm btn-primary open-status d-flex align-items-center gap-1"
             data-id="{{ $request->id }}"

@@ -344,6 +344,7 @@ document.addEventListener("click", function (e) {
     .then(data => {
         if (data.success) {
             btn.closest("tr").remove();
+            showToast("Resident deleted", "success");
         }
     });
 

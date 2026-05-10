@@ -357,47 +357,63 @@ document.addEventListener("click", function (e) {
 
     let id = btn.dataset.id;
 
-    fetch(`/admin/residents/${id}`)
+    fetch(`/admin/residents/${id}/edit`)
         .then(res => res.json())
         .then(resident => {
 
-            // OPEN MODAL
+            // open modal
             let modal = new bootstrap.Modal(document.getElementById('addResidentModal'));
             modal.show();
 
-            // CHANGE FORM TO UPDATE MODE
-            document.getElementById('residentForm').action = `/admin/residents/edit/${id}`;
-            document.getElementById('residentForm').insertAdjacentHTML(
-                'beforeend',
-                '<input type="hidden" name="_method" value="PUT">'
-            );
+            // change form to update mode
+            let form = document.getElementById('residentForm');
+            form.action = `/admin/residents/${id}`;
+            form.setAttribute("data-mode", "edit");
 
-            // FILL FIELDS
-            document.querySelector('input[name="first_name"]').value = resident.first_name;
-            document.querySelector('input[name="middle_name"]').value = resident.middle_name ?? '';
-            document.querySelector('input[name="last_name"]').value = resident.last_name;
-            document.querySelector('input[name="suffix"]').value = resident.suffix ?? '';
-            document.querySelector('select[name="sex"]').value = resident.sex;
-            document.querySelector('input[name="birth_date"]').value = resident.birth_date;
-            document.querySelector('select[name="civil_status"]').value = resident.civil_status;
-            document.querySelector('input[name="purok"]').value = resident.purok;
-            document.querySelector('input[name="house_number"]').value = resident.house_number;
-            document.querySelector('input[name="street"]').value = resident.street ?? '';
-            document.querySelector('input[name="household_name"]').value = resident.household_name;
-            document.querySelector('select[name="relationship_to_head"]').value = resident.relationship_to_head;
+            // add PUT method ONLY ONCE
+            if (!document.querySelector('input[name="_method"]')) {
+                form.insertAdjacentHTML('beforeend',
+                    '<input type="hidden" name="_method" value="PUT">'
+                );
+            }
 
+            // fill fields
+            form.querySelector('input[name="first_name"]').value = resident.first_name ?? '';
+            form.querySelector('input[name="middle_name"]').value = resident.middle_name ?? '';
+            form.querySelector('input[name="last_name"]').value = resident.last_name ?? '';
+            form.querySelector('input[name="suffix"]').value = resident.suffix ?? '';
+
+            form.querySelector('select[name="sex"]').value = resident.sex ?? '';
+            form.querySelector('input[name="birth_date"]').value = resident.birth_date ?? '';
+            form.querySelector('select[name="civil_status"]').value = resident.civil_status ?? '';
+
+            form.querySelector('input[name="purok"]').value = resident.purok ?? '';
+            form.querySelector('input[name="house_number"]').value = resident.house_number ?? '';
+            form.querySelector('input[name="street"]').value = resident.street ?? '';
+
+            form.querySelector('input[name="household_name"]').value = resident.household_name ?? '';
+            form.querySelector('select[name="relationship_to_head"]').value = resident.relationship_to_head ?? '';
         });
-
 });
 
+// document.getElementById('addResidentModal').addEventListener('hidden.bs.modal', function () {
+
+//     document.getElementById('residentForm').reset();
+
+//     document.getElementById('residentForm').action = "{{ route('residents.store') }}";
+
+//     // remove PUT method if exists
+//     let method = document.querySelector('input[name="_method"]');
+//     if (method) method.remove();
+// });
 document.getElementById('addResidentModal').addEventListener('hidden.bs.modal', function () {
 
-    document.getElementById('residentForm').reset();
+    let form = document.getElementById('residentForm');
 
-    document.getElementById('residentForm').action = "{{ route('residents.store') }}";
+    form.reset();
+    form.action = "{{ route('residents.store') }}";
 
-    // remove PUT method if exists
-    let method = document.querySelector('input[name="_method"]');
+    let method = form.querySelector('input[name="_method"]');
     if (method) method.remove();
 });
 

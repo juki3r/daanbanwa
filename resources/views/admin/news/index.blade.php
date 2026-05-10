@@ -10,7 +10,7 @@
             <div class="card-body">
 
                 <div class="d-flex justify-content-end align-items-center mb-3">
-                    <button class="btn btn-success d-flex align-items-center gap-2"
+                    <button class="btn btn-success btn-sm d-flex align-items-center gap-2"
                         data-bs-toggle="modal"
                         data-bs-target="#createNewsModal">
                         <i class="bi bi-newspaper"></i>

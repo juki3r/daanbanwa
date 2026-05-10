@@ -11,6 +11,7 @@ class ResidentController extends Controller
     {
         $residents = Resident::orderBy('last_name', 'asc')
             ->orderBy('first_name', 'asc')
+            ->orderBy('middle_name', 'asc')
             ->get();
 
         return view('admin.residents.index', compact('residents'));

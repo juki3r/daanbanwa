@@ -65,6 +65,12 @@ class ResidentController extends Controller
             'html' => view('admin.residents.partials.show', compact('resident'))->render()
         ]);
     }
+    public function editshow($id)
+    {
+        $resident = Resident::findOrFail($id);
+
+        return response()->json($resident);
+    }
 
     public function store(Request $request)
     {

@@ -148,6 +148,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/residents/fetch', [ResidentController::class, 'fetch'])
         ->name('residents.fetch');
     Route::get('/residents/{id}', [ResidentController::class, 'show']);
+    Route::get('/residents/edit/{id}', [ResidentController::class, 'editshow']);
     Route::get('/residents/create', [ResidentController::class, 'create'])->name('residents.create');
     Route::post('/residents', [ResidentController::class, 'store'])->name('residents.store');
     Route::delete('/residents/{id}', [ResidentController::class, 'destroy']);

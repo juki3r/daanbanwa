@@ -366,7 +366,7 @@ document.addEventListener("click", function (e) {
             modal.show();
 
             // CHANGE FORM TO UPDATE MODE
-            document.getElementById('residentForm').action = `/admin/residents/${id}`;
+            document.getElementById('residentForm').action = `/admin/residents/edit/${id}`;
             document.getElementById('residentForm').insertAdjacentHTML(
                 'beforeend',
                 '<input type="hidden" name="_method" value="PUT">'

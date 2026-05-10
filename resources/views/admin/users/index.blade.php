@@ -16,7 +16,9 @@
 
                         <thead class="table-dark">
                             <tr>
-                                <th>Name</th>
+                                <th>Last Name</th>
+                                <th>First Name</th>
+                                <th>Middle Name</th>
                                 <th>Phone</th>
                                 <th>Role</th>
                                 <th>Action</th>

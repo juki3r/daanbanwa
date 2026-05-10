@@ -85,10 +85,15 @@
 
     {{-- Logout --}}
     <div class="mt-auto pt-3 border-top">
-        <a href="" class="nav-link d-flex align-items-center gap-2 text-danger">
-            <i class="bi bi-box-arrow-right"></i>
-            <span>Logout</span>
-        </a>
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <a href="{{ route('logout') }}"
+            class="nav-link d-flex align-items-center gap-2 text-danger"
+            onclick="event.preventDefault(); this.closest('form').submit();">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Logout</span>
+            </a>
+        </form>
     </div>
 </div>
 
@@ -154,11 +159,17 @@
 
     </nav>
 
+        {{-- Logout --}}
         <div class="mt-auto pt-3 border-top">
-            <a href="" class="nav-link d-flex align-items-center gap-2 text-danger">
-                <i class="bi bi-box-arrow-right"></i>
-                <span>Logout</span>
-            </a>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <a href="{{ route('logout') }}"
+                class="nav-link d-flex align-items-center gap-2 text-danger"
+                onclick="event.preventDefault(); this.closest('form').submit();">
+                    <i class="bi bi-box-arrow-right"></i>
+                    <span>Logout</span>
+                </a>
+            </form>
         </div>
     </div>
 </div>

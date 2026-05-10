@@ -24,18 +24,19 @@
         </span>
     </td>
 
-    <td class="d-flex gap-2 justify-content-center align-items-center h-100">
-        <!-- ✅ OPEN SINGLE MODAL -->
-        <button class="btn btn-sm btn-primary open-status d-flex align-items-center gap-1"
-            data-id="{{ $request->id }}"
-            data-status="{{ $request->status }}">
-            <i class="bi bi-pencil-square"></i> Status
-        </button>
+    <td>
+        <div class="d-flex gap-2 justify-content-center">
+            <button class="btn btn-sm btn-primary open-status"
+                data-id="{{ $request->id }}"
+                data-status="{{ $request->status }}">
+                <i class="bi bi-pencil-square"></i> Status
+            </button>
 
-        <button class="btn btn-sm btn-danger delete-btn d-flex align-items-center gap-1"
-            data-id="{{ $request->id }}">
-            <i class="bi bi-trash me-1"></i> Delete
-        </button>
+            <button class="btn btn-sm btn-danger delete-btn"
+                data-id="{{ $request->id }}">
+                <i class="bi bi-trash"></i> Delete
+            </button>
+        </div>
     </td>
 </tr>
 

@@ -11,7 +11,7 @@
 
                 <!-- TABLE -->
                 <div class="table-responsive">
-                    <div class="d-flex justify-content-end mb-3">
+                    <div class="d-flex justify-content-end">
                         <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addResidentModal">
                             <i class="bi bi-person-plus-fill me-1"></i>
                             Add Resident

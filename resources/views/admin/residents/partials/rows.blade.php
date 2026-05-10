@@ -4,8 +4,8 @@
     {{-- NAME --}}
     <td>{{ $resident->last_name }}</td>
     <td>{{ $resident->first_name }}</td>
-    <td>{{ $resident->middle_name }}</td>
-    <td>{{ $resident->suffix }}</td>
+    <td>{{ $resident->middle_name ?? '-' }}</td>
+    <td>{{ $resident->suffix ?? '-' }}</td>
 
     <td>{{ $resident->purok }}</td>
 

@@ -191,6 +191,24 @@ main::-webkit-scrollbar-thumb {
     pointer-events: auto;
 }
 
+.required-star {
+    color: red;
+    font-weight: bold;
+}
+
+.is-invalid {
+    border: 1px solid red !important;
+}
+
+.error-text {
+    color: red;
+    font-size: 12px;
+}
+
+.text-upper {
+    text-transform: uppercase;
+}
+
 
 
 

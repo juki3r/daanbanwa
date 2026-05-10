@@ -207,7 +207,7 @@
         <div class="main-content">
             <div class="welcome-card">
                 <!-- Replace with your logo -->
-                <img src="{{asset('images/main.png')}}" alt="Barangay Logo" class="logo">
+                <img src="{{asset('images/logo.png')}}" alt="Barangay Logo" class="logo">
 
                 <div class="gov-label">REPUBLIC OF THE PHILIPPINES</div>
                 <h1 class="title">Barangay Daan Banwa</h1>

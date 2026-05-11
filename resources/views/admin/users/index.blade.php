@@ -173,7 +173,7 @@
             });
         });
 
-        /* ================= VERIFY PHONE ================= */
+        /* ================= VERIFY PHONE (LIVE UPDATE) ================= */
         document.addEventListener('click', function (e) {
             const btn = e.target.closest('.verify-btn');
             if (!btn) return;
@@ -194,9 +194,19 @@
                 if (data.success) {
                     showToast('User verified successfully', 'success');
 
-                    // Reload current page with current search term
-                    const search = document.getElementById('searchInput')?.value || '';
-                    fetchData(1, search);
+                    // Find the current row
+                    const row = btn.closest('tr');
+
+                    // Update verification badge
+                    const statusCell = row.children[4]; // 5th column = verification status
+                    statusCell.innerHTML = `
+                        <span class="badge bg-success">
+                            <i class="bi bi-check-circle-fill me-1"></i> Verified
+                        </span>
+                    `;
+
+                    // Remove Verify button
+                    btn.remove();
                 }
             })
             .catch(() => {

@@ -6,89 +6,297 @@
     </x-slot>
 
 <style>
+/* ========================================
+   COLOR THEME + SMALLER CALENDAR
+   Replace your existing <style> with this
+======================================== */
+
+/* ===== THEME COLORS =====
+Primary: #0f766e   (Teal)
+Primary Hover: #0d9488
+Accent: #14b8a6
+Background: #f0fdfa
+Card: #ffffff
+Text: #0f172a
+Muted: #64748b
+Border: #d1fae5
+======================================== */
+
 body {
-    background: #f4f6fb;
-    font-family: system-ui, -apple-system, Segoe UI, Roboto;
+    background: linear-gradient(180deg, #f0fdfa 0%, #f8fafc 100%);
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
 }
 
+/* MAIN LAYOUT */
 .calendar-layout {
     display: flex;
     gap: 20px;
+    align-items: flex-start;
 }
 
+/* SIDEBAR */
 .sidebar {
-    width: 320px;
+    width: 300px;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 16px;
+    flex-shrink: 0;
 }
 
+/* CARDS */
+.card-box,
+.card-calendar {
+    background: #ffffff;
+    border: 1px solid #d1fae5;
+    border-radius: 20px;
+    box-shadow:
+        0 10px 25px rgba(15, 118, 110, 0.06),
+        0 2px 6px rgba(15, 23, 42, 0.03);
+}
+
+/* SIDEBAR CARD */
 .card-box {
-    background: #fff;
-    border-radius: 16px;
-    padding: 16px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    padding: 18px;
 }
 
+.card-box h6 {
+    font-size: 13px;
+    font-weight: 700;
+    color: #0f172a;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 14px;
+}
+
+/* EVENT ITEMS */
 .event-item {
-    padding: 10px;
-    border-left: 4px solid #3b82f6;
-    background: #f9fafb;
-    border-radius: 10px;
+    padding: 12px 14px;
+    border-left: 4px solid #14b8a6;
+    background: #f8fffe;
+    border-radius: 12px;
     margin-bottom: 10px;
+    border: 1px solid #ecfdf5;
+    transition: all 0.2s ease;
+}
+
+.event-item:hover {
+    background: #f0fdfa;
+    transform: translateX(3px);
+    box-shadow: 0 6px 14px rgba(20, 184, 166, 0.08);
 }
 
 .event-title {
-    font-weight: 600;
     font-size: 14px;
+    font-weight: 600;
+    color: #0f172a;
+    margin-bottom: 4px;
 }
 
 .event-date {
     font-size: 12px;
-    color: #6b7280;
+    color: #64748b;
 }
 
+/* CALENDAR CONTAINER */
 .calendar-main {
     flex: 1;
+    min-width: 0;
 }
 
 .card-calendar {
-    background: #fff;
-    border-radius: 16px;
     padding: 20px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+}
+
+/* ========================================
+   SMALLER CALENDAR SIZE
+======================================== */
+#calendar {
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+/* Reduce overall calendar scale */
+.fc {
+    font-size: 0.90rem;
+}
+
+/* Smaller toolbar */
+.fc-toolbar {
+    margin-bottom: 1rem !important;
 }
 
 .fc-toolbar-title {
-    font-size: 18px !important;
+    font-size: 1.25rem !important;
     font-weight: 700;
+    color: #0f172a;
 }
 
-.fc-button {
-    background: #3b82f6 !important;
+/* Smaller buttons */
+.fc .fc-button {
+    background: #0f766e !important;
     border: none !important;
     border-radius: 10px !important;
+    padding: 0.45rem 0.75rem !important;
+    font-size: 0.82rem !important;
+    font-weight: 600 !important;
+    box-shadow: none !important;
+    transition: all 0.2s ease;
+}
+
+.fc .fc-button:hover {
+    background: #0d9488 !important;
+}
+
+.fc .fc-button:focus {
+    box-shadow: 0 0 0 0.2rem rgba(15, 118, 110, 0.15) !important;
+}
+
+/* Calendar border */
+.fc-scrollgrid {
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+/* Day cells */
+.fc-daygrid-day {
+    transition: background 0.15s ease;
 }
 
 .fc-daygrid-day:hover {
-    background: #f1f5f9;
+    background: #f8fafc;
+    cursor: pointer;
 }
 
+/* Header row */
+.fc-col-header-cell {
+    background: #f8fafc;
+}
+
+.fc-col-header-cell-cushion {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+    padding: 8px 0;
+}
+
+/* Day numbers */
+.fc-daygrid-day-number {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #334155;
+    padding: 6px !important;
+}
+
+/* Today highlight */
+.fc-day-today {
+    background: #ecfdf5 !important;
+}
+
+/* Event badges */
+.fc-event {
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 2px 6px;
+    font-size: 0.72rem;
+    font-weight: 600;
+}
+
+/* ========================================
+   MODALS
+======================================== */
 .modal-content {
-    border-radius: 16px !important;
+    border: none !important;
+    border-radius: 18px !important;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.12);
 }
 
 .modal-header {
-    background: #3b82f6;
+    background: linear-gradient(135deg, #0f766e, #14b8a6);
     color: white;
+    border: none;
+    padding: 1rem 1.25rem;
+}
+
+.modal-title {
+    font-size: 15px;
+    font-weight: 700;
 }
 
 .btn-close {
     filter: invert(1);
 }
 
+/* FORM CONTROLS */
+label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #334155;
+    margin-bottom: 6px;
+}
+
 .form-control {
     border-radius: 10px !important;
+    border: 1px solid #dbe2ea;
+    padding: 10px 12px;
+    font-size: 14px;
+}
+
+.form-control:focus {
+    border-color: #14b8a6;
+    box-shadow: 0 0 0 0.2rem rgba(20, 184, 166, 0.15);
+}
+
+/* BUTTONS */
+.btn-primary {
+    background: #0f766e;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    padding: 8px 16px;
+}
+
+.btn-primary:hover {
+    background: #0d9488;
+}
+
+.btn-danger,
+.btn-secondary {
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+/* EMPTY STATE */
+#todayEvents:empty::after,
+#upcomingEvents:empty::after {
+    content: "No events";
+    display: block;
+    color: #94a3b8;
+    font-size: 13px;
+    font-style: italic;
+    padding: 8px 0;
+}
+
+/* RESPONSIVE */
+@media (max-width: 992px) {
+    .calendar-layout {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+    }
+
+    .fc {
+        font-size: 0.82rem;
+    }
+
+    .fc-toolbar {
+        flex-direction: column;
+        gap: 10px;
+    }
 }
 </style>
 

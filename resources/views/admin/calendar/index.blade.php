@@ -15,13 +15,13 @@
 
     </div>
 
-    <!-- EVENT MODAL -->
+    <!-- ADD EVENT MODAL -->
     <div class="modal fade" id="eventModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
 
                 <div class="modal-header">
-                    <h5 class="modal-title">Add Barangay Event</h5>
+                    <h5 class="modal-title">Add Event</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
 
@@ -30,7 +30,7 @@
                     <input type="hidden" id="event_date">
 
                     <div class="mb-3">
-                        <label>Event Title</label>
+                        <label>Title</label>
                         <input type="text" id="title" class="form-control">
                     </div>
 
@@ -55,6 +55,55 @@
         </div>
     </div>
 
+    <!-- VIEW / EDIT MODAL -->
+    <div class="modal fade" id="viewEventModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Event Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <input type="hidden" id="edit_event_id">
+
+                    <div class="mb-3">
+                        <label>Title</label>
+                        <input type="text" id="edit_title" class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Description</label>
+                        <textarea id="edit_description" class="form-control"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Color</label>
+                        <input type="color" id="edit_color" class="form-control form-control-color">
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Date</label>
+                        <input type="text" id="edit_date" class="form-control" disabled>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-danger" id="deleteEvent">Delete</button>
+                    <button class="btn btn-primary" id="updateEvent">Update</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- FULLCALENDAR -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+
     <script>
     document.addEventListener('DOMContentLoaded', function () {
 
@@ -67,19 +116,26 @@
 
             events: '/admin/calendar/events',
 
+            // CLICK DATE → ADD EVENT
             dateClick: function(info) {
                 selectedDate = info.dateStr;
                 document.getElementById('event_date').value = selectedDate;
 
-                let modal = new bootstrap.Modal(document.getElementById('eventModal'));
-                modal.show();
+                new bootstrap.Modal(document.getElementById('eventModal')).show();
             },
 
+            // CLICK EVENT → VIEW / EDIT
             eventClick: function(info) {
-                alert(
-                    "Event: " + info.event.title +
-                    "\nDate: " + info.event.startStr
-                );
+
+                let event = info.event;
+
+                document.getElementById('edit_event_id').value = event.id;
+                document.getElementById('edit_title').value = event.title;
+                document.getElementById('edit_description').value = event.extendedProps.description ?? '';
+                document.getElementById('edit_color').value = event.backgroundColor || event.color;
+                document.getElementById('edit_date').value = event.startStr;
+
+                new bootstrap.Modal(document.getElementById('viewEventModal')).show();
             }
         });
 
@@ -104,6 +160,52 @@
             .then(res => res.json())
             .then(() => {
                 bootstrap.Modal.getInstance(document.getElementById('eventModal')).hide();
+                calendar.refetchEvents();
+            });
+
+        });
+
+        // UPDATE EVENT
+        document.getElementById('updateEvent').addEventListener('click', function () {
+
+            let id = document.getElementById('edit_event_id').value;
+
+            fetch(`/admin/calendar/events/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({
+                    title: document.getElementById('edit_title').value,
+                    description: document.getElementById('edit_description').value,
+                    color: document.getElementById('edit_color').value
+                })
+            })
+            .then(res => res.json())
+            .then(() => {
+                bootstrap.Modal.getInstance(document.getElementById('viewEventModal')).hide();
+                calendar.refetchEvents();
+            });
+
+        });
+
+        // DELETE EVENT
+        document.getElementById('deleteEvent').addEventListener('click', function () {
+
+            let id = document.getElementById('edit_event_id').value;
+
+            if (!confirm("Delete this event?")) return;
+
+            fetch(`/admin/calendar/events/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
+            })
+            .then(res => res.json())
+            .then(() => {
+                bootstrap.Modal.getInstance(document.getElementById('viewEventModal')).hide();
                 calendar.refetchEvents();
             });
 

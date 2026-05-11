@@ -139,8 +139,10 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
 
     Route::get('/calendar', [EventController::class, 'index'])->name('calendar.index');
-    Route::get('/calendar/events', [EventController::class, 'fetchEvents'])->name('admin.calendar.events.fetch');
-    Route::post('/calendar/events', [EventController::class, 'store'])->name('admin.calendar.events.store');
+    Route::get('/calendar/events', [EventController::class, 'fetchEvents'])->name('calendar.events.fetch');
+    Route::post('/calendar/events', [EventController::class, 'store'])->name('calendar.events.store');
+    Route::put('/calendar/events/{id}', [EventController::class, 'update'])->name('calendar.events.update');
+    Route::delete('/calendar/events/{id}', [EventController::class, 'destroy'])->name('calendar.events.destroy');
 });
 
 

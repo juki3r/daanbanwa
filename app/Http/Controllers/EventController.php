@@ -9,7 +9,7 @@ class EventController extends Controller
 {
     public function index()
     {
-        return view('admin.calendar.index');
+        return view('calendar.index');
     }
 
     public function fetchEvents()
@@ -19,8 +19,8 @@ class EventController extends Controller
                 'id' => $event->id,
                 'title' => $event->title,
                 'start' => $event->start_date,
-                'end' => $event->end_date,
                 'color' => $event->color,
+                'description' => $event->description,
             ];
         });
     }
@@ -34,6 +34,26 @@ class EventController extends Controller
             'color' => $request->color,
         ]);
 
-        return response()->json(['status' => 'success']);
+        return response()->json(['status' => 'created']);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $event = Event::findOrFail($id);
+
+        $event->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'color' => $request->color,
+        ]);
+
+        return response()->json(['status' => 'updated']);
+    }
+
+    public function destroy($id)
+    {
+        Event::destroy($id);
+
+        return response()->json(['status' => 'deleted']);
     }
 }

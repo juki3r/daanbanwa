@@ -9,7 +9,7 @@
         {{ ucwords(strtolower($user->first_name)) }}
     </td>
     <td>
-        {{ ucwords(strtolower($user->middle_name)) ?? '-' }}
+        {{ $user->middle_name ? ucwords(strtolower($user->middle_name)) : '-' }}
     </td>
 
     <td>{{ $user->phone }}</td>

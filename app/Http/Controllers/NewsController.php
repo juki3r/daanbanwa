@@ -93,7 +93,7 @@ class NewsController extends Controller
                 ])->post('https://carlesppo.com/api/send-sms-api', [
                     'phone_number' => $user->phone,
                     'message' => \Illuminate\Support\Str::limit(
-                        "[Daan Banwa ALERT]\n{$news->ucwords(strtolower($news->title))}\n\nOpen your DaanBanwa app for details.",
+                        "[Daan Banwa ALERT]\n" . ucwords(strtolower($news->title)) . "\n\nOpen your DaanBanwa app for details.",
                         140
                     )
                 ]);

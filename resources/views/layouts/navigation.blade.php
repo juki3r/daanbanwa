@@ -7,7 +7,7 @@
             <img src="{{ asset('images/logo.png') }}" alt="Logo" width="80">
         </a>
         <div class="mt-2">
-            <strong class="d-block">Daan Banwa</strong>
+            <strong class="d-block" style="font-size: 13px;">Daan Banwa</strong>
             <small>Estancia, Iloilo</small>
         </div>
     </div>
@@ -108,7 +108,7 @@
         <div class="text-center border-bottom pb-3 mb-3">
             <img src="{{ asset('images/logo.png') }}" alt="Logo" width="80">
             <div class="mt-2">
-                <strong class="d-block">Daan Banwa</strong>
+                <strong class="d-block" style="font-size: 13px;">Daan Banwa</strong>
                 <small>Estancia, Iloilo</small>
             </div>
         </div>

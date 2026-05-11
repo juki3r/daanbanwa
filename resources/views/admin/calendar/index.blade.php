@@ -7,94 +7,167 @@
 
     <!-- ✅ INLINE STYLE ONLY -->
     <style>
-        body {
-            background: #eef2f7;
-            font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
-        }
+/* =========================
+   GLOBAL BACKGROUND
+========================= */
+body {
+    background: #f6f8fc;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+}
 
-        .card {
-            border-radius: 16px !important;
-            border: none !important;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.05) !important;
-        }
+/* =========================
+   CALENDAR WRAPPER CARD
+========================= */
+.card {
+    border: none !important;
+    border-radius: 18px !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.06) !important;
+    overflow: hidden;
+}
 
-        .card-body {
-            padding: 20px;
-        }
+.card-body {
+    padding: 24px;
+    background: #ffffff;
+}
 
-        /* FULLCALENDAR */
-        .fc-toolbar-title {
-            font-size: 20px !important;
-            font-weight: 700;
-            color: #1f2937;
-        }
+/* =========================
+   FULLCALENDAR HEADER
+========================= */
+.fc-toolbar {
+    margin-bottom: 18px !important;
+}
 
-        .fc-button {
-            background: #2563eb !important;
-            border: none !important;
-            border-radius: 10px !important;
-            padding: 6px 12px !important;
-            font-weight: 500 !important;
-        }
+.fc-toolbar-title {
+    font-size: 18px !important;
+    font-weight: 700;
+    color: #111827;
+}
 
-        .fc-button:hover {
-            background: #1d4ed8 !important;
-        }
+/* Buttons - softer modern look */
+.fc-button {
+    background: #3b82f6 !important;
+    border: none !important;
+    border-radius: 10px !important;
+    padding: 6px 10px !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    box-shadow: none !important;
+}
 
-        .fc-daygrid-day:hover {
-            background: #f1f5f9;
-            cursor: pointer;
-        }
+.fc-button:hover {
+    background: #2563eb !important;
+}
 
-        .fc-event {
-            border: none !important;
-            border-radius: 8px !important;
-            padding: 3px 6px;
-            font-size: 12px;
-            font-weight: 500;
-        }
+.fc-button:active {
+    transform: scale(0.97);
+}
 
-        /* MODAL */
-        .modal-content {
-            border-radius: 16px !important;
-            border: none !important;
-            overflow: hidden;
-        }
+/* =========================
+   CALENDAR GRID (CLEAN LOOK)
+========================= */
+.fc-scrollgrid {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #e5e7eb !important;
+}
 
-        .modal-header {
-            background: #2563eb;
-            color: white;
-        }
+.fc-daygrid-day {
+    transition: all 0.15s ease;
+}
 
-        .btn-close {
-            filter: invert(1);
-        }
+.fc-daygrid-day:hover {
+    background: #f3f4f6;
+}
 
-        .form-control {
-            border-radius: 10px !important;
-            padding: 10px;
-        }
+/* TODAY HIGHLIGHT */
+.fc-day-today {
+    background: #eff6ff !important;
+}
 
-        .form-control:focus {
-            border-color: #2563eb;
-            box-shadow: 0 0 0 0.2rem rgba(37,99,235,0.15);
-        }
+/* =========================
+   EVENTS (MINIMAL + CLEAN)
+========================= */
+.fc-event {
+    border: none !important;
+    border-radius: 6px !important;
+    padding: 2px 6px;
+    font-size: 12px;
+    font-weight: 500;
+    opacity: 0.95;
+}
 
-        .btn-primary {
-            background: #2563eb;
-            border: none;
-            border-radius: 10px;
-        }
+.fc-event:hover {
+    opacity: 1;
+    transform: scale(1.02);
+}
 
-        .btn-primary:hover {
-            background: #1d4ed8;
-        }
+/* =========================
+   MODALS (SOFT UI)
+========================= */
+.modal-content {
+    border-radius: 16px !important;
+    border: none !important;
+    overflow: hidden;
+}
 
-        .btn-danger,
-        .btn-secondary {
-            border-radius: 10px;
-        }
-    </style>
+.modal-header {
+    background: #3b82f6;
+    color: white;
+    border: none;
+}
+
+.modal-title {
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.btn-close {
+    filter: invert(1);
+}
+
+/* =========================
+   INPUT FIELDS
+========================= */
+label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #374151;
+}
+
+.form-control {
+    border-radius: 10px !important;
+    border: 1px solid #e5e7eb;
+    padding: 10px;
+    font-size: 14px;
+}
+
+.form-control:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 0.2rem rgba(59,130,246,0.15);
+}
+
+/* =========================
+   BUTTONS
+========================= */
+.btn-primary {
+    background: #3b82f6;
+    border: none;
+    border-radius: 10px;
+    font-weight: 500;
+}
+
+.btn-primary:hover {
+    background: #2563eb;
+}
+
+.btn-danger {
+    border-radius: 10px;
+}
+
+.btn-secondary {
+    border-radius: 10px;
+}
+</style>
 
     <div class="container-fluid py-4 bg-light min-vh-100">
 

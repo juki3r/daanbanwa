@@ -13,7 +13,13 @@
     </td>
 
     <td>{{ $user->phone }}</td>
-
+    <td>
+        @if($user->phone_verified)
+            <span class="badge bg-success">Verified</span>
+        @else
+            <span class="badge bg-warning">Not Verified</span>
+        @endif
+    </td>
     <td>
         @if($user->role === 'admin')
             <span class="badge bg-danger">Admin</span>

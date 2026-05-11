@@ -5,6 +5,97 @@
         </div>
     </x-slot>
 
+    <!-- ✅ INLINE STYLE ONLY -->
+    <style>
+        body {
+            background: #eef2f7;
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+        }
+
+        .card {
+            border-radius: 16px !important;
+            border: none !important;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.05) !important;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        /* FULLCALENDAR */
+        .fc-toolbar-title {
+            font-size: 20px !important;
+            font-weight: 700;
+            color: #1f2937;
+        }
+
+        .fc-button {
+            background: #2563eb !important;
+            border: none !important;
+            border-radius: 10px !important;
+            padding: 6px 12px !important;
+            font-weight: 500 !important;
+        }
+
+        .fc-button:hover {
+            background: #1d4ed8 !important;
+        }
+
+        .fc-daygrid-day:hover {
+            background: #f1f5f9;
+            cursor: pointer;
+        }
+
+        .fc-event {
+            border: none !important;
+            border-radius: 8px !important;
+            padding: 3px 6px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        /* MODAL */
+        .modal-content {
+            border-radius: 16px !important;
+            border: none !important;
+            overflow: hidden;
+        }
+
+        .modal-header {
+            background: #2563eb;
+            color: white;
+        }
+
+        .btn-close {
+            filter: invert(1);
+        }
+
+        .form-control {
+            border-radius: 10px !important;
+            padding: 10px;
+        }
+
+        .form-control:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 0.2rem rgba(37,99,235,0.15);
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            border: none;
+            border-radius: 10px;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-danger,
+        .btn-secondary {
+            border-radius: 10px;
+        }
+    </style>
+
     <div class="container-fluid py-4 bg-light min-vh-100">
 
         <div class="card shadow-sm border-0">
@@ -113,10 +204,8 @@
         let calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
             height: 700,
-
             events: '/admin/calendar/events',
 
-            // CLICK DATE → ADD EVENT
             dateClick: function(info) {
                 selectedDate = info.dateStr;
                 document.getElementById('event_date').value = selectedDate;
@@ -124,7 +213,6 @@
                 new bootstrap.Modal(document.getElementById('eventModal')).show();
             },
 
-            // CLICK EVENT → VIEW / EDIT
             eventClick: function(info) {
 
                 let event = info.event;
@@ -141,7 +229,6 @@
 
         calendar.render();
 
-        // SAVE EVENT
         document.getElementById('saveEvent').addEventListener('click', function () {
 
             fetch('/admin/calendar/events', {
@@ -165,7 +252,6 @@
 
         });
 
-        // UPDATE EVENT
         document.getElementById('updateEvent').addEventListener('click', function () {
 
             let id = document.getElementById('edit_event_id').value;
@@ -190,7 +276,6 @@
 
         });
 
-        // DELETE EVENT
         document.getElementById('deleteEvent').addEventListener('click', function () {
 
             let id = document.getElementById('edit_event_id').value;

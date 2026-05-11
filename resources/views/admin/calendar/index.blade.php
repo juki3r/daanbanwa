@@ -443,8 +443,8 @@ document.addEventListener('DOMContentLoaded', function () {
         height: 650,
         events: '/admin/calendar/events',
 
-        eventDidMount: function(info) {
-            allEvents.push(info.event);
+        eventsSet: function(events) {
+            allEvents = events;
             renderSidebar();
         },
 
@@ -473,32 +473,49 @@ document.addEventListener('DOMContentLoaded', function () {
     calendar.render();
 
     function renderSidebar() {
+        const todayEl = document.getElementById('todayEvents');
+        const upcomingEl = document.getElementById('upcomingEvents');
 
-        let todayEl = document.getElementById('todayEvents');
-        let upcomingEl = document.getElementById('upcomingEvents');
+        todayEl.innerHTML = '';
+        upcomingEl.innerHTML = '';
 
-        todayEl.innerHTML = "";
-        upcomingEl.innerHTML = "";
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
 
-        let today = new Date().toISOString().split('T')[0];
+        // Remove duplicates just in case
+        const uniqueEvents = [];
+        const seen = new Set();
 
         allEvents.forEach(ev => {
+            const key = `${ev.id}-${ev.startStr}`;
+            if (!seen.has(key)) {
+                seen.add(key);
+                uniqueEvents.push(ev);
+            }
+        });
 
-            let date = ev.startStr;
+        // Sort by date ascending
+        uniqueEvents.sort((a, b) => new Date(a.start) - new Date(b.start));
 
-            let html = `
+        uniqueEvents.forEach(ev => {
+            const eventDate = new Date(ev.start);
+            eventDate.setHours(0, 0, 0, 0);
+
+            const html = `
                 <div class="event-item">
                     <div class="event-title">${ev.title}</div>
-                    <div class="event-date">${formatDate(date)}</div>
+                    <div class="event-date">${formatDate(ev.startStr)}</div>
                 </div>
             `;
 
-            if (date === today) {
+            // Today's events
+            if (eventDate.getTime() === today.getTime()) {
                 todayEl.innerHTML += html;
-            } else {
+            }
+            // Future events only
+            else if (eventDate > today) {
                 upcomingEl.innerHTML += html;
             }
-
         });
     }
 

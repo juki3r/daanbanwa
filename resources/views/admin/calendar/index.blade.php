@@ -11,13 +11,11 @@ body {
     font-family: system-ui, -apple-system, Segoe UI, Roboto;
 }
 
-/* MAIN LAYOUT */
 .calendar-layout {
     display: flex;
     gap: 20px;
 }
 
-/* SIDEBAR */
 .sidebar {
     width: 320px;
     display: flex;
@@ -32,19 +30,12 @@ body {
     box-shadow: 0 8px 20px rgba(0,0,0,0.05);
 }
 
-/* EVENT ITEMS */
 .event-item {
     padding: 10px;
     border-left: 4px solid #3b82f6;
     background: #f9fafb;
     border-radius: 10px;
     margin-bottom: 10px;
-    transition: 0.2s;
-}
-
-.event-item:hover {
-    background: #eef2ff;
-    transform: translateX(2px);
 }
 
 .event-title {
@@ -57,7 +48,6 @@ body {
     color: #6b7280;
 }
 
-/* CALENDAR */
 .calendar-main {
     flex: 1;
 }
@@ -69,11 +59,9 @@ body {
     box-shadow: 0 8px 20px rgba(0,0,0,0.05);
 }
 
-/* FULLCALENDAR */
 .fc-toolbar-title {
     font-size: 18px !important;
     font-weight: 700;
-    color: #111827;
 }
 
 .fc-button {
@@ -82,32 +70,12 @@ body {
     border-radius: 10px !important;
 }
 
-.fc-button:hover {
-    background: #2563eb !important;
-}
-
 .fc-daygrid-day:hover {
     background: #f1f5f9;
-    cursor: pointer;
 }
 
-.fc-day-today {
-    background: #eaf2ff !important;
-}
-
-/* EVENTS */
-.fc-event {
-    border: none !important;
-    border-radius: 6px !important;
-    padding: 2px 6px;
-    font-size: 12px;
-}
-
-/* MODAL */
 .modal-content {
     border-radius: 16px !important;
-    border: none;
-    overflow: hidden;
 }
 
 .modal-header {
@@ -122,44 +90,22 @@ body {
 .form-control {
     border-radius: 10px !important;
 }
-
-.form-control:focus {
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 0.2rem rgba(59,130,246,0.15);
-}
-
-.btn-primary {
-    background: #3b82f6;
-    border: none;
-    border-radius: 10px;
-}
-
-.btn-primary:hover {
-    background: #2563eb;
-}
-
-.btn-danger,
-.btn-secondary {
-    border-radius: 10px;
-}
 </style>
 
 <div class="container-fluid py-4">
 
     <div class="calendar-layout">
 
-        <!-- LEFT SIDEBAR -->
+        <!-- SIDEBAR -->
         <div class="sidebar">
 
-            <!-- TODAY -->
             <div class="card-box">
-                <h6 class="fw-bold mb-3">📌 Today’s Events</h6>
+                <h6 class="fw-bold mb-3">📌 Today</h6>
                 <div id="todayEvents"></div>
             </div>
 
-            <!-- UPCOMING -->
             <div class="card-box">
-                <h6 class="fw-bold mb-3">📅 Upcoming Events</h6>
+                <h6 class="fw-bold mb-3">📅 Upcoming</h6>
                 <div id="upcomingEvents"></div>
             </div>
 
@@ -245,9 +191,10 @@ body {
                     <input type="color" id="edit_color" class="form-control form-control-color">
                 </div>
 
+                <!-- FORMATTED DATE -->
                 <div class="mb-3">
                     <label>Date</label>
-                    <input type="text" id="edit_date" class="form-control" disabled>
+                    <input type="text" id="edit_date" class="form-control bg-light" disabled>
                 </div>
 
             </div>
@@ -271,6 +218,16 @@ document.addEventListener('DOMContentLoaded', function () {
     let calendarEl = document.getElementById('calendar');
     let selectedDate = null;
     let allEvents = [];
+
+    // ✅ DATE FORMATTER
+    function formatDate(dateString) {
+        let date = new Date(dateString);
+        return date.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+    }
 
     let calendar = new FullCalendar.Calendar(calendarEl, {
 
@@ -297,7 +254,9 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('edit_title').value = event.title;
             document.getElementById('edit_description').value = event.extendedProps.description ?? '';
             document.getElementById('edit_color').value = event.backgroundColor || '#3b82f6';
-            document.getElementById('edit_date').value = event.startStr;
+
+            // ✅ FORMATTED DATE HERE
+            document.getElementById('edit_date').value = formatDate(event.startStr);
 
             new bootstrap.Modal(document.getElementById('viewEventModal')).show();
         }
@@ -322,7 +281,7 @@ document.addEventListener('DOMContentLoaded', function () {
             let html = `
                 <div class="event-item">
                     <div class="event-title">${ev.title}</div>
-                    <div class="event-date">${date}</div>
+                    <div class="event-date">${formatDate(date)}</div>
                 </div>
             `;
 
@@ -351,9 +310,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 color: document.getElementById('color').value
             })
         })
-        .then(() => {
-            location.reload();
-        });
+        .then(() => location.reload());
 
     });
 

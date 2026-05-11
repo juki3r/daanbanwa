@@ -8,7 +8,7 @@
         </a>
         <div class="mt-2 d-flex flex-column align-items-center">
             <strong class="d-block">Daan Banwa</strong>
-            <small style="font-size: 13px">Estancia, Iloilo</small>
+            <small style="font-size: 12px">Estancia, Iloilo</small>
         </div>
     </div>
 
@@ -109,7 +109,7 @@
             <img src="{{ asset('images/logo.png') }}" alt="Logo" width="80">
             <div class="mt-2 d-flex flex-column align-items-center">
                 <strong class="d-block">Daan Banwa</strong>
-                <small style="font-size: 13px">Estancia, Iloilo</small>
+                <small style="font-size: 12px">Estancia, Iloilo</small>
             </div>
         </div>
 

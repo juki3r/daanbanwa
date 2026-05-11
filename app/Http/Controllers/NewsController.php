@@ -72,7 +72,7 @@ class NewsController extends Controller
         foreach ($tokens as $token) {
             (new \App\Services\FirebaseService)->sendNotification(
                 $token,
-                $news->ucwords(strtolower($news->title)),
+                ucwords(strtolower($news->title)),
                 \Illuminate\Support\Str::limit($news->content, 160),
                 [
                     'screen' => 'News',

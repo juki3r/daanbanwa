@@ -22,10 +22,27 @@
     </td>
 
     <td>
-        <button class="btn btn-primary btn-sm"
-            onclick="openModal({{ $user->id }})">
-            Send Notification
-        </button>
+        <div class="d-flex gap-2 flex-wrap">
+
+            {{-- Verify Button (only show if not verified) --}}
+            @if(!$user->phone_verified)
+                <button type="button"
+                    class="btn btn-success btn-sm verify-btn"
+                    data-id="{{ $user->id }}">
+                    <i class="bi bi-patch-check-fill me-1"></i>
+                    Verify
+                </button>
+            @endif
+
+            {{-- Send Notification --}}
+            <button type="button"
+                class="btn btn-primary btn-sm"
+                onclick="openModal({{ $user->id }})">
+                <i class="bi bi-bell-fill me-1"></i>
+                Notify
+            </button>
+
+        </div>
     </td>
 
 </tr>
@@ -34,7 +51,7 @@
 
 <tr>
 
-    <td colspan="4"
+    <td colspan="6"
         class="text-center text-muted py-4">
 
         No news found

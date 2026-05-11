@@ -133,6 +133,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/users/fetch', [UserController::class, 'fetch'])
         ->name('users.fetch');
+    Route::put('/users/{id}/verify', [UserController::class, 'verify'])
+        ->name('users.verify');
 });
 
 

@@ -172,6 +172,37 @@
                 alert(err.message || 'Error sending notification');
             });
         });
+
+        /* ================= VERIFY PHONE ================= */
+        document.addEventListener('click', function (e) {
+            const btn = e.target.closest('.verify-btn');
+            if (!btn) return;
+
+            const id = btn.dataset.id;
+
+            if (!confirm('Mark this user as verified?')) return;
+
+            fetch(`/admin/users/${id}/verify`, {
+                method: 'PUT',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Accept': 'application/json'
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    showToast('User verified successfully', 'success');
+
+                    // Reload current page with current search term
+                    const search = document.getElementById('searchInput')?.value || '';
+                    fetchData(1, search);
+                }
+            })
+            .catch(() => {
+                showToast('Failed to verify user', 'danger');
+            });
+        });
     </script>
 
 </x-app-layout>

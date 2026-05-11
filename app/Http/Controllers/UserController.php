@@ -100,4 +100,18 @@ class UserController extends Controller
             'pagination' => (string) $users->links(),
         ]);
     }
+
+    public function verify($id)
+    {
+        $user = User::findOrFail($id);
+
+        $user->update([
+            'phone_verified' => true,
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'User verified successfully.',
+        ]);
+    }
 }

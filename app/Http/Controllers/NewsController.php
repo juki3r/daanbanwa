@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Log;
+use Illuminate\Support\Str;
 
 class NewsController extends Controller
 {
@@ -47,6 +48,63 @@ class NewsController extends Controller
         ]);
     }
 
+    // public function store(Request $request)
+    // {
+    //     $validatedData = $request->validate([
+    //         'title' => 'required|string|max:255',
+    //         'content' => 'required|string',
+    //         'image' => 'nullable|image|max:2048',
+    //     ]);
+
+    //     // save image
+    //     if ($request->hasFile('image')) {
+    //         $validatedData['image'] = $request->file('image')->store('news', 'public');
+    //     }
+
+    //     // save news
+    //     $news = \App\Models\News::create($validatedData);
+
+
+    //     $tokens = \App\Models\User::whereNotNull('fcm_token')
+    //         ->pluck('fcm_token')
+    //         ->toArray();
+
+    //     foreach ($tokens as $token) {
+    //         (new \App\Services\FirebaseService)->sendNotification(
+    //             $token,
+    //             $news->ucwords(strtolower($news->title)),
+    //             \Illuminate\Support\Str::limit($news->content, 160),
+    //             [
+    //                 'screen' => 'News',
+    //                 'news_id' => (string) $news->id,
+    //             ]
+    //         );
+    //     }
+
+    //     //  SEND SMS
+    //     $users = \App\Models\User::whereNotNull('phone')
+    //         ->where('role', '!=', 'admin')
+    //         ->get();
+
+    //     foreach ($users as $user) {
+    //         try {
+    //             Http::withHeaders([
+    //                 'X-API-KEY' => env('SMS_API_KEY')
+    //             ])->post('https://carlesppo.com/api/send-sms-api', [
+    //                 'phone_number' => $user->phone,
+    //                 'message' => \Illuminate\Support\Str::limit(
+    //                     "[Daan Banwa ALERT]\n{$news->ucwords(strtolower($news->title))}\n\nOpen your DaanBanwa app for details.",
+    //                     140
+    //                 )
+    //             ]);
+    //         } catch (\Exception $e) {
+    //             \Log::error('SMS failed for ' . $user->phone . ': ' . $e->getMessage());
+    //         }
+    //     }
+
+    //     return redirect()->route('news.index')->with('success', 'News created and notification sent.');
+    // }
+
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -55,53 +113,72 @@ class NewsController extends Controller
             'image' => 'nullable|image|max:2048',
         ]);
 
-        // save image
+        // Capitalize title before saving
+        $validatedData['title'] = ucwords(strtolower($validatedData['title']));
+
+        // Save image
         if ($request->hasFile('image')) {
             $validatedData['image'] = $request->file('image')->store('news', 'public');
         }
 
-        // save news
-        $news = \App\Models\News::create($validatedData);
+        // Save news
+        $news = News::create($validatedData);
 
+        // Return immediately to user
+        return redirect()
+            ->route('news.index')
+            ->with('success', 'News created successfully.');
 
-        $tokens = \App\Models\User::whereNotNull('fcm_token')
-            ->pluck('fcm_token')
-            ->toArray();
+        // Everything below runs after the response is sent
+        app()->terminating(function () use ($news) {
 
-        foreach ($tokens as $token) {
-            (new \App\Services\FirebaseService)->sendNotification(
-                $token,
-                $news->title,
-                \Illuminate\Support\Str::limit($news->content, 160),
-                [
-                    'screen' => 'News',
-                    'news_id' => (string) $news->id,
-                ]
-            );
-        }
+            // ================= FCM PUSH NOTIFICATIONS =================
+            $tokens = User::whereNotNull('fcm_token')
+                ->pluck('fcm_token')
+                ->toArray();
 
-        //  SEND SMS
-        $users = \App\Models\User::whereNotNull('phone')
-            ->where('role', '!=', 'admin')
-            ->get();
+            $firebase = new FirebaseService();
 
-        foreach ($users as $user) {
-            try {
-                Http::withHeaders([
-                    'X-API-KEY' => env('SMS_API_KEY')
-                ])->post('https://carlesppo.com/api/send-sms-api', [
-                    'phone_number' => $user->phone,
-                    'message' => \Illuminate\Support\Str::limit(
-                        "[Daan Banwa ALERT]\n{$news->title}\n\nOpen your DaanBanwa app for details.",
-                        140
-                    )
-                ]);
-            } catch (\Exception $e) {
-                \Log::error('SMS failed for ' . $user->phone . ': ' . $e->getMessage());
+            foreach ($tokens as $token) {
+                try {
+                    $firebase->sendNotification(
+                        $token,
+                        $news->title,
+                        Str::limit($news->content, 160),
+                        [
+                            'screen' => 'News',
+                            'news_id' => (string) $news->id,
+                        ]
+                    );
+                } catch (\Exception $e) {
+                    Log::error('FCM failed: ' . $e->getMessage());
+                }
             }
-        }
 
-        return redirect()->route('news.index')->with('success', 'News created and notification sent.');
+            // ================= SMS ALERTS =================
+            $users = User::whereNotNull('phone')
+                ->where('role', '!=', 'admin')
+                ->get();
+
+            foreach ($users as $user) {
+                try {
+                    Http::withHeaders([
+                        'X-API-KEY' => env('SMS_API_KEY'),
+                    ])->timeout(10)->post(
+                        'https://carlesppo.com/api/send-sms-api',
+                        [
+                            'phone_number' => $user->phone,
+                            'message' => Str::limit(
+                                "[Daan Banwa ALERT]\n{$news->title}\n\nOpen your DaanBanwa app for details.",
+                                140
+                            ),
+                        ]
+                    );
+                } catch (\Exception $e) {
+                    Log::error('SMS failed for ' . $user->phone . ': ' . $e->getMessage());
+                }
+            }
+        });
     }
 
     public function update(Request $request, $id)

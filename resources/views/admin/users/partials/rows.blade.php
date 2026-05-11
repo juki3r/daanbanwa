@@ -20,17 +20,6 @@
             <span class="badge bg-warning">Not Verified</span>
         @endif
     </td>
-    <td>
-        @if($user->role === 'admin')
-            <span class="badge bg-danger">Admin</span>
-        @elseif($user->role === 'resident')
-            <span class="badge bg-success">Resident</span>
-        @else
-            <span class="badge bg-secondary">
-                {{ $user->role }}
-            </span>
-        @endif
-    </td>
 
     <td>
         <button class="btn btn-primary btn-sm"

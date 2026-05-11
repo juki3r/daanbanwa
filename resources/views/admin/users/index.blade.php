@@ -21,7 +21,6 @@
                                 <th>Middle Name</th>
                                 <th>Phone</th>
                                 <th>Phone Verified</th>
-                                <th>Role</th>
                                 <th>Action</th>
                             </tr>
                         </thead>

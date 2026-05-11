@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BlotterController;
 use App\Http\Controllers\ConcernController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OrdinanceController;
@@ -135,6 +136,11 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
         ->name('users.fetch');
     Route::put('/users/{id}/verify', [UserController::class, 'verify'])
         ->name('users.verify');
+
+
+    Route::get('/calendar', [EventController::class, 'index']);
+    Route::get('/calendar/events', [EventController::class, 'fetchEvents']);
+    Route::post('/calendar/events', [EventController::class, 'store']);
 });
 
 

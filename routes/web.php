@@ -139,8 +139,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
 
     Route::get('/calendar', [EventController::class, 'index'])->name('calendar.index');
-    Route::get('/admin/calendar/events', [EventController::class, 'fetchEvents'])->name('admin.calendar.events.fetch');
-    Route::post('/admin/calendar/events', [EventController::class, 'store'])->name('admin.calendar.events.store');
+    Route::get('/calendar/events', [EventController::class, 'fetchEvents'])->name('admin.calendar.events.fetch');
+    Route::post('/calendar/events', [EventController::class, 'store'])->name('admin.calendar.events.store');
 });
 
 

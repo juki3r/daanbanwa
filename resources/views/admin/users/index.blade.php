@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="h4 mb-0">
-            Users Management
+            Mobile App User Management
         </h2>
     </x-slot>
 

@@ -6,9 +6,9 @@
         <a href="{{ route('admin.dashboard') }}">
             <img src="{{ asset('images/logo.png') }}" alt="Logo" width="80">
         </a>
-        <div class="mt-2">
-            <strong class="d-block" style="font-size: 13px;">Daan Banwa</strong>
-            <small>Estancia, Iloilo</small>
+        <div class="mt-2 d-flex flex-column align-items-center">
+            <strong class="d-block">Daan Banwa</strong>
+            <small style="font-size: 13px">Estancia, Iloilo</small>
         </div>
     </div>
 
@@ -107,9 +107,9 @@
     <div class="offcanvas-body d-flex flex-column">
         <div class="text-center border-bottom pb-3 mb-3">
             <img src="{{ asset('images/logo.png') }}" alt="Logo" width="80">
-            <div class="mt-2">
-                <strong class="d-block" style="font-size: 13px;">Daan Banwa</strong>
-                <small>Estancia, Iloilo</small>
+            <div class="mt-2 d-flex flex-column align-items-center">
+                <strong class="d-block">Daan Banwa</strong>
+                <small style="font-size: 13px">Estancia, Iloilo</small>
             </div>
         </div>
 

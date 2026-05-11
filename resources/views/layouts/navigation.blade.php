@@ -81,6 +81,12 @@
             <span>News</span>
         </a>
 
+        <a href="{{ route('calendar.index') }}"
+        class="nav-link d-flex align-items-center gap-2 {{ request()->routeIs('calendar.*') ? 'active-nav' : 'text-dark' }}">
+            <i class="bi bi-calendar-fill"></i>
+            <span>Calendar</span>
+        </a>
+
     </nav>
 
     {{-- Logout --}}
@@ -155,6 +161,12 @@
         class="nav-link d-flex align-items-center gap-2 {{ request()->routeIs('news.*') ? 'active-nav' : 'text-dark' }}">
             <i class="bi bi-newspaper"></i>
             <span>News</span>
+        </a>
+
+        <a href="{{ route('calendar.index') }}"
+        class="nav-link d-flex align-items-center gap-2 {{ request()->routeIs('calendar.*') ? 'active-nav' : 'text-dark' }}">
+            <i class="bi bi-calendar-fill"></i>
+            <span>Calendar</span>
         </a>
 
     </nav>

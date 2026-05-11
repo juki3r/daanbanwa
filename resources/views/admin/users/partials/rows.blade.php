@@ -17,7 +17,7 @@
         @if($user->phone_verified)
             <span class="badge bg-success">Verified</span>
         @else
-            <span class="badge bg-warning">Not Verified</span>
+            <span class="badge bg-warning text-dark">Not Verified</span>
         @endif
     </td>
 

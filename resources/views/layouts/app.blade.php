@@ -82,7 +82,7 @@
                                 {{-- Page Title --}}
                                 <div>
                                     <h5 class="mb-0 fw-semibold">{{ $header }}</h5>
-                                    <small class="text-muted">Welcome back, Admin</small>
+                                    <small class="text-muted" id="datetime"></small>
                                 </div>
                             </div>
 
@@ -267,6 +267,24 @@
 
                 // run every 5 seconds
                 setInterval(updateCounts, 5000);
+                function updateTime() {
+                const now = new Date();
+
+                const options = {
+                    year: 'numeric',
+                    month: 'long',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                };
+
+                document.getElementById('datetime')
+                    .innerText = now.toLocaleString('en-US', options);
+            }
+
+            updateTime();
+            setInterval(updateTime, 1000);
         </script>
     </body>
 </html>

@@ -9,7 +9,7 @@ class EventController extends Controller
 {
     public function index()
     {
-        return view('calendar.index');
+        return view('admin.calendar.index');
     }
 
     public function fetchEvents()

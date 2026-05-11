@@ -164,12 +164,12 @@
                 return data;
             })
             .then(data => {
-                alert(data.message);
+                showToast('Notification sent successfully', 'success');
                 modal.hide();
             })
             .catch(err => {
                 console.log(err);
-                alert(err.message || 'Error sending notification');
+                showToast('Failed to send notification', 'danger');
             });
         });
 

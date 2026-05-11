@@ -17,7 +17,7 @@ body {
     gap: 20px;
 }
 
-/* LEFT PANEL */
+/* SIDEBAR */
 .sidebar {
     width: 320px;
     display: flex;
@@ -32,7 +32,7 @@ body {
     box-shadow: 0 8px 20px rgba(0,0,0,0.05);
 }
 
-/* EVENT LIST */
+/* EVENT ITEMS */
 .event-item {
     padding: 10px;
     border-left: 4px solid #3b82f6;
@@ -73,6 +73,7 @@ body {
 .fc-toolbar-title {
     font-size: 18px !important;
     font-weight: 700;
+    color: #111827;
 }
 
 .fc-button {
@@ -87,18 +88,60 @@ body {
 
 .fc-daygrid-day:hover {
     background: #f1f5f9;
+    cursor: pointer;
+}
+
+.fc-day-today {
+    background: #eaf2ff !important;
+}
+
+/* EVENTS */
+.fc-event {
+    border: none !important;
+    border-radius: 6px !important;
+    padding: 2px 6px;
+    font-size: 12px;
 }
 
 /* MODAL */
 .modal-content {
     border-radius: 16px !important;
+    border: none;
+    overflow: hidden;
 }
 
 .modal-header {
     background: #3b82f6;
     color: white;
 }
-.btn-close { filter: invert(1); }
+
+.btn-close {
+    filter: invert(1);
+}
+
+.form-control {
+    border-radius: 10px !important;
+}
+
+.form-control:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 0.2rem rgba(59,130,246,0.15);
+}
+
+.btn-primary {
+    background: #3b82f6;
+    border: none;
+    border-radius: 10px;
+}
+
+.btn-primary:hover {
+    background: #2563eb;
+}
+
+.btn-danger,
+.btn-secondary {
+    border-radius: 10px;
+}
 </style>
 
 <div class="container-fluid py-4">
@@ -110,13 +153,13 @@ body {
 
             <!-- TODAY -->
             <div class="card-box">
-                <h6 class="fw-bold mb-2">📌 Today</h6>
+                <h6 class="fw-bold mb-3">📌 Today’s Events</h6>
                 <div id="todayEvents"></div>
             </div>
 
             <!-- UPCOMING -->
             <div class="card-box">
-                <h6 class="fw-bold mb-2">📅 Upcoming Events</h6>
+                <h6 class="fw-bold mb-3">📅 Upcoming Events</h6>
                 <div id="upcomingEvents"></div>
             </div>
 
@@ -133,8 +176,90 @@ body {
 
 </div>
 
-<!-- MODALS (UNCHANGED) -->
-@include('calendar.modals') {{-- optional if you want split --}}
+<!-- ADD EVENT MODAL -->
+<div class="modal fade" id="eventModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Add Event</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <input type="hidden" id="event_date">
+
+                <div class="mb-3">
+                    <label>Title</label>
+                    <input type="text" id="title" class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label>Description</label>
+                    <textarea id="description" class="form-control"></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label>Color</label>
+                    <input type="color" id="color" class="form-control form-control-color" value="#3b82f6">
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button class="btn btn-primary" id="saveEvent">Save</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- VIEW / EDIT MODAL -->
+<div class="modal fade" id="viewEventModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Event Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <input type="hidden" id="edit_event_id">
+
+                <div class="mb-3">
+                    <label>Title</label>
+                    <input type="text" id="edit_title" class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label>Description</label>
+                    <textarea id="edit_description" class="form-control"></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label>Color</label>
+                    <input type="color" id="edit_color" class="form-control form-control-color">
+                </div>
+
+                <div class="mb-3">
+                    <label>Date</label>
+                    <input type="text" id="edit_date" class="form-control" disabled>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-danger" id="deleteEvent">Delete</button>
+                <button class="btn btn-primary" id="updateEvent">Update</button>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 <!-- FULLCALENDAR -->
 <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css" rel="stylesheet">
@@ -143,9 +268,9 @@ body {
 <script>
 document.addEventListener('DOMContentLoaded', function () {
 
-    let eventsCache = [];
-
     let calendarEl = document.getElementById('calendar');
+    let selectedDate = null;
+    let allEvents = [];
 
     let calendar = new FullCalendar.Calendar(calendarEl, {
 
@@ -154,16 +279,18 @@ document.addEventListener('DOMContentLoaded', function () {
         events: '/admin/calendar/events',
 
         eventDidMount: function(info) {
-            eventsCache.push(info.event);
+            allEvents.push(info.event);
             renderSidebar();
         },
 
         dateClick: function(info) {
-            document.getElementById('event_date').value = info.dateStr;
+            selectedDate = info.dateStr;
+            document.getElementById('event_date').value = selectedDate;
             new bootstrap.Modal(document.getElementById('eventModal')).show();
         },
 
         eventClick: function(info) {
+
             let event = info.event;
 
             document.getElementById('edit_event_id').value = event.id;
@@ -188,7 +315,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         let today = new Date().toISOString().split('T')[0];
 
-        eventsCache.forEach(ev => {
+        allEvents.forEach(ev => {
 
             let date = ev.startStr;
 
@@ -207,6 +334,66 @@ document.addEventListener('DOMContentLoaded', function () {
 
         });
     }
+
+    // SAVE
+    document.getElementById('saveEvent').addEventListener('click', function () {
+
+        fetch('/admin/calendar/events', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({
+                title: document.getElementById('title').value,
+                description: document.getElementById('description').value,
+                start_date: selectedDate,
+                color: document.getElementById('color').value
+            })
+        })
+        .then(() => {
+            location.reload();
+        });
+
+    });
+
+    // UPDATE
+    document.getElementById('updateEvent').addEventListener('click', function () {
+
+        let id = document.getElementById('edit_event_id').value;
+
+        fetch(`/admin/calendar/events/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({
+                title: document.getElementById('edit_title').value,
+                description: document.getElementById('edit_description').value,
+                color: document.getElementById('edit_color').value
+            })
+        })
+        .then(() => location.reload());
+
+    });
+
+    // DELETE
+    document.getElementById('deleteEvent').addEventListener('click', function () {
+
+        let id = document.getElementById('edit_event_id').value;
+
+        if (!confirm("Delete this event?")) return;
+
+        fetch(`/admin/calendar/events/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            }
+        })
+        .then(() => location.reload());
+
+    });
 
 });
 </script>

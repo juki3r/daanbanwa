@@ -4,7 +4,7 @@
 
     <!-- TITLE -->
     <td>
-        <strong>{{ $item->title }}</strong>
+        <strong class="text-capitalize">{{ $item->title }}</strong>
     </td>
 
     <!-- CONTENT -->

@@ -84,7 +84,7 @@
 
                             <input type="text"
                                    name="title"
-                                   class="form-control"
+                                   class="form-control text-capitalize"
                                    required>
 
                         </div>

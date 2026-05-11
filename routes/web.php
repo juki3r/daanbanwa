@@ -29,36 +29,22 @@ Route::get('/dashboard', function () {
 })->middleware('auth')->name('dashboard');
 
 
-// Admin route to view all officials
-Route::get('/admin/officials', function () {
-
-    abort_unless(Auth::user()->role === 'admin', 403);
-
-    $query = request('search');
-
-    $officials = Official::where('position', 'like', "%{$query}%")
-        ->when($query, function ($q) use ($query) {
-            $q->where(function ($sub) use ($query) {
-                $sub->where('name', 'like', "%{$query}%")
-                    ->orWhere('position', 'like', "%{$query}%")
-                    ->orWhere('assignment', 'like', "%{$query}%");
-            });
-        })
-        ->orderBy('created_at', 'asc')
-        ->get();
-
-    return view('admin.officials.index', compact('officials', 'query'));
-})->middleware('auth')->name('admin.officials');
 
 
 
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+
     Route::get('/dashboard', [AdminController::class, 'index'])
         ->name('admin.dashboard');
 
+    Route::get('/officials', [AdminController::class, 'officials'])
+        ->name('officials.index');
     Route::post('/officials', [AdminController::class, 'store_official'])
         ->name('officials.store');
+
+
+
 
     Route::get('/ordinances', [OrdinanceController::class, 'index'])->name('ordinances.index');
     Route::post('/ordinances', [OrdinanceController::class, 'store'])->name('ordinances.store');

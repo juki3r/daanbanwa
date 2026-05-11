@@ -113,31 +113,20 @@ class NewsController extends Controller
             'image' => 'nullable|image|max:2048',
         ]);
 
-        // Capitalize title before saving
         $validatedData['title'] = ucwords(strtolower($validatedData['title']));
 
-        // Save image
         if ($request->hasFile('image')) {
             $validatedData['image'] = $request->file('image')->store('news', 'public');
         }
 
-        // Save news
         $news = News::create($validatedData);
 
-        // Return immediately to user
-        return redirect()
-            ->route('news.index')
-            ->with('success', 'News created successfully.');
-
-        // Everything below runs after the response is sent
+        // ✅ RUN BACKGROUND LOGIC FIRST (IMPORTANT)
         app()->terminating(function () use ($news) {
 
-            // ================= FCM PUSH NOTIFICATIONS =================
-            $tokens = User::whereNotNull('fcm_token')
-                ->pluck('fcm_token')
-                ->toArray();
-
             $firebase = new FirebaseService();
+
+            $tokens = User::whereNotNull('fcm_token')->pluck('fcm_token');
 
             foreach ($tokens as $token) {
                 try {
@@ -151,11 +140,10 @@ class NewsController extends Controller
                         ]
                     );
                 } catch (\Exception $e) {
-                    Log::error('FCM failed: ' . $e->getMessage());
+                    Log::error($e->getMessage());
                 }
             }
 
-            // ================= SMS ALERTS =================
             $users = User::whereNotNull('phone')
                 ->where('role', '!=', 'admin')
                 ->get();
@@ -163,22 +151,27 @@ class NewsController extends Controller
             foreach ($users as $user) {
                 try {
                     Http::withHeaders([
-                        'X-API-KEY' => env('SMS_API_KEY'),
+                        'X-API-KEY' => env('SMS_API_KEY')
                     ])->timeout(10)->post(
                         'https://carlesppo.com/api/send-sms-api',
                         [
                             'phone_number' => $user->phone,
                             'message' => Str::limit(
-                                "[Daan Banwa ALERT]\n{$news->title}\n\nOpen your DaanBanwa app for details.",
+                                "[Daan Banwa ALERT]\n{$news->title}\n\nOpen your app for details.",
                                 140
-                            ),
+                            )
                         ]
                     );
                 } catch (\Exception $e) {
-                    Log::error('SMS failed for ' . $user->phone . ': ' . $e->getMessage());
+                    Log::error('SMS failed: ' . $e->getMessage());
                 }
             }
         });
+
+        // ✅ THEN RETURN RESPONSE
+        return redirect()
+            ->route('news.index')
+            ->with('success', 'News created successfully.');
     }
 
     public function update(Request $request, $id)

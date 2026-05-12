@@ -28,13 +28,13 @@
 
     <td>
         <div class="d-flex gap-1 justify-content-center">
-        <button class="btn btn-sm btn-primary open-status" type="button"
+        <button class="btn btn-sm btn-primary open-status d-flex align-items-center gap-1" type="button"
             data-id="{{ $concern->id }}"
             data-status="{{ $concern->status }}">
             <i class="bi bi-pencil-square me-1"></i> Status
         </button>
 
-        <button type="button" class="btn btn-sm btn-danger delete-btn"
+        <button type="button" class="btn btn-sm btn-danger delete-btn d-flex align-items-center gap-1"
             data-id="{{ $concern->id }}">
             <i class="bi bi-trash me-1"></i> Delete
         </button>

@@ -122,7 +122,16 @@
                     <!-- Address -->
                     <div class="col-md-6">
                         <label class="form-label">Address</label>
-                        <input type="text" name="address" class="form-control" required>
+                        <select name="address" class="form-select" required>
+                            <option value="" disabled selected>Select Purok</option>
+                            <option value="Purok 1 Pine Tree">Purok 1 Pine Tree</option>
+                            <option value="Purok 2 Narra">Purok 2 Narra</option>
+                            <option value="Purok 3 Bayuko">Purok 3 Bayuko</option>
+                            <option value="Purok 4 Tipolo">Purok 4 Tipolo</option>
+                            <option value="Purok 5 Mahogany">Purok 5 Mahogany</option>
+                            <option value="Purok 6 Indian Tree">Purok 6 Indian Tree</option>
+                            <option value="Purok 7 Molave">Purok 7 Molave</option>
+                        </select>
                     </div>
 
                     <!-- Document Type -->

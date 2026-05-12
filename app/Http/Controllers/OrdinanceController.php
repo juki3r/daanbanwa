@@ -120,8 +120,9 @@ class OrdinanceController extends Controller
     {
         Ordinance::findOrFail($id)->delete();
 
-        return redirect()
-            ->back()
-            ->with('success', 'Ordinance deleted successfully.');
+        return response()->json([
+            'success' => true,
+            'message' => 'News item deleted successfully.'
+        ]);
     }
 }

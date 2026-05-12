@@ -49,8 +49,8 @@ class OrdinanceController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'ordinance_no' => 'required',
-            'title' => 'required',
+            'ordinance_no' => 'required|unique:ordinances,ordinance_no',
+            'title' => 'required|unique:ordinances,title',
             'description' => 'required',
         ]);
 

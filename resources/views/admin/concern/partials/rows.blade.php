@@ -27,6 +27,7 @@
     </td>
 
     <td>
+        <div class="d-flex flex-column gap-1">
         <button class="btn btn-sm btn-primary open-status" type="button"
             data-id="{{ $concern->id }}"
             data-status="{{ $concern->status }}">
@@ -37,6 +38,7 @@
             data-id="{{ $concern->id }}">
             <i class="bi bi-trash me-1"></i> Delete
         </button>
+        </div>
     </td>
 </tr>
 

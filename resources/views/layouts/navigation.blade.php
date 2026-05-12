@@ -87,11 +87,11 @@
             <span>Ordinances</span>
         </a>
 
-        {{-- <a href="{{ route('officials.index') }}"
+        <a href="{{ route('officials.index') }}"
         class="nav-link d-flex align-items-center gap-2 {{ request()->routeIs('officials.*') ? 'active-nav' : 'text-dark' }}">
             <i class="bi bi-newspaper"></i>
             <span>Officials</span>
-        </a> --}}
+        </a>
 
         <a href="{{ route('calendar.index') }}"
         class="nav-link d-flex align-items-center gap-2 {{ request()->routeIs('calendar.*') ? 'active-nav' : 'text-dark' }}">
@@ -181,11 +181,11 @@
             <span>Ordinances</span>
         </a>
 
-        {{-- <a href="{{ route('officials.index') }}"
+        <a href="{{ route('officials.index') }}"
         class="nav-link d-flex align-items-center gap-2 {{ request()->routeIs('officials.*') ? 'active-nav' : 'text-dark' }}">
             <i class="bi bi-people-fill"></i>
             <span>Officials</span>
-        </a> --}}
+        </a>
 
         <a href="{{ route('calendar.index') }}"
         class="nav-link d-flex align-items-center gap-2 {{ request()->routeIs('calendar.*') ? 'active-nav' : 'text-dark' }}">

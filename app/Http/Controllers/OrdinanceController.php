@@ -8,23 +8,41 @@ use Illuminate\Support\Facades\Http;
 
 class OrdinanceController extends Controller
 {
-    // GET all ordinances
-    public function index()
+    public function index(Request $request)
     {
-        $query = request('search');
+        $query = Ordinance::query();
 
-        $ordinances = Ordinance::where('title', 'like', "%{$query}%")
-            ->when($query, function ($q) use ($query) {
-                $q->where(function ($sub) use ($query) {
-                    $sub->where('ordinance_no', 'like', "%{$query}%")
-                        ->orWhere('title', 'like', "%{$query}%")
-                        ->orWhere('description', 'like', "%{$query}%");
-                });
-            })
-            ->orderBy('created_at', 'asc')
-            ->get();
+        if ($request->filled('search')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('title', 'like', "%{$request->search}%")
+                    ->orWhere('description', 'like', "%{$request->search}%")
+                    ->orWhere('ordinance_no', 'like', "%{$request->search}%");
+            });
+        }
 
-        return view('admin.ordinances.index', compact('ordinances', 'query'));
+        $ordinances = $query->latest()->paginate(7);
+
+        return view('admin.ordinances.index', compact('ordinances'));
+    }
+
+    public function fetch(Request $request)
+    {
+        $query = Ordinance::query();
+
+        if ($request->search) {
+            $query->where(function ($q) use ($request) {
+                $q->where('title', 'like', "%{$request->search}%")
+                    ->orWhere('description', 'like', "%{$request->search}%")
+                    ->orWhere('ordinance_no', 'like', "%{$request->search}%");
+            });
+        }
+
+        $ordinances = $query->latest()->paginate(7);
+
+        return response()->json([
+            'html' => view('admin.ordinances.partials.rows', compact('ordinances'))->render(),
+            'pagination' => (string) $ordinances->links(),
+        ]);
     }
 
     // STORE (optional admin side)

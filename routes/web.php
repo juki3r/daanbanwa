@@ -50,7 +50,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::post('/ordinances', [OrdinanceController::class, 'store'])->name('ordinances.store');
     Route::put('/ordinances/{id}', [OrdinanceController::class, 'update'])->name('ordinances.update');
     Route::delete('/ordinances/{id}', [OrdinanceController::class, 'destroy'])->name('ordinances.destroy');
-
+    Route::get('/ordinances/fetch', [OrdinanceController::class, 'fetch'])
+        ->name('ordinances.fetch');
 
 
 

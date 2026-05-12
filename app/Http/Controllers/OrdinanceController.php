@@ -20,7 +20,7 @@ class OrdinanceController extends Controller
             });
         }
 
-        $ordinances = $query->latest()->paginate(7);
+        $ordinances = $query->orderBy('ordinance_no', 'desc')->paginate(7);
 
         return view('admin.ordinances.index', compact('ordinances'));
     }
@@ -37,7 +37,7 @@ class OrdinanceController extends Controller
             });
         }
 
-        $ordinances = $query->latest()->paginate(7);
+        $ordinances = $query->orderBy('ordinance_no', 'desc')->paginate(7);
 
         return response()->json([
             'html' => view('admin.ordinances.partials.rows', compact('ordinances'))->render(),

@@ -101,7 +101,7 @@ class BlotterController extends Controller
             return response()->json([
                 'success' => false,
                 'status' => $blotter->status,
-                'message' => 'Status updated successfully'
+                'message' => 'Status updated successfully, but user has no FCM token for notifications'
             ]);
         }
 

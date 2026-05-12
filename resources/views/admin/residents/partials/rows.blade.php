@@ -46,7 +46,7 @@
     </td>
     {{-- ACTIONS --}}
     <td>
-        <div class="d-flex gap-2">
+        <div class="d-flex gap-1 justify-content-center">
 
             <button type="button" class="btn btn-sm btn-primary edit-btn d-flex align-items-center"
                 data-id="{{ $resident->id }}">

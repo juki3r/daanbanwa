@@ -25,7 +25,7 @@
     </td>
 
     <td>
-        <div class="d-flex gap-2 justify-content-center">
+        <div class="d-flex gap-1 justify-content-center">
             <button class="btn btn-sm btn-primary open-status d-flex align-items-center gap-1"
                 data-id="{{ $request->id }}"
                 data-status="{{ $request->status }}">

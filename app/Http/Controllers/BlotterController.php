@@ -128,6 +128,11 @@ class BlotterController extends Controller
             ]);
         } catch (\Exception $e) {
             \Log::error('SMS failed: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'status' => $blotter->status,
+                'message' => 'Status updated successfully, but user has no phone number for notifications'
+            ]);
         }
 
         return response()->json([

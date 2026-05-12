@@ -184,22 +184,25 @@
 
     });
 
-    // ================= UPDATE STATUS =================
+   // ================= UPDATE STATUS =================
     document.getElementById("statusForm").addEventListener("submit", async function (e) {
         e.preventDefault();
 
         const id = document.getElementById("requestId").value;
         const formData = new FormData(this);
 
-        const res = await fetch(`{{ route('blotters.updateStatus', ':id') }}`.replace(':id', id), {
-            method: "POST",
-            headers: {
-                "X-CSRF-TOKEN": "{{ csrf_token() }}",
-                "X-HTTP-Method-Override": "PUT",
-                "Accept": "application/json"
-            },
-            body: formData
-        });
+        const res = await fetch(
+            `{{ route('blotters.updateStatus', ['id' => '__ID__']) }}`.replace('__ID__', id),
+            {
+                method: "POST",
+                headers: {
+                    "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                    "X-HTTP-Method-Override": "PUT",
+                    "Accept": "application/json"
+                },
+                body: formData
+            }
+        );
 
         const data = await res.json();
 
@@ -208,23 +211,29 @@
             let badge = document.getElementById(`status-badge-${id}`);
 
             if (badge) {
-
-                badge.innerText = data.status.charAt(0).toUpperCase() + data.status.slice(1);
+                badge.innerText =
+                    data.status.charAt(0).toUpperCase() + data.status.slice(1);
 
                 const classMap = {
                     approved: "bg-success text-white",
                     rejected: "bg-danger text-white"
                 };
 
-                badge.className = "badge " + (classMap[data.status] || "bg-secondary");
+                badge.className =
+                    "badge " + (classMap[data.status] || "bg-secondary");
             }
-            // ✅ REMOVE UNREAD HIGHLIGHT LIVE
-                const row = document.getElementById(`blotter-row-${id}`);
-                if (row) {
-                    row.classList.remove('table-warning');
-                }
 
-            bootstrap.Modal.getInstance(document.getElementById("statusModal")).hide();
+            // Remove unread highlight
+            const row = document.getElementById(`blotter-row-${id}`);
+            if (row) {
+                row.classList.remove('table-warning');
+            }
+
+            // Close modal (works even if getInstance() returns null)
+            const modalEl = document.getElementById("statusModal");
+            const modal = bootstrap.Modal.getInstance(modalEl)
+                        || bootstrap.Modal.getOrCreateInstance(modalEl);
+            modal.hide();
 
             showToast("Status updated", "success");
 

@@ -52,6 +52,14 @@ class OrdinanceController extends Controller
             'ordinance_no' => 'required|unique:ordinances,ordinance_no',
             'title' => 'required|unique:ordinances,title',
             'description' => 'required',
+        ], [
+            'ordinance_no.required' => 'The ordinance number is required.',
+            'ordinance_no.unique' => 'This ordinance number already exists.',
+
+            'title.required' => 'The title is required.',
+            'title.unique' => 'This title already exists.',
+
+            'description.required' => 'The description is required.',
         ]);
 
         $ordinance = Ordinance::create($request->all());

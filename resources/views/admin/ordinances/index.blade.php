@@ -44,85 +44,94 @@
         </div>
     </div>
 
+    {{-- Show validation errors and automatically reopen the modal --}}
+    @if ($errors->any())
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const modal = new bootstrap.Modal(
+                    document.getElementById('createOrdinanceModal')
+                );
+                modal.show();
+            });
+        </script>
+    @endif
+
 <!-- ========================================= -->
     <!-- CREATE ORDINANCE MODAL -->
     <!-- ========================================= -->
 
+    <!-- CREATE ORDINANCE MODAL -->
     <div class="modal fade" id="createOrdinanceModal" tabindex="-1">
-
         <div class="modal-dialog modal-lg">
-
             <form action="{{ route('ordinances.store') }}"
-                  method="POST"
-                  enctype="multipart/form-data"
-                  class="modal-content">
+                method="POST"
+                enctype="multipart/form-data"
+                class="modal-content">
 
                 @csrf
 
                 <div class="modal-header">
-
-                    <h5 class="modal-title">
-                        Create Ordinance
-                    </h5>
-
+                    <h5 class="modal-title">Create Ordinance</h5>
                     <button type="button"
                             class="btn-close"
                             data-bs-dismiss="modal">
                     </button>
-
                 </div>
 
                 <div class="modal-body">
 
+                    {{-- Validation Errors --}}
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul class="mb-0 ps-3">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
                     <div class="row g-3">
 
                         <div class="col-12">
-
-                            <label class="form-label">
-                                Ordinance No
-                            </label>
-
+                            <label class="form-label">Ordinance No</label>
                             <input type="text"
-                                   name="ordinance_no"
-                                   class="form-control text-capitalize"
-                                   required>
-
+                                name="ordinance_no"
+                                value="{{ old('ordinance_no') }}"
+                                class="form-control text-capitalize @error('ordinance_no') is-invalid @enderror"
+                                required>
+                            @error('ordinance_no')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
-                        <!-- TITLE -->
                         <div class="col-12">
-
-                            <label class="form-label">
-                                Title
-                            </label>
-
+                            <label class="form-label">Title</label>
                             <input type="text"
-                                   name="title"
-                                   class="form-control text-capitalize"
-                                   required>
-
+                                name="title"
+                                value="{{ old('title') }}"
+                                class="form-control text-capitalize @error('title') is-invalid @enderror"
+                                required>
+                            @error('title')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
-                        <!-- CONTENT -->
                         <div class="col-12">
-
-                            <label class="form-label">
-                                Description
-                            </label>
-
+                            <label class="form-label">Description</label>
                             <textarea name="description"
-                                      rows="5"
-                                      class="form-control"
-                                      required></textarea>
-
+                                    rows="5"
+                                    class="form-control @error('description') is-invalid @enderror"
+                                    required>{{ old('description') }}</textarea>
+                            @error('description')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                     </div>
-
                 </div>
 
                 <div class="modal-footer">
-
                     <button type="button"
                             class="btn btn-light"
                             data-bs-dismiss="modal">
@@ -133,15 +142,10 @@
                             class="btn btn-success">
                         Create Ordinance
                     </button>
-
                 </div>
-
             </form>
-
         </div>
-
     </div>
-
 
 
     <!-- ========================================= -->

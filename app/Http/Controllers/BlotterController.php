@@ -98,7 +98,11 @@ class BlotterController extends Controller
         }
 
         if (!$user->fcm_token) {
-            return back()->with('error', 'User has no FCM token registered.');
+            return response()->json([
+                'success' => false,
+                'status' => $blotter->status,
+                'message' => 'Status updated successfully'
+            ]);
         }
 
         $title = "Blotter Update !";

@@ -215,7 +215,7 @@
             });
         });
 
-        /* ================= VERIFY PHONE (LIVE UPDATE) ================= */
+        /* ================= Grant (LIVE UPDATE) ================= */
         document.addEventListener('click', function (e) {
             const btn = e.target.closest('.granted-btn');
             if (!btn) return;

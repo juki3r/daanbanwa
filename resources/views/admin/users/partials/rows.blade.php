@@ -20,7 +20,13 @@
             <span class="badge bg-warning text-dark">Not Verified</span>
         @endif
     </td>
-
+    <td>
+        @if($user->granted)
+            <span class="badge bg-success">Granted</span>
+        @else
+            <span class="badge bg-warning text-dark">Pending</span>
+        @endif
+    </td>
     <td>
         <div class="d-flex gap-2 flex-wrap">
 
@@ -51,7 +57,7 @@
 
 <tr>
 
-    <td colspan="6"
+    <td colspan="7"
         class="text-center text-muted py-4">
 
         No news found

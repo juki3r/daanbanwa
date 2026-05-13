@@ -29,7 +29,7 @@ class FBController extends Controller
         //     "🏢 Barangay Announcement";
 
         $message =
-            "📢 Demp Post}\n\n" .
+            "📢 Demo Post}\n\n" .
             "This is a demo post for barangay announcement.\n\n" .
             "📅 " . now()->format('F d, Y h:i A') . "\n" .
             "🏢 Barangay Announcement";

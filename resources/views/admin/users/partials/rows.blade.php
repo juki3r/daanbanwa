@@ -40,6 +40,16 @@
                 </button>
             @endif
 
+            {{-- Grant Button (only show if not granted) --}}
+            @if(!$user->granted)
+                 <button type="button"
+                    class="btn btn-success btn-sm granted-btn d-flex align-items-center"
+                    data-id="{{ $user->id }}">
+                    <i class="bi bi-patch-check-fill me-1"></i>
+                    Grant Access
+                </button>   
+            @endif
+
             {{-- Send Notification --}}
             <button type="button"
                 class="btn btn-primary btn-sm d-flex align-items-center"

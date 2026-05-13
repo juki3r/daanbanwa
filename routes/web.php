@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BlotterController;
 use App\Http\Controllers\ConcernController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\FBController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OrdinanceController;
@@ -138,7 +139,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
 
 
-
+Route::get('/fbpost', [FBController::class, 'postToFacebook'])->name('fb.post');
 
 
 

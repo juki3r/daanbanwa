@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Log;
 use Illuminate\Support\Str;
+use App\Services\FacebookService;
 
 class NewsController extends Controller
 {
@@ -101,6 +102,9 @@ class NewsController extends Controller
                 \Log::error('SMS failed for ' . $user->phone . ': ' . $e->getMessage());
             }
         }
+
+        // Auto post to Facebook
+        // $fb->postToPage($news->title . "\n\n" . $news->content);
 
         // return redirect()->route('news.index')->with('success', 'News created and notification sent.');
         return redirect()

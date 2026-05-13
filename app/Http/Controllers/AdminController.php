@@ -20,6 +20,7 @@ class AdminController extends Controller
         $male = Resident::where('sex', 'Male')->count();
         $female = Resident::where('sex', 'Female')->count();
         $voters = Resident::where('is_voter', true)->count();
+        $pwd = Resident::where('is_pwd', true)->count();
 
         $households = Resident::distinct('household_name')->count('household_name');
 
@@ -45,6 +46,7 @@ class AdminController extends Controller
             'male',
             'female',
             'voters',
+            'pwd',
             'households',
             'recentResidents',
             'ageData',

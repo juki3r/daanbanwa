@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 
+use FacebookService;
 use Illuminate\Http\Request;
-use App\Services\FacebookService;
+
 
 class FBController extends Controller
 {

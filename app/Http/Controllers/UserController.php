@@ -114,4 +114,18 @@ class UserController extends Controller
             'message' => 'User verified successfully.',
         ]);
     }
+
+    public function grant($id)
+    {
+        $user = User::findOrFail($id);
+
+        $user->update([
+            'granted' => true,
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'User granted successfully.',
+        ]);
+    }
 }

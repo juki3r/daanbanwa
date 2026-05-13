@@ -214,6 +214,47 @@
                 showToast('Failed to verify user', 'danger');
             });
         });
+
+        /* ================= VERIFY PHONE (LIVE UPDATE) ================= */
+        document.addEventListener('click', function (e) {
+            const btn = e.target.closest('.granted-btn');
+            if (!btn) return;
+
+            const id = btn.dataset.id;
+
+            if (!confirm('Mark this user as granted?')) return;
+
+            fetch(`/admin/users/${id}/grant`, {
+                method: 'PUT',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Accept': 'application/json'
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    showToast('User granted successfully', 'success');
+
+                    // Find the current row
+                    const row = btn.closest('tr');
+
+                    // Update granted badge
+                    const statusCell = row.children[5]; // 6th column = granted status
+                    statusCell.innerHTML = `
+                        <span class="badge bg-success">
+                            <i class="bi bi-check-circle-fill me-1"></i> Granted
+                        </span>
+                    `;
+
+                    // Remove Grant button
+                    btn.remove();
+                }
+            })
+            .catch(() => {
+                showToast('Failed to grant user', 'danger');
+            });
+        });
     </script>
 
 </x-app-layout>

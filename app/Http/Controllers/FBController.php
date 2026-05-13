@@ -22,7 +22,17 @@ class FBController extends Controller
 
     public function postToFacebook(Request $request, FacebookService $fb)
     {
-        $message = "Hello, this is a test post from server to Facebook!";
+        // $message =
+        //     "📢 {$news->title}\n\n" .
+        //     "{$news->content}\n\n" .
+        //     "📅 " . now()->format('F d, Y h:i A') . "\n" .
+        //     "🏢 Barangay Announcement";
+
+        $message =
+            "📢 Demp Post}\n\n" .
+            "This is a demo post for barangay announcement.\n\n" .
+            "📅 " . now()->format('F d, Y h:i A') . "\n" .
+            "🏢 Barangay Announcement";
 
         $response = $fb->postToPage($message);
 

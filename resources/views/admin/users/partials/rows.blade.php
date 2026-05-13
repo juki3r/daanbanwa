@@ -33,7 +33,7 @@
             {{-- Verify Button (only show if not verified) --}}
             @if(!$user->phone_verified)
                 <button type="button"
-                    class="btn btn-success btn-sm verify-btn"
+                    class="btn btn-success btn-sm verify-btn d-flex align-items-center"
                     data-id="{{ $user->id }}">
                     <i class="bi bi-patch-check-fill me-1"></i>
                     Verify
@@ -42,7 +42,7 @@
 
             {{-- Send Notification --}}
             <button type="button"
-                class="btn btn-primary btn-sm"
+                class="btn btn-primary btn-sm d-flex align-items-center"
                 onclick="openModal({{ $user->id }})">
                 <i class="bi bi-bell-fill me-1"></i>
                 Notify

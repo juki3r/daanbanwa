@@ -41,7 +41,7 @@
             @endif
 
             {{-- Grant Button (only show if not granted) --}}
-            @if(!$user->granted)
+            @if($user->phone_verified && !$user->granted)
                  <button type="button"
                     class="btn btn-warning text-dark btn-sm granted-btn d-flex align-items-center"
                     data-id="{{ $user->id }}">

@@ -65,4 +65,8 @@ class User extends Authenticatable
             ->withPivot('viewed_at')
             ->withTimestamps();
     }
+
+    protected $casts = [
+        'granted' => 'boolean',
+    ];
 }

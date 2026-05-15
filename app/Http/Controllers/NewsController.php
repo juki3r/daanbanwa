@@ -66,7 +66,11 @@ class NewsController extends Controller
         $news = \App\Models\News::create($validatedData);
 
 
-        $tokens = \App\Models\User::whereNotNull('fcm_token')
+        // $tokens = \App\Models\User::whereNotNull('fcm_token')
+        //     ->pluck('fcm_token')
+        //     ->toArray();
+        $tokens = User::whereNotNull('fcm_token')
+            ->where('granted', true)
             ->pluck('fcm_token')
             ->toArray();
 

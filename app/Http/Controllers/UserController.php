@@ -93,7 +93,10 @@ class UserController extends Controller
             });
         }
 
-        $users = $query->latest()->paginate(8);
+        $users = $query
+            ->orderBy('last_name', 'asc')
+            ->orderBy('first_name', 'asc')
+            ->paginate(8);
 
         return response()->json([
             'html' => view('admin.users.partials.rows', compact('users'))->render(),

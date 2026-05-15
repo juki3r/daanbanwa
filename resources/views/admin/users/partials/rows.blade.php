@@ -53,7 +53,7 @@
             {{-- Grant Button (only show if not granted) --}}
             @if($user->phone_verified && $user->granted)
                  <button type="button"
-                    class="btn btn-warning text-dark btn-sm decline-btn d-flex align-items-center"
+                    class="btn btn-danger  btn-sm decline-btn d-flex align-items-center"
                     data-id="{{ $user->id }}">
                     <i class="bi bi-patch-check-fill me-1"></i>
                     Decline Access

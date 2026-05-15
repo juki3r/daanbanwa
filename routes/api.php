@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\ConcernController;
 use App\Http\Controllers\Api\RequestController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\UserController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
@@ -61,4 +62,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/blotter/{id}/status', [BlotterController::class, 'updateStatus']);
 
     // Route::get('/app-status', [AppStatusController::class, 'index']);
+});
+
+
+Route::middleware('auth:sanctum')->get('/me', function (Request $request) {
+    return response()->json([
+        'user' => $request->user()
+    ]);
 });

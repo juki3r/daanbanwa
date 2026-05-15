@@ -194,7 +194,7 @@
             .then(data => {
                 if (data.success) {
                     showToast('User verified successfully', 'success');
-
+                    fetchData(); // refresh table cleanly
                     // Find the current row
                     const row = btn.closest('tr');
 
@@ -235,20 +235,18 @@
             .then(data => {
                 if (data.success) {
                     showToast('User granted successfully', 'success');
-
+                    fetchData(); // refresh table cleanly
                     // Find the current row
                     const row = btn.closest('tr');
 
                     // Update granted badge
-                    const statusCell = row.children[5]; // 6th column = granted status
+                    const statusCell = row.children[5];
+
                     statusCell.innerHTML = `
                         <span class="badge bg-success">
                             <i class="bi bi-check-circle-fill me-1"></i> Granted
                         </span>
                     `;
-
-                    // Remove Grant button
-                    btn.remove();
                 }
             })
             .catch(() => {
@@ -277,10 +275,10 @@
                 if (data.success) {
 
                     showToast('User denied access', 'danger');
-
+                    fetchData(); // refresh table cleanly
                     const row = btn.closest('tr');
 
-                    // ✅ update granted column (index 5)
+                    // update status only
                     const statusCell = row.children[5];
 
                     statusCell.innerHTML = `
@@ -289,11 +287,8 @@
                         </span>
                     `;
 
-                    // remove all action buttons (optional clean UI)
-                    const actionsCell = row.children[6];
-                    actionsCell.innerHTML = `
-                        <span class="text-muted">No actions</span>
-                    `;
+                    // ❌ DO NOT REMOVE ACTION BUTTONS
+                    // let Blade re-render it correctly next fetchData()
                 }
             })
             .catch(() => {

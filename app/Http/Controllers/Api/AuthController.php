@@ -205,26 +205,47 @@ class AuthController extends Controller
     {
         $request->validate([
             'phone' => 'required|string',
-            'otp' => 'required|string'
+            'otp'   => 'required|string',
         ]);
 
         $user = User::where('phone', $request->phone)->first();
 
         if (!$user) {
-            return response()->json(['message' => 'User not found'], 404);
+            return response()->json([
+                'message' => 'User not found'
+            ], 404);
         }
 
-        if ($user->otp_code !== $request->otp) {
-            return response()->json(['message' => 'Invalid OTP'], 401);
+        // Convert both values to string to avoid int vs string mismatch
+        if ((string) $user->otp_code !== (string) $request->otp) {
+            return response()->json([
+                'message' => 'Invalid OTP'
+            ], 401);
         }
 
-        if (Carbon::now()->gt($user->otp_expires_at)) {
-            return response()->json(['message' => 'OTP expired'], 401);
+        // Handle null expiration safely
+        if (!$user->otp_expires_at) {
+            return response()->json([
+                'message' => 'OTP expiration not set'
+            ], 401);
         }
+
+        // Ensure Carbon instance
+        if (now()->gt(Carbon::parse($user->otp_expires_at))) {
+            return response()->json([
+                'message' => 'OTP expired'
+            ], 401);
+        }
+
+        // Clear OTP after successful verification (optional but recommended)
+        $user->update([
+            'otp_code' => null,
+            'otp_expires_at' => null,
+        ]);
 
         return response()->json([
             'message' => 'OTP verified',
-            'reset_token' => encrypt($user->id)
+            'reset_token' => encrypt($user->id),
         ]);
     }
 

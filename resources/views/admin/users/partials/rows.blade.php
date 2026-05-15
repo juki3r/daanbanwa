@@ -28,53 +28,49 @@
         @endif
     </td>
     <td>
-        @if(!$user->phone_verified)
-        <div class="d-flex gap-2 flex-wrap">
+            <div class="d-flex gap-2 flex-wrap">
 
-            {{-- Verify Button (only show if not verified) --}}
-            
-                <button type="button"
-                    class="btn btn-success btn-sm verify-btn d-flex align-items-center"
-                    data-id="{{ $user->id }}">
-                    <i class="bi bi-patch-check-fill me-1"></i>
-                    Verify
-                </button>
-            
-        </div>
-        @elseif($user->phone_verified && !$user->granted)
-        <div class="d-flex gap-2 flex-wrap">
-            {{-- Grant Button (only show if not granted) --}}
-                 <button type="button"
-                    class="btn btn-warning text-dark btn-sm granted-btn d-flex align-items-center"
-                    data-id="{{ $user->id }}">
-                    <i class="bi bi-patch-check-fill me-1"></i>
-                    Grant Access
-                </button>   
-            @endif
-        </div>
-        @else
-        <div class="d-flex gap-2 flex-wrap">
-            {{-- Denied Button (only show if not granted) --}}
-                 <button type="button"
-                    class="btn btn-danger  btn-sm decline-btn d-flex align-items-center"
-                    data-id="{{ $user->id }}">
-                    <i class="bi bi-patch-check-fill me-1"></i>
-                    Decline Access
-                </button>   
-            {{-- Send Notification --}}
-            <button type="button"
-                class="btn btn-primary btn-sm d-flex align-items-center"
-                onclick="openModal({{ $user->id }})">
-                <i class="bi bi-bell-fill me-1"></i>
-                Notify
-            </button>
+                {{-- 1. NOT VERIFIED --}}
+                @if(!$user->phone_verified)
 
-        </div>
-        @endif
+                    <button type="button"
+                        class="btn btn-success btn-sm verify-btn d-flex align-items-center"
+                        data-id="{{ $user->id }}">
+                        <i class="bi bi-patch-check-fill me-1"></i>
+                        Verify
+                    </button>
 
+                {{-- 2. VERIFIED BUT NOT GRANTED --}}
+                @elseif($user->phone_verified && !$user->granted)
 
-        
-    </td>
+                    <button type="button"
+                        class="btn btn-warning text-dark btn-sm granted-btn d-flex align-items-center"
+                        data-id="{{ $user->id }}">
+                        <i class="bi bi-patch-check-fill me-1"></i>
+                        Grant Access
+                    </button>
+
+                {{-- 3. VERIFIED + GRANTED --}}
+                @else
+
+                    <button type="button"
+                        class="btn btn-danger btn-sm decline-btn d-flex align-items-center"
+                        data-id="{{ $user->id }}">
+                        <i class="bi bi-x-circle-fill me-1"></i>
+                        Decline Access
+                    </button>
+
+                    <button type="button"
+                        class="btn btn-primary btn-sm d-flex align-items-center"
+                        onclick="openModal({{ $user->id }})">
+                        <i class="bi bi-bell-fill me-1"></i>
+                        Notify
+                    </button>
+
+                @endif
+
+            </div>
+        </td>
 
 </tr>
 

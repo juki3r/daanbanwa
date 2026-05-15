@@ -256,46 +256,46 @@
             });
         });
 
-        /* ================= Decline (LIVE UPDATE) ================= */
-        document.addEventListener('click', function (e) {
-            const btn = e.target.closest('.decline-btn');
-            if (!btn) return;
+        // /* ================= Decline (LIVE UPDATE) ================= */
+        // document.addEventListener('click', function (e) {
+        //     const btn = e.target.closest('.decline-btn');
+        //     if (!btn) return;
 
-            const id = btn.dataset.id;
+        //     const id = btn.dataset.id;
 
-            if (!confirm('Mark this user as Deny Access?')) return;
+        //     if (!confirm('Mark this user as Deny Access?')) return;
 
-            fetch(`/admin/users/${id}/decline`, {
-                method: 'PUT',
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                    'Accept': 'application/json'
-                }
-            })
-            .then(res => res.json())
-            .then(data => {
-                if (data.success) {
-                    showToast('User Rejected', 'success');
+        //     fetch(`/admin/users/${id}/decline`, {
+        //         method: 'PUT',
+        //         headers: {
+        //             'X-CSRF-TOKEN': '{{ csrf_token() }}',
+        //             'Accept': 'application/json'
+        //         }
+        //     })
+        //     .then(res => res.json())
+        //     .then(data => {
+        //         if (data.success) {
+        //             showToast('User Rejected', 'success');
 
-                    // Find the current row
-                    const row = btn.closest('tr');
+        //             // Find the current row
+        //             const row = btn.closest('tr');
 
-                    // Update granted badge
-                    const statusCell = row.children[]; // 6th column = granted status
-                    statusCell.innerHTML = `
-                        <span class="badge bg-success">
-                            <i class="bi bi-check-circle-fill me-1"></i> Granted
-                        </span>
-                    `;
+        //             // Update granted badge
+        //             const statusCell = row.children[]; // 6th column = granted status
+        //             statusCell.innerHTML = `
+        //                 <span class="badge bg-success">
+        //                     <i class="bi bi-check-circle-fill me-1"></i> Granted
+        //                 </span>
+        //             `;
 
-                    // Remove Grant button
-                    btn.remove();
-                }
-            })
-            .catch(() => {
-                showToast('Failed to reject user', 'danger');
-            });
-        });
+        //             // Remove Grant button
+        //             btn.remove();
+        //         }
+        //     })
+        //     .catch(() => {
+        //         showToast('Failed to reject user', 'danger');
+        //     });
+        // });
     </script>
 
 </x-app-layout>

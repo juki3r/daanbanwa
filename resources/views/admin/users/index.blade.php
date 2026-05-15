@@ -256,46 +256,50 @@
             });
         });
 
-        // /* ================= Decline (LIVE UPDATE) ================= */
-        // document.addEventListener('click', function (e) {
-        //     const btn = e.target.closest('.decline-btn');
-        //     if (!btn) return;
+        /* ================= Decline (LIVE UPDATE) ================= */
+        document.addEventListener('click', function (e) {
+            const btn = e.target.closest('.decline-btn');
+            if (!btn) return;
 
-        //     const id = btn.dataset.id;
+            const id = btn.dataset.id;
 
-        //     if (!confirm('Mark this user as Deny Access?')) return;
+            if (!confirm('Mark this user as DENIED access?')) return;
 
-        //     fetch(`/admin/users/${id}/decline`, {
-        //         method: 'PUT',
-        //         headers: {
-        //             'X-CSRF-TOKEN': '{{ csrf_token() }}',
-        //             'Accept': 'application/json'
-        //         }
-        //     })
-        //     .then(res => res.json())
-        //     .then(data => {
-        //         if (data.success) {
-        //             showToast('User Rejected', 'success');
+            fetch(`/admin/users/${id}/decline`, {
+                method: 'PUT',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Accept': 'application/json'
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
 
-        //             // Find the current row
-        //             const row = btn.closest('tr');
+                    showToast('User denied access', 'danger');
 
-        //             // Update granted badge
-        //             const statusCell = row.children[]; // 6th column = granted status
-        //             statusCell.innerHTML = `
-        //                 <span class="badge bg-success">
-        //                     <i class="bi bi-check-circle-fill me-1"></i> Granted
-        //                 </span>
-        //             `;
+                    const row = btn.closest('tr');
 
-        //             // Remove Grant button
-        //             btn.remove();
-        //         }
-        //     })
-        //     .catch(() => {
-        //         showToast('Failed to reject user', 'danger');
-        //     });
-        // });
+                    // ✅ update granted column (index 5)
+                    const statusCell = row.children[5];
+
+                    statusCell.innerHTML = `
+                        <span class="badge bg-danger">
+                            <i class="bi bi-x-circle-fill me-1"></i> Denied
+                        </span>
+                    `;
+
+                    // remove all action buttons (optional clean UI)
+                    const actionsCell = row.children[6];
+                    actionsCell.innerHTML = `
+                        <span class="text-muted">No actions</span>
+                    `;
+                }
+            })
+            .catch(() => {
+                showToast('Failed to reject user', 'danger');
+            });
+        });
     </script>
 
 </x-app-layout>

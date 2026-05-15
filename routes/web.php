@@ -126,6 +126,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
         ->name('users.verify');
     Route::put('/users/{id}/grant', [UserController::class, 'grant'])
         ->name('users.grant');
+    Route::put('/users/{id}/decline', [UserController::class, 'decline'])
+        ->name('users.decline');
 
 
     Route::get('/calendar', [EventController::class, 'index'])->name('calendar.index');

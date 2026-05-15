@@ -128,4 +128,17 @@ class UserController extends Controller
             'message' => 'User granted successfully.',
         ]);
     }
+    public function decline($id)
+    {
+        $user = User::findOrFail($id);
+
+        $user->update([
+            'granted' => false,
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'User deny successfully.',
+        ]);
+    }
 }

@@ -28,20 +28,22 @@
         @endif
     </td>
     <td>
+        @if(!$user->phone_verified)
         <div class="d-flex gap-2 flex-wrap">
 
             {{-- Verify Button (only show if not verified) --}}
-            @if(!$user->phone_verified)
+            
                 <button type="button"
                     class="btn btn-success btn-sm verify-btn d-flex align-items-center"
                     data-id="{{ $user->id }}">
                     <i class="bi bi-patch-check-fill me-1"></i>
                     Verify
                 </button>
-            @endif
-
+            
+        </div>
+        @elseif($user->phone_verified && !$user->granted)
+        <div class="d-flex gap-2 flex-wrap">
             {{-- Grant Button (only show if not granted) --}}
-            @if($user->phone_verified && !$user->granted)
                  <button type="button"
                     class="btn btn-warning text-dark btn-sm granted-btn d-flex align-items-center"
                     data-id="{{ $user->id }}">
@@ -49,17 +51,16 @@
                     Grant Access
                 </button>   
             @endif
-
-            {{-- Grant Button (only show if not granted) --}}
-            @if($user->phone_verified && $user->granted)
+        </div>
+        @else
+        <div class="d-flex gap-2 flex-wrap">
+            {{-- Denied Button (only show if not granted) --}}
                  <button type="button"
                     class="btn btn-danger  btn-sm decline-btn d-flex align-items-center"
                     data-id="{{ $user->id }}">
                     <i class="bi bi-patch-check-fill me-1"></i>
                     Decline Access
                 </button>   
-            @endif
-
             {{-- Send Notification --}}
             <button type="button"
                 class="btn btn-primary btn-sm d-flex align-items-center"
@@ -69,6 +70,10 @@
             </button>
 
         </div>
+        @endif
+
+
+        
     </td>
 
 </tr>

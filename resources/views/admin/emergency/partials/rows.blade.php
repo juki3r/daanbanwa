@@ -7,7 +7,7 @@
 
     <!-- TITLE -->
     <td>
-        <strong class="text-capitalize">{{ $item->phone }}</strong>
+        <strong class="text-capitalize">{{ $item->number }}</strong>
     </td>
 
     <!-- DESCRIPTION -->

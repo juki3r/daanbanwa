@@ -41,7 +41,7 @@
     </head>
     <body class="font-sans text-gray-900 antialiased">
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
-            <div>
+            <div class="text-center">
                 <a href="/">
                    <img src="{{asset('images/logo.png')}}" class="logo" alt="Logo">
                 </a>

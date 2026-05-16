@@ -106,8 +106,10 @@
                 </div>
             </div>
 
-            <i class="bi bi-circle-fill text-success heartbeat"></i>
-            <span class="ms-2 fw-bold text-success">System Live</span>
+            <div class="d-flex align-items-center">
+                <i class="bi bi-shield-check text-success heartbeat me-2"></i>
+                <span class="fw-bold text-success">Barangay System Active</span>
+            </div>
         </div>
 
         {{-- ================= CHART SECTION ================= --}}

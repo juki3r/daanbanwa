@@ -219,23 +219,16 @@ main::-webkit-scrollbar-thumb {
     z-index: 10;
 }
 
-@keyframes pulse {
-    0% { opacity: 1; }
-    50% { opacity: 0.4; }
-    100% { opacity: 1; }
+@keyframes heartbeat {
+    0% { transform: scale(1); opacity: 1; }
+    25% { transform: scale(1.15); opacity: 0.8; }
+    50% { transform: scale(1); opacity: 1; }
+    75% { transform: scale(1.1); opacity: 0.85; }
+    100% { transform: scale(1); opacity: 1; }
 }
 
-.pulse-dot {
-    animation: pulse 1.8s infinite;
-}
-
-@keyframes soft-rotate {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-.soft-spin {
-    animation: soft-rotate 3s linear infinite;
+.heartbeat {
+    animation: heartbeat 1.6s infinite;
 }
 
 @media (max-width: 991px) {

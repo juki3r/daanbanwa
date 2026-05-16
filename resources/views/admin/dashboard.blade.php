@@ -106,12 +106,8 @@
                 </div>
             </div>
 
-            <div class="fs-4 fw-bold text-success">
-                <span class="pulse-dot">●</span> Operational
-            </div>
-
-            <i class="bi bi-arrow-repeat fs-1 text-warning opacity-75 soft-spin"></i>
-
+            <i class="bi bi-circle-fill text-success heartbeat"></i>
+            <span class="ms-2 fw-bold text-success">System Live</span>
         </div>
 
         {{-- ================= CHART SECTION ================= --}}

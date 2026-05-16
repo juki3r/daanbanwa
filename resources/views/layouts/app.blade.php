@@ -104,7 +104,7 @@
                                     </div>
                                     <div class="d-flex align-items-center">
                                         <i class="bi bi-shield-check text-success heartbeat me-2"></i>
-                                    <span class="fw-bold text-success">Barangay System Active</span>
+                                    <span class="fw-bold text-success" style="font-size: 12px">Barangay System Active</span>
                                 </div>
                                 </div>
                                 

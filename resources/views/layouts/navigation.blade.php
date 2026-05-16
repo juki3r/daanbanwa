@@ -4,7 +4,7 @@
     {{-- Logo --}}
     <div class="text-center border-bottom pb-3 mb-3" style="color: #EBEEF2 !important">
         <a href="{{ route('admin.dashboard') }}">
-            <img src="{{ asset('images/main.png') }}" alt="Logo" width="80">
+            <img src="{{ asset('images/main.png') }}" alt="Logo" width="100">
         </a>
         <div class="mt-2 d-flex flex-column align-items-center">
             <strong class="d-block">Daan Banwa</strong>

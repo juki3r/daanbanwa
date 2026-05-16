@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BlotterController;
 use App\Http\Controllers\ConcernController;
+use App\Http\Controllers\EmergencyContactController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\FBController;
 use App\Http\Controllers\NewsController;
@@ -51,6 +52,10 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::put('/officials/{id}', [OfficialController::class, 'update_official'])->name('officials.update_official');
 
 
+    Route::get('/emergency', [EmergencyContactController::class, 'index_web'])
+        ->name('emergency.index');
+    Route::get('/emergency/fetch', [EmergencyContactController::class, 'fetch'])
+        ->name('emergency.fetch');
 
 
     Route::get('/ordinances', [OrdinanceController::class, 'index'])->name('ordinances.index');

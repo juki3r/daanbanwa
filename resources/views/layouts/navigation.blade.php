@@ -2,7 +2,7 @@
 <div class="d-none d-md-flex flex-column h-100 border-end p-3" style="background-color: #091B35">
 
     {{-- Logo --}}
-    <div class="text-center border-bottom p-0 m-0" style="color: #EBEEF2 !important; border-bottom-color: gray">
+    <div class="text-center border-bottom p-0 m-0" style="color: #EBEEF2 !important; border-bottom-color: gray !important">
         <a href="{{ route('admin.dashboard') }}" class="m-0 p-0">
             <img src="{{ asset('images/main.png') }}" alt="Logo" width="100px">
         </a>

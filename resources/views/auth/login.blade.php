@@ -126,9 +126,9 @@ button:hover {
 
         <div class="login-title">Login</div>
 
-        <input type="text" name="phone" placeholder="Phone" class="input" required>
+        <input type="text" name="phone" placeholder="Enter phone number" class="input" required>
 
-        <input type="password" name="password" placeholder="Password" class="input" required>
+        <input type="password" name="password" placeholder="Enter password" class="input" required>
 
         <button type="submit">Log in</button>
 

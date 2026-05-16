@@ -13,22 +13,22 @@
     </div>
 
     {{-- Menu --}}
-    <nav class="nav flex-column gap-1">
+    <nav class="nav flex-column gap-2">
 
         <a href="{{ route('admin.dashboard') }}"
-        class="nav-link d-flex align-items-center gap-1 small py-1 px-2 {{ request()->routeIs('admin.dashboard') ? 'active-nav' : 'text-dark' }}">
+        class="nav-link d-flex align-items-center gap-2 small py-1 px-2 {{ request()->routeIs('admin.dashboard') ? 'active-nav' : 'text-dark' }}">
             <i class="bi bi-grid-fill"></i>
             <span>Dashboard</span>
         </a>
 
         <a href="{{ route('residents.index') }}"
-        class="nav-link d-flex align-items-center gap-1 small py-1 px-2  {{ request()->routeIs('residents.*') ? 'active-nav' : 'text-dark' }}">
+        class="nav-link d-flex align-items-center gap-2 small py-1 px-2  {{ request()->routeIs('residents.*') ? 'active-nav' : 'text-dark' }}">
             <i class="bi bi-people-fill"></i>
             <span>Residents</span>
         </a>
 
         <a href="{{ route('requests.index') }}"
-            class="nav-link d-flex align-items-center gap-1 small py-1 px-2  {{ request()->routeIs('requests.index') ? 'active-nav' : 'text-dark' }}">
+            class="nav-link d-flex align-items-center gap-2 small py-1 px-2  {{ request()->routeIs('requests.index') ? 'active-nav' : 'text-dark' }}">
 
                 <span class="nav-icon-wrapper">
                     <i class="bi bi-file-earmark-text-fill"></i>
@@ -44,7 +44,7 @@
             </a>
 
         <a href="{{ route('concerns.index') }}"
-        class="nav-link d-flex align-items-center gap-1 small py-1 px-2  {{ request()->routeIs('concerns.*') ? 'active-nav' : 'text-dark' }}">
+        class="nav-link d-flex align-items-center gap-2 small py-1 px-2  {{ request()->routeIs('concerns.*') ? 'active-nav' : 'text-dark' }}">
             <span class="nav-icon-wrapper">
                 <i class="bi bi-chat-dots-fill"></i>
                 @if($concernCount > 0)
@@ -57,7 +57,7 @@
         </a>
 
         <a href="{{ route('blotters.index') }}"
-        class="nav-link d-flex align-items-center gap-1 small py-1 px-2  {{ request()->routeIs('blotters.*') ? 'active-nav' : 'text-dark' }}">
+        class="nav-link d-flex align-items-center gap-2 small py-1 px-2  {{ request()->routeIs('blotters.*') ? 'active-nav' : 'text-dark' }}">
             <span class="nav-icon-wrapper">
                 <i class="bi bi-journal-text"></i>
                 @if($blotterCount > 0)
@@ -70,37 +70,37 @@
         </a>
 
         <a href="{{ route('users.index') }}"
-        class="nav-link d-flex align-items-center gap-1 small py-1 px-2  {{ request()->routeIs('users.*') ? 'active-nav' : 'text-dark' }}">
+        class="nav-link d-flex align-items-center gap-2 small py-1 px-2  {{ request()->routeIs('users.*') ? 'active-nav' : 'text-dark' }}">
             <i class="bi bi-phone-fill"></i>
             <span>App Users</span>
         </a>
 
         <a href="{{ route('news.index') }}"
-        class="nav-link d-flex align-items-center gap-1 small py-1 px-2  {{ request()->routeIs('news.*') ? 'active-nav' : 'text-dark' }}">
+        class="nav-link d-flex align-items-center gap-2 small py-1 px-2  {{ request()->routeIs('news.*') ? 'active-nav' : 'text-dark' }}">
             <i class="bi bi-newspaper"></i>
             <span>News</span>
         </a>
 
         <a href="{{ route('ordinances.index') }}"
-        class="nav-link d-flex align-items-center gap-1 small py-1 px-2  {{ request()->routeIs('ordinances.*') ? 'active-nav' : 'text-dark' }}">
+        class="nav-link d-flex align-items-center gap-2 small py-1 px-2  {{ request()->routeIs('ordinances.*') ? 'active-nav' : 'text-dark' }}">
             <i class="bi bi-newspaper"></i>
             <span>Ordinances</span>
         </a>
 
         <a href="{{ route('officials.index') }}"
-        class="nav-link d-flex align-items-center gap-1 small py-1 px-2  {{ request()->routeIs('officials.*') ? 'active-nav' : 'text-dark' }}">
+        class="nav-link d-flex align-items-center gap-2 small py-1 px-2  {{ request()->routeIs('officials.*') ? 'active-nav' : 'text-dark' }}">
             <i class="bi bi-people"></i>
             <span>Officials</span>
         </a>
 
         <a href="{{ route('emergency.index') }}"
-        class="nav-link d-flex align-items-center gap-1 small py-1 px-2  {{ request()->routeIs('emergency.*') ? 'active-nav' : 'text-dark' }}">
+        class="nav-link d-flex align-items-center gap-2 small py-1 px-2  {{ request()->routeIs('emergency.*') ? 'active-nav' : 'text-dark' }}">
             <i class="bi bi-telephone-fill"></i>
             <span>Emergency</span>
         </a>
 
         <a href="{{ route('calendar.index') }}"
-        class="nav-link d-flex align-items-center gap-1 small py-1 px-2  {{ request()->routeIs('calendar.*') ? 'active-nav' : 'text-dark' }}">
+        class="nav-link d-flex align-items-center gap-2 small py-1 px-2  {{ request()->routeIs('calendar.*') ? 'active-nav' : 'text-dark' }}">
             <i class="bi bi-calendar-fill"></i>
             <span>Calendar</span>
         </a>

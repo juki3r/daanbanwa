@@ -16,22 +16,6 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
   
-            body {
-                margin: 0;
-                height: 100vh;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                background: #f5f7fb;
-                font-family: 'Segoe UI', sans-serif;
-                color: #1f2937;
-            }
-
-            .container-box {
-                text-align: center;
-                max-width: 650px;
-                padding: 20px;
-            }
 
             .logo {
                 width: 80px;

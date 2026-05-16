@@ -27,6 +27,7 @@ class AdminController extends Controller
         $appuser = User::whereNotNull('fcm_token')
             ->where('fcm_token', '!=', '')
             ->where('granted', 1)
+            ->where('role', 'resident')
             ->count();
 
         $households = Resident::distinct('household_name')->count('household_name');

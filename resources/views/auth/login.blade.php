@@ -34,18 +34,19 @@ body {
 
 .logo {
     width: 70px;
-    margin-bottom: 4px;
 }
 
 .small-text {
     font-size: 11px;
     letter-spacing: 2px;
     color: #64748b;
+    margin-bottom: 2px;
 }
 
 .title {
     font-size: 16px;
     font-weight: 700;
+    margin-bottom: 2px;
 }
 
 .subtitle {

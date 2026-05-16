@@ -64,7 +64,7 @@ class EmergencyContactController extends Controller
 
         EmergencyContact::create([
             'name' => $request->name,
-            'phone_number' => $request->phone_number,
+            'number' => $request->phone_number,
             'is_active' => 1,
         ]);
 

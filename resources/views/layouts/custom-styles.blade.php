@@ -126,8 +126,8 @@ main::-webkit-scrollbar-thumb {
     background-color: #F9A825 !important;
     color: #fff !important;
     font-weight: 600;
-    border-radius: 4px;
-    /* box-shadow: 0 4px 10px rgba(13, 110, 253, 0.25); */
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(13, 110, 253, 0.25);
 }
 .nav-link i {
     font-size: 1rem;

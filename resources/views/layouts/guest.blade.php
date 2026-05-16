@@ -19,7 +19,6 @@
 
             .logo {
                 width: 80px;
-                margin-bottom: 15px;
             }
 
             .small-text {

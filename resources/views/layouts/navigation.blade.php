@@ -13,7 +13,7 @@
     </div>
 
     {{-- Menu --}}
-    <nav class="nav flex-column gap-1">
+    <nav class="nav flex-column">
 
         <a href="{{ route('admin.dashboard') }}"
         class="nav-link d-flex align-items-center gap-1 {{ request()->routeIs('admin.dashboard') ? 'active-nav' : 'text-dark' }}">

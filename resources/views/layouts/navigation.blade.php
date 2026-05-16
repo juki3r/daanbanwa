@@ -2,11 +2,11 @@
 <div class="d-none d-md-flex flex-column h-100 border-end p-3" style="background-color: #091B35">
 
     {{-- Logo --}}
-    <div class="text-center border-bottom pb-3 mb-3" style="color: #EBEEF2 !important">
+    <div class="text-center border-bottom pb-2 mb-2" style="color: #EBEEF2 !important">
         <a href="{{ route('admin.dashboard') }}">
             <img src="{{ asset('images/main.png') }}" alt="Logo" width="100px">
         </a>
-        <div class="mt-2 d-flex flex-column align-items-center">
+        <div class="mt-1 d-flex flex-column align-items-center">
             <strong class="d-block">Daan Banwa</strong>
             <small style="font-size: 12px">Estancia, Iloilo</small>
         </div>

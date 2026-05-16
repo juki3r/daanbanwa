@@ -221,9 +221,9 @@ main::-webkit-scrollbar-thumb {
 
 @keyframes heartbeat {
     0% { transform: scale(1); opacity: 1; }
-    25% { transform: scale(1.15); opacity: 0.8; }
+    25% { transform: scale(2); opacity: 0.8; }
     50% { transform: scale(1); opacity: 1; }
-    75% { transform: scale(1.1); opacity: 0.85; }
+    75% { transform: scale(1.5); opacity: 0.85; }
     100% { transform: scale(1); opacity: 1; }
 }
 

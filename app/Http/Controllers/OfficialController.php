@@ -94,6 +94,29 @@ class OfficialController extends Controller
             ->with('success', 'Official created successfully!');
     }
 
+    public function update_official(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'position' => 'required|string|max:255',
+            'assignment' => 'nullable|string|max:255',
+            'phone_number' => 'nullable|string|max:20',
+        ]);
+
+        $official = Official::findOrFail($id);
+
+        $official->update([
+            'name' => $request->name,
+            'position' => $request->position,
+            'assignment' => $request->assignment,
+            'phone_number' => $request->phone_number,
+        ]);
+
+        return redirect()
+            ->back()
+            ->with('success', 'Official updated successfully!');
+    }
+
     // DELETE
     public function destroy($id)
     {

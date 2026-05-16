@@ -87,7 +87,7 @@ main::-webkit-scrollbar-thumb {
 .sidebar-wrapper {
     width: 240px;
     flex-shrink: 0;
-    background-color: navy !important;
+    background-color: red !important;
 }
 
 /* .sidebar-wrapper {

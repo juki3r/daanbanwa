@@ -26,6 +26,10 @@
                 <a href="/">
                    <img src="{{asset('images/logo.png')}}" class="logo" alt="Logo">
                 </a>
+                <div class="small-text">REPUBLIC OF THE PHILIPPINES</div>
+                <div class="title">Barangay Daan Banwa</div>
+                <div class="subtitle">Estancia, Iloilo</div>
+
             </div>
 
             <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">

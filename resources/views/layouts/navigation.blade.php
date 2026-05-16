@@ -2,7 +2,7 @@
 <div class="d-none d-md-flex flex-column h-100 border-end p-3" style="background-color: #091B35">
 
     {{-- Logo --}}
-    <div class="text-center border-bottom pb-3 mb-3">
+    <div class="text-center border-bottom pb-3 mb-3" style="color: #EBEEF2 !important">
         <a href="{{ route('admin.dashboard') }}">
             <img src="{{ asset('images/logo.png') }}" alt="Logo" width="80">
         </a>
@@ -13,7 +13,7 @@
     </div>
 
     {{-- Menu --}}
-    <nav class="nav flex-column gap-2" style="color: #EBEEF2">
+    <nav class="nav flex-column gap-2" style="color: #EBEEF2 !important">
 
         <a href="{{ route('admin.dashboard') }}"
         class="nav-link d-flex align-items-center gap-2 small py-1 px-2 {{ request()->routeIs('admin.dashboard') ? 'active-nav' : 'text-dark' }}">

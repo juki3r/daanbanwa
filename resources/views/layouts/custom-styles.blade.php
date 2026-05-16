@@ -99,6 +99,7 @@ main::-webkit-scrollbar-thumb {
     border-radius: 6px;
     transition: 0.2s ease;
     color: #EBEEF2 !important;
+    border-color: #1C3A64;
 }
 
 .nav-link:hover {
@@ -117,7 +118,7 @@ main::-webkit-scrollbar-thumb {
 }
 
 .nav .nav-link:hover {
-    background-color: #f1f3f5;
+    background-color: #14325C;
     color: #000 !important;
 }
 

@@ -95,7 +95,7 @@ main::-webkit-scrollbar-thumb {
 } */
 
 .nav-link {
-    border-radius: 8px;
+    border-radius: 6px;
     transition: 0.2s ease;
 }
 

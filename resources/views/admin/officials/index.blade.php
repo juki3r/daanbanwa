@@ -14,7 +14,7 @@
                         data-bs-toggle="modal"
                         data-bs-target="#createOrdinanceModal">
                         <i class="bi bi-newspaper"></i>
-                        Create Ordinance
+                        Add Official
                     </button>
                 </div>
 

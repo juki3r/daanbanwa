@@ -122,7 +122,7 @@ main::-webkit-scrollbar-thumb {
 
 .nav .nav-link.active-nav {
     background-color: #14325C !important;
-    color: #f89a02!important;
+    color: #bc7400!important;
     font-weight: 600;
     border-radius: 6px;
     box-shadow: none !important;

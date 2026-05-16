@@ -13,7 +13,7 @@
                     <button class="btn btn-success btn-sm d-flex align-items-center gap-2"
                         data-bs-toggle="modal"
                         data-bs-target="#createOrdinanceModal">
-                        <i class="bi bi-newspaper"></i>
+                        <i class="bi bi-people"></i>
                         Add Official
                     </button>
                 </div>

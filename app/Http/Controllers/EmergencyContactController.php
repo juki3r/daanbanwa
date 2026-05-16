@@ -65,7 +65,7 @@ class EmergencyContactController extends Controller
 
         if ($validator->fails()) {
             return back()
-                ->with('success', 'Please check your input fields')
+                ->with('success', $validator)
                 ->withErrors($validator)
                 ->withInput();
         }

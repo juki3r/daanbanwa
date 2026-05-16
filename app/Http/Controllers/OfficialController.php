@@ -113,4 +113,15 @@ class OfficialController extends Controller
             ->back()
             ->with('success', 'Ordinance added successfully.');
     }
+
+    // DELETE
+    public function destroy($id)
+    {
+        Official::findOrFail($id)->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'News item deleted successfully.'
+        ]);
+    }
 }

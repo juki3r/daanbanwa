@@ -71,6 +71,6 @@ Route::middleware('auth:sanctum')->get('/me', function (Request $request) {
     ]);
 });
 
-Route::get('/events', function () {
+Route::middleware('auth:sanctum')->get('/events', function (Request $request) {
     return \App\Models\Event::orderBy('start_date', 'asc')->get();
 });

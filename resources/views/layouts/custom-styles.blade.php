@@ -111,7 +111,7 @@ main::-webkit-scrollbar-thumb {
 .nav .nav-link {
     border-radius: 10px;
     padding: 10px 14px;
-    font-weight: 500;
+    font-weight: 300;
     transition: all 0.2s ease-in-out;
 }
 

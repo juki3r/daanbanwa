@@ -56,7 +56,7 @@
     <td colspan="5"
         class="text-center text-muted py-4">
 
-        No news found
+        No Officials found
 
     </td>
 

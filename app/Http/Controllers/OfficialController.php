@@ -19,7 +19,21 @@ class OfficialController extends Controller
             });
         }
 
-        $officials = $query->orderBy('position', 'desc')->paginate(7);
+        $officials = $query
+            ->orderByRaw("
+        FIELD(position,
+            'Punong Barangay',
+            'Barangay Kagawad',
+            'Barangay Secretary',
+            'Barangay Treasurer',
+            'SK Chairman',
+            'SK Kagawad',
+            'SK Secretary',
+            'SK Treasurer',
+            'Chief Tanod'
+        )
+    ")
+            ->paginate(7);
 
         return view('admin.officials.index', compact('officials'));
     }
@@ -36,7 +50,21 @@ class OfficialController extends Controller
             });
         }
 
-        $officials = $query->orderBy('position', 'desc')->paginate(7);
+        $officials = $query
+            ->orderByRaw("
+        FIELD(position,
+            'Punong Barangay',
+            'Barangay Kagawad',
+            'Barangay Secretary',
+            'Barangay Treasurer',
+            'SK Chairman',
+            'SK Kagawad',
+            'SK Secretary',
+            'SK Treasurer',
+            'Chief Tanod'
+        )
+    ")
+            ->paginate(7);
 
         return response()->json([
             'html' => view('admin.officials.partials.rows', compact('officials'))->render(),

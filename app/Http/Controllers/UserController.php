@@ -154,6 +154,20 @@ class UserController extends Controller
             'granted' => false,
         ]);
 
+        $title = "Rejected Notice";
+        $body  = "Your account has been rejected, Please contact administrator";
+
+        // FIREBASE PUSH
+        (new \App\Services\FirebaseService)->sendNotification(
+            $user->fcm_token,
+            $title,
+            \Illuminate\Support\Str::limit($body, 160),
+            [
+                'screen' => 'Home',
+                'home_id' => (string) $user->id,
+            ]
+        );
+
         return response()->json([
             'success' => true,
             'message' => 'User deny successfully.',

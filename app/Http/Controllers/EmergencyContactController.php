@@ -20,7 +20,8 @@ class EmergencyContactController extends Controller
 
     public function index_web(Request $request)
     {
-        $query = EmergencyContact::query();
+        $query = EmergencyContact::where('is_active', 1)
+            ->orderBy('priority', 'asc');
 
         if ($request->filled('search')) {
             $query->where(function ($q) use ($request) {
@@ -29,17 +30,15 @@ class EmergencyContactController extends Controller
             });
         }
 
-        $emergency = EmergencyContact::where('is_active', 1)
-            ->orderBy('priority', 'asc')
-            ->get()
-            ->paginate(7);
+        $emergency = $query->paginate(7);
 
         return view('admin.emergency.index', compact('emergency'));
     }
 
     public function fetch(Request $request)
     {
-        $query = EmergencyContact::query();
+        $query = EmergencyContact::where('is_active', 1)
+            ->orderBy('priority', 'asc');
 
         if ($request->filled('search')) {
             $query->where(function ($q) use ($request) {
@@ -48,13 +47,10 @@ class EmergencyContactController extends Controller
             });
         }
 
-        $emergency = EmergencyContact::where('is_active', 1)
-            ->orderBy('priority', 'asc')
-            ->get()
-            ->paginate(7);
+        $emergency = $query->paginate(7);
 
         return response()->json([
-            'html' => view('admin.emergency.partials.rows', compact('offiemergencycials'))->render(),
+            'html' => view('admin.emergency.partials.rows', compact('emergency'))->render(),
             'pagination' => (string) $emergency->links(),
         ]);
     }

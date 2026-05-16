@@ -109,7 +109,7 @@ main::-webkit-scrollbar-thumb {
 }
 
 .nav .nav-link {
-    border-radius: 10px;
+    border-radius: 6px;
     padding: 10px 14px;
     font-weight: 300;
     transition: all 0.2s ease-in-out;
@@ -124,7 +124,7 @@ main::-webkit-scrollbar-thumb {
     background-color: #14325C !important;
     color: #f89a02!important;
     font-weight: 600;
-    border-radius: 10px;
+    border-radius: 6px;
     box-shadow: none !important;
 }
 .nav-link i {

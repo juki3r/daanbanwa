@@ -1,6 +1,7 @@
 <x-guest-layout>
     <x-auth-session-status class="mb-4" :status="session('status')" />
-    <div class="text-center">
+    <div class="text-center fw-semibold">
+        <i class="bi bi-building-lock me-1 text-primary"></i>
         Login
     </div>
     <form method="POST" action="{{ route('login') }}">

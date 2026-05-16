@@ -83,7 +83,7 @@
 
         <a href="{{ route('ordinances.index') }}"
         class="nav-link d-flex align-items-center gap-2 small py-1 px-2  {{ request()->routeIs('ordinances.*') ? 'active-nav' : 'text-dark' }}">
-            <i class="bi bi-newspaper"></i>
+            <i class="bi bi-gavel"></i>
             <span>Ordinances</span>
         </a>
 

@@ -146,7 +146,7 @@
 
                             {{-- PUROK --}}
                             <div class="col-md-4 mt-2">
-                                <label>Purok <span class="required-star">*</span></label>
+                                <label>Purok/Sitio/Zone <span class="required-star">*</span></label>
                                 <select name="purok" class="form-select required-field" required>
                                     <option value="" disabled selected>Select Purok</option>
                                     <option value="Purok 1 Pine Tree">Purok 1 Pine Tree</option>

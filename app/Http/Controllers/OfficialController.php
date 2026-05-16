@@ -73,7 +73,7 @@ class OfficialController extends Controller
     }
 
     // STORE (optional admin side)
-    public function store(Request $request)
+    public function store_official(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',

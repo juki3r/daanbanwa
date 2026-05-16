@@ -7,6 +7,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\FBController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\OfficialController;
 use App\Http\Controllers\OrdinanceController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RequestController;
@@ -39,10 +40,13 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index'])
         ->name('admin.dashboard');
 
-    Route::get('/officials', [AdminController::class, 'officials'])
+    Route::get('/officials', [OfficialController::class, 'index'])
         ->name('officials.index');
-    Route::post('/officials', [AdminController::class, 'store_official'])
+    Route::post('/officials', [OfficialController::class, 'store_official'])
         ->name('officials.store');
+    Route::delete('/officials/{id}', [OrdinanceController::class, 'destroy'])->name('officials.destroy');
+    Route::get('/officials/fetch', [OrdinanceController::class, 'fetch'])
+        ->name('officials.fetch');
 
 
 
@@ -135,6 +139,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::post('/calendar/events', [EventController::class, 'store'])->name('calendar.events.store');
     Route::put('/calendar/events/{id}', [EventController::class, 'update'])->name('calendar.events.update');
     Route::delete('/calendar/events/{id}', [EventController::class, 'destroy'])->name('calendar.events.destroy');
+
+    Route::get('/fbpost', [FBController::class, 'postToFacebook'])->name('fb.post');
 });
 
 
@@ -143,7 +149,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
 
 
-Route::get('/fbpost', [FBController::class, 'postToFacebook'])->name('fb.post');
+
 
 
 

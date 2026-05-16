@@ -95,7 +95,7 @@
 
         <a href="{{ route('emergency.index') }}"
         class="nav-link d-flex align-items-center gap-2 {{ request()->routeIs('emergency.*') ? 'active-nav' : 'text-dark' }}">
-            <i class="bi bi-calendar-fill"></i>
+            <i class="bi bi-telephone-fill"></i>
             <span>Emergency</span>
         </a>
 

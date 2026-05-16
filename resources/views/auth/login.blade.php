@@ -119,7 +119,7 @@ button:hover {
 
     <!-- LOGIN FORM -->
     <form class="form-box" method="POST" action="{{ route('register') }}">
-
+        @csrf
         <div class="icon">
             <i class="bi bi-shield-lock"></i>
         </div>

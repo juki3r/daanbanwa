@@ -86,7 +86,7 @@
                 <div class="glass-card">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <div class="text-muted small">App User</div>
+                            <div class="text-muted small">Mobile-App Users</div>
                             <div class="fs-3 fw-bold">{{ $appuser }}</div>
                         </div>
                         <i class="bi bi-phone-fill fs-1 text-info opacity-75"></i>

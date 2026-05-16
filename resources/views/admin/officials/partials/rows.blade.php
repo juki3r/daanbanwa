@@ -37,7 +37,7 @@
 
 <tr>
 
-    <td colspan="4"
+    <td colspan="5"
         class="text-center text-muted py-4">
 
         No news found

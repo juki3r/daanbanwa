@@ -162,7 +162,7 @@
         // =========================================
         function fetchData(page = 1, search = '') {
 
-            fetch(`{{ route('ordinances.fetch') }}?page=${page}&search=${search}`)
+            fetch(`{{ route('officials.fetch') }}?page=${page}&search=${search}`)
                 .then(res => res.json())
                 .then(data => {
 
@@ -233,13 +233,13 @@
 
                 let id = btn.dataset.id;
 
-                if (!confirm("Are you sure you want to delete this ordinance?")) {
+                if (!confirm("Are you sure you want to delete this official?")) {
                     return;
                 }
 
                 try {
 
-                    let res = await fetch(`/admin/ordinances/${id}`, {
+                    let res = await fetch(`/admin/officials/${id}`, {
 
                         method: "DELETE",
 
@@ -256,7 +256,7 @@
 
                         btn.closest("tr").remove();
 
-                         showToast("Ordinances deleted successfully", "success");
+                         showToast("Official deleted successfully", "success");
                          // get current page
                         let currentPage =
                             new URLSearchParams(window.location.search).get('page') || 1;
@@ -268,7 +268,7 @@
 
                     } else {
 
-                         showToast("Failed to delete ordinances", "danger");
+                         showToast("Failed to delete official", "danger");
 
                     }
 

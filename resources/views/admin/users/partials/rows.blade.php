@@ -12,7 +12,11 @@
         {{ $user->middle_name ? ucwords(strtolower($user->middle_name)) : '-' }}
     </td>
 
-    <td>{{ $user->phone }}</td>
+    <td>
+        <strong>
+            {{ substr($item->phone, 0, 4) }}-{{ substr($item->phone, 4, 3) }}-{{ substr($item->phone, 7, 4) }}
+        </strong>
+    </td>
     <td>
         @if($user->phone_verified)
             <span class="badge bg-success">Verified</span>

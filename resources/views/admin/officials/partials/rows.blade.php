@@ -12,12 +12,17 @@
 
     <!-- DESCRIPTION -->
     <td>
-        <strong class="text-capitalize">{{ $item->phone_number }}</strong>
+        <strong class="text-capitalize">
+            {{ $item->phone_number ?? '-' }}
+        </strong>
     </td>
+
     <td>
-        <strong class="text-capitalize">{{ $item->assignment }}</strong>
+        <strong class="text-capitalize">
+            {{ $item->assignment ?? '-' }}
+        </strong>
     </td>
-    
+
     <!-- ACTIONS -->
     <td>
         <div class="d-flex gap-2">

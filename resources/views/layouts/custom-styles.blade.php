@@ -229,6 +229,15 @@ main::-webkit-scrollbar-thumb {
     animation: pulse 1.8s infinite;
 }
 
+@keyframes soft-rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.soft-spin {
+    animation: soft-rotate 3s linear infinite;
+}
+
 @media (max-width: 991px) {
     .admin-search {
         width: 180px;

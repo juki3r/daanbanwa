@@ -110,6 +110,8 @@
                 <span class="pulse-dot">●</span> Operational
             </div>
 
+            <i class="bi bi-arrow-repeat fs-1 text-warning opacity-75 soft-spin"></i>
+
         </div>
 
         {{-- ================= CHART SECTION ================= --}}

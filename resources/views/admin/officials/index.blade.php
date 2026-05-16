@@ -57,96 +57,117 @@
         </script>
     @endif
 
-<!-- ========================================= -->
-    <!-- CREATE ORDINANCE MODAL -->
-    <!-- ========================================= -->
+    <!-- CREATE OFFICIAL MODAL -->
+        <div class="modal fade" id="createOfficialModal" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <form action="{{ route('officials.store') }}"
+                    method="POST"
+                    class="modal-content">
 
-    <!-- CREATE ORDINANCE MODAL -->
-    <div class="modal fade" id="createOrdinanceModal" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <form action="{{ route('ordinances.store') }}"
-                method="POST"
-                enctype="multipart/form-data"
-                class="modal-content">
+                    @csrf
 
-                @csrf
-
-                <div class="modal-header">
-                    <h5 class="modal-title">Create Ordinance</h5>
-                    <button type="button"
-                            class="btn-close"
-                            data-bs-dismiss="modal">
-                    </button>
-                </div>
-
-                <div class="modal-body">
-
-                    {{-- Validation Errors --}}
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul class="mb-0 ps-3">
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-
-                    <div class="row g-3">
-
-                        <div class="col-12">
-                            <label class="form-label">Ordinance No</label>
-                            <input type="text"
-                                name="ordinance_no"
-                                value="{{ old('ordinance_no') }}"
-                                class="form-control text-capitalize @error('ordinance_no') is-invalid @enderror"
-                                required>
-                            @error('ordinance_no')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="col-12">
-                            <label class="form-label">Title</label>
-                            <input type="text"
-                                name="title"
-                                value="{{ old('title') }}"
-                                class="form-control text-capitalize @error('title') is-invalid @enderror"
-                                required>
-                            @error('title')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="col-12">
-                            <label class="form-label">Description</label>
-                            <textarea name="description"
-                                    rows="5"
-                                    class="form-control @error('description') is-invalid @enderror"
-                                    required>{{ old('description') }}</textarea>
-                            @error('description')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
+                    <div class="modal-header">
+                        <h5 class="modal-title">Create Official</h5>
+                        <button type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal">
+                        </button>
                     </div>
-                </div>
 
-                <div class="modal-footer">
-                    <button type="button"
-                            class="btn btn-light"
-                            data-bs-dismiss="modal">
-                        Cancel
-                    </button>
+                    <div class="modal-body">
 
-                    <button type="submit"
-                            class="btn btn-success">
-                        Create Ordinance
-                    </button>
-                </div>
-            </form>
+                        {{-- Validation Errors --}}
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul class="mb-0 ps-3">
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
+                        <div class="row g-3">
+
+                            <!-- NAME -->
+                            <div class="col-12">
+                                <label class="form-label">Name</label>
+                                <input type="text"
+                                    name="name"
+                                    value="{{ old('name') }}"
+                                    class="form-control @error('name') is-invalid @enderror"
+                                    required>
+                                @error('name')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <!-- POSITION -->
+                            <div class="col-12 col-md-6">
+                                <label class="form-label">Position</label>
+                                <select name="position"
+                                        class="form-select @error('position') is-invalid @enderror"
+                                        required>
+                                    <option value="">Select Position</option>
+                                    <option>Punong Barangay</option>
+                                    <option>Barangay Kagawad</option>
+                                    <option>Barangay Secretary</option>
+                                    <option>Barangay Treasurer</option>
+                                    <option>SK Chairman</option>
+                                    <option>SK Kagawad</option>
+                                    <option>SK Secretary</option>
+                                    <option>SK Treasurer</option>
+                                    <option>Chief Tanod</option>
+                                </select>
+
+                                @error('position')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <!-- PHONE NUMBER -->
+                            <div class="col-12 col-md-6">
+                                <label class="form-label">Phone Number</label>
+                                <input type="text"
+                                    name="phone_number"
+                                    value="{{ old('phone_number') }}"
+                                    class="form-control @error('phone_number') is-invalid @enderror">
+                                @error('phone_number')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <!-- ASSIGNMENT -->
+                            <div class="col-12">
+                                <label class="form-label">Assignment</label>
+                                <input type="text"
+                                    name="assignment"
+                                    value="{{ old('assignment') }}"
+                                    class="form-control @error('assignment') is-invalid @enderror">
+                                @error('assignment')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button"
+                                class="btn btn-light"
+                                data-bs-dismiss="modal">
+                            Cancel
+                        </button>
+
+                        <button type="submit"
+                                class="btn btn-primary">
+                            Create Official
+                        </button>
+                    </div>
+
+                </form>
+            </div>
         </div>
-    </div>
 
 
     <!-- ========================================= -->

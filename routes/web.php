@@ -44,8 +44,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
         ->name('officials.index');
     Route::post('/officials', [OfficialController::class, 'store_official'])
         ->name('officials.store');
-    Route::delete('/officials/{id}', [OrdinanceController::class, 'destroy'])->name('officials.destroy');
-    Route::get('/officials/fetch', [OrdinanceController::class, 'fetch'])
+    Route::delete('/officials/{id}', [OfficialController::class, 'destroy'])->name('officials.destroy');
+    Route::get('/officials/fetch', [OfficialController::class, 'fetch'])
         ->name('officials.fetch');
 
 

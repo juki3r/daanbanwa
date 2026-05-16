@@ -12,8 +12,12 @@
 
     <!-- DESCRIPTION -->
     <td>
-        <strong class="text-capitalize">
-            {{ $item->phone_number ?? '-' }}
+        <strong>
+            @if(!empty($item->phone_number) && strlen($item->phone_number) == 11)
+                {{ substr($item->phone_number, 0, 4) }}-{{ substr($item->phone_number, 4, 3) }}-{{ substr($item->phone_number, 7, 4) }}
+            @else
+                {{ $item->phone_number ?? '-' }}
+            @endif
         </strong>
     </td>
 

@@ -89,7 +89,7 @@
 
         <a href="{{ route('officials.index') }}"
         class="nav-link d-flex align-items-center gap-2 {{ request()->routeIs('officials.*') ? 'active-nav' : 'text-dark' }}">
-            <i class="bi bi-newspaper"></i>
+            <i class="bi bi-people"></i>
             <span>Officials</span>
         </a>
 

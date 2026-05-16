@@ -7,7 +7,9 @@
 
     <!-- TITLE -->
     <td>
-        <strong>{{ $item->number }}</strong>
+        <strong>
+            {{ substr($item->number, 0, 4) }}-{{ substr($item->number, 4, 3) }}-{{ substr($item->number, 7, 4) }}
+        </strong>
     </td>
 
     <!-- DESCRIPTION -->

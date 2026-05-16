@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="d-flex justify-content-between align-items-center">
-            <h2 class="h4 mb-0">Officials Management</h2>
+            <h2 class="h4 mb-0">Emergency Contacts</h2>
         </div>
     </x-slot>
 
@@ -14,7 +14,7 @@
                         data-bs-toggle="modal"
                         data-bs-target="#createOfficialModal">
                         <i class="bi bi-people"></i>
-                        Add Official
+                        Add Contacts
                     </button>
                 </div>
 
@@ -24,20 +24,19 @@
                         <thead class="table-dark">
                             <tr>
                                 <th>Name</th>
-                                <th>Position</th>
-                                <th>Assignment</th>
                                 <th>Phone</th>
+                                <th>Active</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
 
                         <tbody id="tableBody">
-                            @include('admin.officials.partials.rows')
+                            @include('admin.emergency.partials.rows')
                         </tbody>
                     </table>
 
                     <div id="pagination" class="mt-3">
-                        {{ $officials->links() }}
+                        {{ $emergency->links() }}
                     </div>
                 </div>
 

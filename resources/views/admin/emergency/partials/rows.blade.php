@@ -1,4 +1,4 @@
-@forelse($officials as $item)
+@forelse($emergency as $item)
 
 <tr>
     <td>
@@ -7,21 +7,16 @@
 
     <!-- TITLE -->
     <td>
-        <strong class="text-capitalize">{{ $item->position }}</strong>
+        <strong class="text-capitalize">{{ $item->phone }}</strong>
     </td>
 
     <!-- DESCRIPTION -->
     <td>
         <strong class="text-capitalize">
-            {{ $item->phone_number ?? '-' }}
+            {{ $item->is_active?  "Yes" :  "No" }}
         </strong>
     </td>
 
-    <td>
-        <strong class="text-capitalize">
-            {{ $item->assignment ?? '-' }}
-        </strong>
-    </td>
 
     <!-- ACTIONS -->
     <td>
@@ -53,10 +48,10 @@
 
 <tr>
 
-    <td colspan="5"
+    <td colspan="4"
         class="text-center text-muted py-4">
 
-        No news found
+        No Contacts found
 
     </td>
 

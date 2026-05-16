@@ -14,7 +14,7 @@
 
     <td>
         <strong>
-            {{ substr($item->phone, 0, 4) }}-{{ substr($item->phone, 4, 3) }}-{{ substr($item->phone, 7, 4) }}
+            {{ substr($user->phone, 0, 4) }}-{{ substr($user->phone, 4, 3) }}-{{ substr($user->phone, 7, 4) }}
         </strong>
     </td>
     <td>

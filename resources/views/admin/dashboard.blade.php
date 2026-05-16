@@ -106,10 +106,7 @@
                 </div>
             </div>
 
-            <div>
-            <i class="bi bi-heart-fill text-danger heart-beat fs-4"></i>
-            <span class="ms-2 fw-bold text-danger">System Alive</span>
-            </div>
+
         </div>
 
         {{-- ================= CHART SECTION ================= --}}

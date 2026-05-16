@@ -231,20 +231,7 @@ main::-webkit-scrollbar-thumb {
     animation: heartbeat 1.6s infinite;
 }
 
-@keyframes humanHeartbeat {
-    0% { transform: scale(1); }
-    10% { transform: scale(1.2); }
-    20% { transform: scale(1); }
-    30% { transform: scale(1.15); }
-    40% { transform: scale(1); }
-    100% { transform: scale(1); }
-}
 
-.heart-beat {
-    display: inline-block;
-    animation: humanHeartbeat 1.3s infinite;
-    transform-origin: center;
-}
 
 @media (max-width: 991px) {
     .admin-search {

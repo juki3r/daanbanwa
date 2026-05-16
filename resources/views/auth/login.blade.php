@@ -1,56 +1,50 @@
 <x-guest-layout>
-    <x-auth-session-status class="mb-4" :status="session('status')" />
-    <div class="text-center fw-semibold text-dark fs-3">
-        <i class="bi bi-shield-lock me-1 text-primary"></i>
-        Login
-    </div>
-    <form method="POST" action="{{ route('login') }}">
+
+<div class="min-h-screen flex items-center justify-center bg-white">
+
+    <form method="POST" action="{{ route('login') }}" class="w-full max-w-sm space-y-4">
+
         @csrf
 
-        <!-- Phone -->
-        <div>
-            <x-input-label for="phone" :value="__('Phone')" />
-            <x-text-input
-                id="phone"
-                class="block mt-1 w-full"
-                type="text"
-                name="phone"
-                :value="old('phone')"
-                required
-                autofocus
-                autocomplete="username"
-            />
-            <x-input-error :messages="$errors->get('phone')" class="mt-2" />
+        <div class="text-center mb-6">
+            <i class="bi bi-shield-lock text-primary fs-2"></i>
+            <div class="fw-semibold fs-4">Login</div>
         </div>
+
+        <x-auth-session-status class="text-sm text-center" :status="session('status')" />
+
+        <!-- Phone -->
+        <input
+            type="text"
+            name="phone"
+            value="{{ old('phone') }}"
+            placeholder="Phone"
+            required
+            autofocus
+            class="w-full border-0 border-bottom py-2 outline-none"
+        />
+
+        <x-input-error :messages="$errors->get('phone')" class="text-sm text-danger" />
 
         <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+        <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            required
+            class="w-full border-0 border-bottom py-2 outline-none"
+        />
 
-            <x-text-input
-                id="password"
-                class="block mt-1 w-full"
-                type="password"
-                name="password"
-                required
-                autocomplete="current-password"
-            />
+        <x-input-error :messages="$errors->get('password')" class="text-sm text-danger" />
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
+        <!-- Submit -->
+        <button type="submit"
+            class="w-full py-2 mt-3 bg-primary text-white rounded">
+            Log in
+        </button>
 
-        {{-- <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" name="remember"
-                    class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500">
-                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-            </label>
-        </div> --}}
-
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
     </form>
+
+</div>
+
 </x-guest-layout>

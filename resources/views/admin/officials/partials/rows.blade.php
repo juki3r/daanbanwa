@@ -1,4 +1,4 @@
-@forelse($ordinances as $item)
+@forelse($officials as $item)
 
 <tr>
     <td>

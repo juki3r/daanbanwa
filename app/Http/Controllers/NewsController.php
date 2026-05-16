@@ -87,8 +87,12 @@ class NewsController extends Controller
         }
 
         //  SEND SMS
-        $users = \App\Models\User::whereNotNull('phone')
+        // $users = \App\Models\User::whereNotNull('phone')
+        //     ->where('role', '!=', 'admin')
+        //     ->get();
+        $users = User::whereNotNull('phone')
             ->where('role', '!=', 'admin')
+            ->where('granted', true)
             ->get();
 
         foreach ($users as $user) {

@@ -112,6 +112,20 @@ class UserController extends Controller
             'phone_verified' => true,
         ]);
 
+        $title = "Welcome to Daan Banwa";
+        $body  = "Thank you and help us build a better community.";
+
+        // FIREBASE PUSH
+        (new \App\Services\FirebaseService)->sendNotification(
+            $user->fcm_token,
+            $title,
+            \Illuminate\Support\Str::limit($body, 160),
+            [
+                'screen' => 'Home',
+                'home_id' => (string) $user->id,
+            ]
+        );
+
         return response()->json([
             'success' => true,
             'message' => 'User verified successfully.',
@@ -125,6 +139,9 @@ class UserController extends Controller
         $user->update([
             'granted' => true,
         ]);
+
+
+
 
         return response()->json([
             'success' => true,

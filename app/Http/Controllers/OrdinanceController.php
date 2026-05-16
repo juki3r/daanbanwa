@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ordinance;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -65,7 +66,11 @@ class OrdinanceController extends Controller
         $ordinance = Ordinance::create($request->all());
 
         // get all user tokens
-        $tokens = \App\Models\User::whereNotNull('fcm_token')->pluck('fcm_token')->toArray();
+        // $tokens = \App\Models\User::whereNotNull('fcm_token')->pluck('fcm_token')->toArray();
+        $tokens = User::whereNotNull('fcm_token')
+            ->where('granted', true)
+            ->pluck('fcm_token')
+            ->toArray();
 
         // send notification to all
         foreach ($tokens as $token) {
@@ -81,8 +86,13 @@ class OrdinanceController extends Controller
         }
 
         //  SEND SMS
-        $users = \App\Models\User::whereNotNull('phone')
+        // $users = \App\Models\User::whereNotNull('phone')
+        //     ->where('role', '!=', 'admin')
+        //     ->get();
+
+        $users = User::whereNotNull('phone')
             ->where('role', '!=', 'admin')
+            ->where('granted', true)
             ->get();
 
         foreach ($users as $user) {

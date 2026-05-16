@@ -108,7 +108,7 @@
     </nav>
 
     {{-- Logout --}}
-    <div class="mt-auto pt-3 border-top">
+    <div class="mt-auto pt-3 border-top" style="color: border-top-color: gray !important">
         <form method="POST" action="{{ route('logout') }}">
             @csrf
             <a href="{{ route('logout') }}"

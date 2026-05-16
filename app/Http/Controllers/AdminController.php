@@ -21,7 +21,7 @@ class AdminController extends Controller
         $female = Resident::where('sex', 'Female')->count();
         $voters = Resident::where('is_voter', true)->count();
         $pwd = Resident::where('is_pwd', true)->count();
-        $occupation = User::whereNotNull('occupation')
+        $occupation = Resident::whereNotNull('occupation')
             ->where('occupation', '!=', '')
             ->count();
         $appuser = User::whereNotNull('fcm_token')

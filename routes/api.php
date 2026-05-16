@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BlotterController;
 use App\Http\Controllers\Api\ConcernController;
 use App\Http\Controllers\Api\RequestController;
+use App\Http\Controllers\EmergencyContactController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -61,7 +62,7 @@ Route::middleware('auth:sanctum')->group(function () {
     //Admin update the status
     Route::put('/blotter/{id}/status', [BlotterController::class, 'updateStatus']);
 
-    // Route::get('/app-status', [AppStatusController::class, 'index']);
+    Route::get('/emergency-contacts', [EmergencyContactController::class, 'index']);
 });
 
 

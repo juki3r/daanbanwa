@@ -25,13 +25,11 @@
                 font-size: 12px;
                 letter-spacing: 2px;
                 color: #64748b;
-                margin-bottom: 5px;
             }
 
             .title {
                 font-size: 28px;
                 font-weight: 700;
-                margin-bottom: 5px;
             }
 
             .subtitle {

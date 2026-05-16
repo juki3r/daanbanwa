@@ -56,8 +56,8 @@
         </script>
     @endif
 
-    <!-- EDIT OFFICIAL MODAL -->
-        @foreach ($officials as $official)
+    <!-- EDIT Contact MODAL -->
+        @foreach ($emergency as $item)
             <div class="modal fade" id="editEmergencyModal{{ $item->id }}" tabindex="-1">
                 <div class="modal-dialog">
                     <form action="{{ route('emergency.update', $item->id) }}" method="POST" class="modal-content">
@@ -103,7 +103,7 @@
             </div>
         @endforeach
 
-    <!-- CREATE OFFICIAL MODAL -->
+    <!-- CREATE Contact MODAL -->
        <div class="modal fade" id="createEmergencyModal" tabindex="-1">
         <div class="modal-dialog">
             <form action="{{ route('emergency.store') }}" method="POST" class="modal-content">
@@ -152,7 +152,7 @@
         // =========================================
         function fetchData(page = 1, search = '') {
 
-            fetch(`{{ route('officials.fetch') }}?page=${page}&search=${search}`)
+            fetch(`{{ route('emergency.fetch') }}?page=${page}&search=${search}`)
                 .then(res => res.json())
                 .then(data => {
 
@@ -223,13 +223,13 @@
 
                 let id = btn.dataset.id;
 
-                if (!confirm("Are you sure you want to delete this official?")) {
+                if (!confirm("Are you sure you want to delete this contact?")) {
                     return;
                 }
 
                 try {
 
-                    let res = await fetch(`/admin/officials/${id}`, {
+                    let res = await fetch(`/admin/emergency/${id}`, {
 
                         method: "DELETE",
 
@@ -246,7 +246,7 @@
 
                         btn.closest("tr").remove();
 
-                         showToast("Official deleted successfully", "success");
+                         showToast("Contact deleted successfully", "success");
                          // get current page
                         let currentPage =
                             new URLSearchParams(window.location.search).get('page') || 1;
@@ -258,7 +258,7 @@
 
                     } else {
 
-                         showToast("Failed to delete official", "danger");
+                         showToast("Failed to delete Contact", "danger");
 
                     }
 

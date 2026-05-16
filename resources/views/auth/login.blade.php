@@ -1,50 +1,103 @@
-<x-guest-layout>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - Barangay Portal</title>
 
-<div class="min-h-screen flex items-center justify-center bg-white">
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
-    <form method="POST" action="{{ route('login') }}" class="w-full max-w-sm space-y-4">
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #ffffff;
+}
 
-        @csrf
+.container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-        <div class="text-center mb-6">
-            <i class="bi bi-shield-lock text-primary fs-2"></i>
-            <div class="fw-semibold fs-4">Login</div>
+.form-box {
+    width: 100%;
+    max-width: 320px;
+    text-align: center;
+}
+
+.icon {
+    font-size: 34px;
+    color: #2563eb;
+}
+
+.title {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #111827;
+}
+
+.input {
+    width: 100%;
+    padding: 10px 0;
+    margin-bottom: 18px;
+    border: none;
+    border-bottom: 1px solid #d1d5db;
+    outline: none;
+    font-size: 14px;
+}
+
+.input:focus {
+    border-bottom: 1px solid #2563eb;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background: #2563eb;
+    color: white;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #1e40af;
+}
+
+.status {
+    font-size: 12px;
+    color: #6b7280;
+    margin-bottom: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <form class="form-box" method="POST" action="/login">
+
+        <div class="icon">
+            <i class="bi bi-shield-lock"></i>
         </div>
 
-        <x-auth-session-status class="text-sm text-center" :status="session('status')" />
+        <div class="title">Login</div>
 
-        <!-- Phone -->
-        <input
-            type="text"
-            name="phone"
-            value="{{ old('phone') }}"
-            placeholder="Phone"
-            required
-            autofocus
-            class="w-full border-0 border-bottom py-2 outline-none"
-        />
+        <div class="status"></div>
 
-        <x-input-error :messages="$errors->get('phone')" class="text-sm text-danger" />
+        <input type="text" name="phone" placeholder="Phone" class="input" required>
 
-        <!-- Password -->
-        <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            required
-            class="w-full border-0 border-bottom py-2 outline-none"
-        />
+        <input type="password" name="password" placeholder="Password" class="input" required>
 
-        <x-input-error :messages="$errors->get('password')" class="text-sm text-danger" />
-
-        <!-- Submit -->
-        <button type="submit"
-            class="w-full py-2 mt-3 bg-primary text-white rounded">
-            Log in
-        </button>
+        <button type="submit">Log in</button>
 
     </form>
-
 </div>
 
-</x-guest-layout>
+</body>
+</html>

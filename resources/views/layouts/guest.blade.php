@@ -14,29 +14,47 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
-        .logo {
-            width: 80px;
-            margin-bottom: 15px;
-        }
-        
-        .small-text {
-            font-size: 12px;
-            letter-spacing: 2px;
-            color: #64748b;
-            margin-bottom: 5px;
-        }
+  
+            body {
+                margin: 0;
+                height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: #f5f7fb;
+                font-family: 'Segoe UI', sans-serif;
+                color: #1f2937;
+            }
 
-        .title {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
+            .container-box {
+                text-align: center;
+                max-width: 650px;
+                padding: 20px;
+            }
 
-        .subtitle {
-            font-size: 15px;
-            color: #64748b;
-            margin-bottom: 20px;
-        }
+            .logo {
+                width: 80px;
+                margin-bottom: 15px;
+            }
+
+            .small-text {
+                font-size: 12px;
+                letter-spacing: 2px;
+                color: #64748b;
+                margin-bottom: 5px;
+            }
+
+            .title {
+                font-size: 28px;
+                font-weight: 700;
+                margin-bottom: 5px;
+            }
+
+            .subtitle {
+                font-size: 15px;
+                color: #64748b;
+                margin-bottom: 20px;
+            }
     </style>
     </head>
     <body class="font-sans text-gray-900 antialiased">

@@ -97,14 +97,17 @@
                                 </button>
 
                                 {{-- Page Title --}}
-                                <div>
-                                    <h5 class="mb-0 fw-semibold">{{ $header }}</h5>
-                                    <small class="text-muted" id="datetime"></small>
-                                </div>
-                                <div class="d-flex align-items-center">
-                                    <i class="bi bi-shield-check text-success heartbeat me-2"></i>
+                                <div class="d-flex flex-column">
+                                    <div>
+                                        <h5 class="mb-0 fw-semibold">{{ $header }}</h5>
+                                        <small class="text-muted" id="datetime"></small>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-shield-check text-success heartbeat me-2"></i>
                                     <span class="fw-bold text-success">Barangay System Active</span>
                                 </div>
+                                </div>
+                                
                             </div>
 
                             {{-- Right --}}

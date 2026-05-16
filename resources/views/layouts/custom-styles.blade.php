@@ -127,6 +127,10 @@ main::-webkit-scrollbar-thumb {
     border-radius: 6px;
     box-shadow: none !important;
 }
+
+.logout::hover{
+    color: black !important;
+}
 .nav-link i {
     font-size: 1rem;
     width: 20px;

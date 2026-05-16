@@ -1,6 +1,6 @@
 <x-guest-layout>
     <x-auth-session-status class="mb-4" :status="session('status')" />
-    <div class="text-center fw-semibold text-dark">
+    <div class="text-center fw-semibold text-dark fs-3">
         <i class="bi bi-shield-lock me-1 text-primary"></i>
         Login
     </div>

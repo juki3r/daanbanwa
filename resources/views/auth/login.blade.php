@@ -80,6 +80,17 @@ button:hover {
 <body>
 
 <div class="container">
+    <a href="/" class="text-decoration-none text-dark">
+        <div class="d-flex flex-column justify-content-center align-items-center text-center" style="cursor:pointer;">
+
+            <img src="{{asset('images/logo.png')}}" class="logo mb-2" alt="Logo">
+
+            <div class="small-text">REPUBLIC OF THE PHILIPPINES</div>
+            <div class="title">Barangay Daan Banwa</div>
+            <div class="subtitle">Estancia, Iloilo</div>
+
+        </div>
+    </a>
     <form class="form-box" method="POST" action="/login">
 
         <div class="icon">

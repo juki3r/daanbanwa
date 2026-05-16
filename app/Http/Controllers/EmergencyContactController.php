@@ -59,7 +59,7 @@ class EmergencyContactController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'phone_number' => 'required',
+            'phone_number' => 'required|regex:/^09\d{9}$/|digits:11',
         ]);
 
         EmergencyContact::create([

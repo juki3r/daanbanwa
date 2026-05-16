@@ -16,7 +16,7 @@
     <nav class="nav flex-column">
 
         <a href="{{ route('admin.dashboard') }}"
-        class="nav-link d-flex align-items-center gap-1 {{ request()->routeIs('admin.dashboard') ? 'active-nav' : 'text-dark' }}">
+        class="nav-link d-flex align-items-center gap-1 small py-1 px-2 {{ request()->routeIs('admin.dashboard') ? 'active-nav' : 'text-dark' }}">
             <i class="bi bi-grid-fill"></i>
             <span>Dashboard</span>
         </a>

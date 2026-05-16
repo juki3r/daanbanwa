@@ -57,6 +57,131 @@
         </script>
     @endif
 
+    <!-- EDIT OFFICIAL MODAL -->
+        @foreach ($officials as $official)
+        <div class="modal fade" id="editOfficialModal{{ $official->id }}" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <form action="{{ route('officials.update_official', $official->id) }}"
+                    method="POST"
+                    class="modal-content">
+
+                    @csrf
+                    @method('PUT')
+
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edit Official</h5>
+                        <button type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal">
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="row g-3">
+
+                            <!-- NAME -->
+                            <div class="col-12">
+                                <label class="form-label">Name</label>
+                                <input type="text"
+                                    name="name"
+                                    value="{{ old('name', $official->name) }}"
+                                    class="form-control @error('name') is-invalid @enderror"
+                                    required>
+                            </div>
+
+                            <!-- POSITION -->
+                            <div class="col-12 col-md-6">
+                                <label class="form-label">Position</label>
+                                <select name="position"
+                                        class="form-select @error('position') is-invalid @enderror"
+                                        required>
+                                    <option value="">Select Position</option>
+
+                                    <option value="Punong Barangay"
+                                        {{ old('position', $official->position) == 'Punong Barangay' ? 'selected' : '' }}>
+                                        Punong Barangay
+                                    </option>
+
+                                    <option value="Barangay Kagawad"
+                                        {{ old('position', $official->position) == 'Barangay Kagawad' ? 'selected' : '' }}>
+                                        Barangay Kagawad
+                                    </option>
+
+                                    <option value="Barangay Secretary"
+                                        {{ old('position', $official->position) == 'Barangay Secretary' ? 'selected' : '' }}>
+                                        Barangay Secretary
+                                    </option>
+
+                                    <option value="Barangay Treasurer"
+                                        {{ old('position', $official->position) == 'Barangay Treasurer' ? 'selected' : '' }}>
+                                        Barangay Treasurer
+                                    </option>
+
+                                    <option value="SK Chairman"
+                                        {{ old('position', $official->position) == 'SK Chairman' ? 'selected' : '' }}>
+                                        SK Chairman
+                                    </option>
+
+                                    <option value="SK Kagawad"
+                                        {{ old('position', $official->position) == 'SK Kagawad' ? 'selected' : '' }}>
+                                        SK Kagawad
+                                    </option>
+
+                                    <option value="SK Secretary"
+                                        {{ old('position', $official->position) == 'SK Secretary' ? 'selected' : '' }}>
+                                        SK Secretary
+                                    </option>
+
+                                    <option value="SK Treasurer"
+                                        {{ old('position', $official->position) == 'SK Treasurer' ? 'selected' : '' }}>
+                                        SK Treasurer
+                                    </option>
+
+                                    <option value="Chief Tanod"
+                                        {{ old('position', $official->position) == 'Chief Tanod' ? 'selected' : '' }}>
+                                        Chief Tanod
+                                    </option>
+                                </select>
+                            </div>
+
+                            <!-- PHONE NUMBER -->
+                            <div class="col-12 col-md-6">
+                                <label class="form-label">Phone Number</label>
+                                <input type="text"
+                                    name="phone_number"
+                                    value="{{ old('phone_number', $official->phone_number) }}"
+                                    class="form-control @error('phone_number') is-invalid @enderror">
+                            </div>
+
+                            <!-- ASSIGNMENT -->
+                            <div class="col-12">
+                                <label class="form-label">Assignment</label>
+                                <input type="text"
+                                    name="assignment"
+                                    value="{{ old('assignment', $official->assignment) }}"
+                                    class="form-control @error('assignment') is-invalid @enderror">
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button"
+                                class="btn btn-light"
+                                data-bs-dismiss="modal">
+                            Cancel
+                        </button>
+
+                        <button type="submit"
+                                class="btn btn-primary">
+                            Update Official
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        @endforeach
+
     <!-- CREATE OFFICIAL MODAL -->
         <div class="modal fade" id="createOfficialModal" tabindex="-1">
             <div class="modal-dialog modal-lg">

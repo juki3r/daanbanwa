@@ -17,18 +17,29 @@
     <td>
         <strong class="text-capitalize">{{ $item->assignment }}</strong>
     </td>
+    
     <!-- ACTIONS -->
     <td>
+        <div class="d-flex gap-2">
 
-        <!-- DELETE -->
-        <button class="btn btn-sm btn-danger delete-btn d-flex align-items-center justify-content-center gap-1"
-                data-id="{{ $item->id }}">
+            <!-- EDIT -->
+            <button type="button"
+                    class="btn btn-sm btn-primary d-flex align-items-center justify-content-center gap-1"
+                    data-bs-toggle="modal"
+                    data-bs-target="#editOfficialModal{{ $item->id }}">
+                <i class="bi bi-pencil-square"></i>
+                Edit
+            </button>
 
-            <i class="bi bi-trash me-1"></i>
-            Delete
+            <!-- DELETE -->
+            <button type="button"
+                    class="btn btn-sm btn-danger delete-btn d-flex align-items-center justify-content-center gap-1"
+                    data-id="{{ $item->id }}">
+                <i class="bi bi-trash"></i>
+                Delete
+            </button>
 
-        </button>
-
+        </div>
     </td>
 
 </tr>

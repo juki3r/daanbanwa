@@ -57,7 +57,7 @@
     @endif
 
     <!-- EDIT OFFICIAL MODAL -->
-        @foreach ($officials as $official)
+        {{-- @foreach ($officials as $official)
         <div class="modal fade" id="editOfficialModal{{ $official->id }}" tabindex="-1">
             <div class="modal-dialog modal-lg">
                 <form action="{{ route('officials.update_official', $official->id) }}"
@@ -179,7 +179,7 @@
                 </form>
             </div>
         </div>
-        @endforeach
+        @endforeach --}}
 
     <!-- CREATE OFFICIAL MODAL -->
         <div class="modal fade" id="createOfficialModal" tabindex="-1">

@@ -81,6 +81,19 @@
                     </div>
                 </div>
             </div>
+
+            <div class="col-xl-3 col-md-6">
+                <div class="glass-card">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <div class="text-muted small">App User</div>
+                            <div class="fs-3 fw-bold">{{ $appuser }}</div>
+                        </div>
+                        <i class="bi bi-person-lines-fill fs-1 text-info opacity-75"></i>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         {{-- ================= CHART SECTION ================= --}}

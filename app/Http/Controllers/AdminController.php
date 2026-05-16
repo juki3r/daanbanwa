@@ -21,6 +21,7 @@ class AdminController extends Controller
         $female = Resident::where('sex', 'Female')->count();
         $voters = Resident::where('is_voter', true)->count();
         $pwd = Resident::where('is_pwd', true)->count();
+        $appuser = User::where('fcm_token', true)->where('grante', 1)->count();
 
         $households = Resident::distinct('household_name')->count('household_name');
 
@@ -50,7 +51,8 @@ class AdminController extends Controller
             'households',
             'recentResidents',
             'ageData',
-            'civilData'
+            'civilData',
+            'appuser'
         ));
     }
 

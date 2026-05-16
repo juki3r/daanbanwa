@@ -113,7 +113,7 @@
             @csrf
             <a href="{{ route('logout') }}"
             class="nav-link d-flex align-items-center gap-2 text-danger small py-1 px-2 "
-            onclick="event.preventDefault(); this.closest('form').submit();">
+            onclick="event.preventDefault(); this.closest('form').submit();" style="color: red !important">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Logout</span>
             </a>

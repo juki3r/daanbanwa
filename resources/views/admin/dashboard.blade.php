@@ -89,7 +89,7 @@
                             <div class="text-muted small">App User</div>
                             <div class="fs-3 fw-bold">{{ $appuser }}</div>
                         </div>
-                        <i class="bi bi-phone fs-1 text-info opacity-75"></i>
+                        <i class="bi bi-phone-fill fs-1 text-info opacity-75"></i>
                     </div>
                 </div>
             </div>

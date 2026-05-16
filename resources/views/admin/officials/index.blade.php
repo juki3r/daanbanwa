@@ -24,8 +24,9 @@
                         <thead class="table-dark">
                             <tr>
                                 <th>Name</th>
-                                <th>Title</th>
+                                <th>Position</th>
                                 <th>Assignment</th>
+                                <th>Phone</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>

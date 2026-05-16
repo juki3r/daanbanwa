@@ -1,22 +1,22 @@
 @forelse($ordinances as $item)
 
 <tr>
-
-    <!-- ORDINANCE NO -->
     <td>
-        <strong class="text-capitalize">{{ $item->ordinance_no }}</strong>
+        <strong class="text-capitalize">{{ $item->name }}</strong>
     </td>
 
     <!-- TITLE -->
     <td>
-        <strong class="text-capitalize">{{ $item->title }}</strong>
+        <strong class="text-capitalize">{{ $item->position }}</strong>
     </td>
 
     <!-- DESCRIPTION -->
-    <td class="text-wrap">
-        {{ $item->description }}
+    <td>
+        <strong class="text-capitalize">{{ $item->phone_number }}</strong>
     </td>
-
+    <td>
+        <strong class="text-capitalize">{{ $item->assignment }}</strong>
+    </td>
     <!-- ACTIONS -->
     <td>
 

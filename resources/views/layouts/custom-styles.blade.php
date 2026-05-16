@@ -117,7 +117,7 @@ main::-webkit-scrollbar-thumb {
 }
 
 .nav .nav-link:hover {
-    background-color: #14325C;
+    background-color: #f1f3f5;
     color: #000 !important;
 }
 

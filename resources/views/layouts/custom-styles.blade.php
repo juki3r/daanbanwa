@@ -220,7 +220,18 @@ main::-webkit-scrollbar-thumb {
 }
 
 
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
 
+.spin-icon {
+    animation: spin 1.5s linear infinite;
+}
 
 
 @media (max-width: 991px) {

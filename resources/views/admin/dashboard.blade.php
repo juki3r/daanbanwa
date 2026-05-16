@@ -106,6 +106,18 @@
                 </div>
             </div>
 
+            <div class="col-xl-3 col-md-6">
+                <div class="glass-card">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <div class="text-muted small">Processing</div>
+                            <div class="fs-3 fw-bold text-warning">Running</div>
+                        </div>
+                        <i class="bi bi-arrow-repeat fs-1 text-warning opacity-75 spin-icon"></i>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         {{-- ================= CHART SECTION ================= --}}

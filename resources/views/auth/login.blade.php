@@ -128,13 +128,45 @@ button:hover {
 
         <input type="text" name="phone" placeholder="Enter phone number" class="input" required>
 
-        <input type="password" name="password" placeholder="Enter password" class="input" required>
+        <div style="position: relative; width: 100%; margin-bottom: 18px;">
+            <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Enter password"
+                class="input"
+                required
+                style="padding-right: 35px;"
+            >
+
+            <i class="bi bi-eye-slash"
+            id="togglePassword"
+            style="
+                    position: absolute;
+                    right: 5px;
+                    top: 10px;
+                    cursor: pointer;
+                    color: #64748b;
+            ">
+            </i>
+        </div>
 
         <button type="submit">Log in</button>
 
     </form>
 
 </div>
+<script>
+    const togglePassword = document.getElementById('togglePassword');
+    const password = document.getElementById('password');
 
+    togglePassword.addEventListener('click', function () {
+        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+        password.setAttribute('type', type);
+
+        this.classList.toggle('bi-eye');
+        this.classList.toggle('bi-eye-slash');
+    });
+    </script>
 </body>
 </html>

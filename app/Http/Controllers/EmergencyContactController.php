@@ -64,10 +64,10 @@ class EmergencyContactController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json([
-                'message' => 'Validation error',
-                'errors' => $validator->errors(),
-            ], 422);
+            return back()
+                ->with('error', 'Please check your input fields')
+                ->withErrors($validator)
+                ->withInput();
         }
 
         EmergencyContact::create([

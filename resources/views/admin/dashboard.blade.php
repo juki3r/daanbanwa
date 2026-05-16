@@ -94,6 +94,18 @@
                 </div>
             </div>
 
+            <div class="col-xl-3 col-md-6">
+                <div class="glass-card">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <div class="text-muted small">With Occupation</div>
+                            <div class="fs-3 fw-bold">{{ $occupation }}</div>
+                        </div>
+                        <i class="bi bi-briefcase-fill fs-1 text-info opacity-75"></i>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         {{-- ================= CHART SECTION ================= --}}

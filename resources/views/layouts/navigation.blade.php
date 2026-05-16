@@ -1,5 +1,5 @@
 {{-- Desktop / Tablet Sidebar --}}
-<div class="d-none d-md-flex flex-column h-100 border-end p-3">
+<div class="d-none d-md-flex flex-column h-100 border-end p-3" style="background-color: navy">
 
     {{-- Logo --}}
     <div class="text-center border-bottom pb-3 mb-3">

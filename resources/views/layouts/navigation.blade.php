@@ -2,18 +2,18 @@
 <div class="d-none d-md-flex flex-column h-100 border-end p-3" style="background-color: #091B35">
 
     {{-- Logo --}}
-    <div class="text-center border-bottom pb-2 mb-2" style="color: #EBEEF2 !important">
-        <a href="{{ route('admin.dashboard') }}">
+    <div class="text-center border-bottom p-0 m-0" style="color: #EBEEF2 !important">
+        <a href="{{ route('admin.dashboard') }}" class="m-0 p-0">
             <img src="{{ asset('images/main.png') }}" alt="Logo" width="100px">
         </a>
-        <div class="mt-1 d-flex flex-column align-items-center">
+        <div class="m-0 d-flex flex-column align-items-center">
             <strong class="d-block">Daan Banwa</strong>
             <small style="font-size: 12px">Estancia, Iloilo</small>
         </div>
     </div>
 
     {{-- Menu --}}
-    <nav class="nav flex-column gap-2" style="color: #EBEEF2 !important">
+    <nav class="nav flex-column gap-2 mt-2" style="color: #EBEEF2 !important">
 
         <a href="{{ route('admin.dashboard') }}"
         class="nav-link d-flex align-items-center gap-2 small py-1 px-2 {{ request()->routeIs('admin.dashboard') ? 'active-nav' : 'text-dark' }}">

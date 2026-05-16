@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Login - Barangay Portal</title>
 
-<!-- Bootstrap Icons -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
 <style>
@@ -15,13 +14,46 @@ body {
     background: #ffffff;
 }
 
+/* FULL CENTER WRAPPER */
 .container {
     height: 100vh;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
+/* HEADER */
+.header {
+    text-align: center;
+    margin-bottom: 25px;
+    cursor: pointer;
+    text-decoration: none;
+    color: #111827;
+}
+
+.logo {
+    width: 70px;
+    margin-bottom: 8px;
+}
+
+.small-text {
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: #64748b;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.subtitle {
+    font-size: 14px;
+    color: #64748b;
+}
+
+/* FORM */
 .form-box {
     width: 100%;
     max-width: 320px;
@@ -31,13 +63,13 @@ body {
 .icon {
     font-size: 34px;
     color: #2563eb;
+    margin-bottom: 10px;
 }
 
-.title {
-    font-size: 22px;
+.login-title {
+    font-size: 20px;
     font-weight: 600;
     margin-bottom: 20px;
-    color: #111827;
 }
 
 .input {
@@ -68,38 +100,30 @@ button {
 button:hover {
     background: #1e40af;
 }
-
-.status {
-    font-size: 12px;
-    color: #6b7280;
-    margin-bottom: 10px;
-}
 </style>
 </head>
 
 <body>
 
 <div class="container">
-    <a href="/" class="text-decoration-none text-dark">
-        <div class="d-flex flex-column justify-content-center align-items-center text-center" style="cursor:pointer;">
 
-            <img src="{{asset('images/logo.png')}}" class="logo mb-2" alt="Logo">
+    <!-- CLICKABLE HEADER -->
+    <a href="/" class="header">
+        <img src="{{asset('images/logo.png')}}" class="logo" alt="Logo">
 
-            <div class="small-text">REPUBLIC OF THE PHILIPPINES</div>
-            <div class="title">Barangay Daan Banwa</div>
-            <div class="subtitle">Estancia, Iloilo</div>
-
-        </div>
+        <div class="small-text">REPUBLIC OF THE PHILIPPINES</div>
+        <div class="title">Barangay Daan Banwa</div>
+        <div class="subtitle">Estancia, Iloilo</div>
     </a>
+
+    <!-- LOGIN FORM -->
     <form class="form-box" method="POST" action="/login">
 
         <div class="icon">
             <i class="bi bi-shield-lock"></i>
         </div>
 
-        <div class="title">Login</div>
-
-        <div class="status"></div>
+        <div class="login-title">Login</div>
 
         <input type="text" name="phone" placeholder="Phone" class="input" required>
 
@@ -108,6 +132,7 @@ button:hover {
         <button type="submit">Log in</button>
 
     </form>
+
 </div>
 
 </body>

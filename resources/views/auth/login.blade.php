@@ -34,22 +34,22 @@ body {
 
 .logo {
     width: 70px;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
 }
 
 .small-text {
-    font-size: 12px;
+    font-size: 11px;
     letter-spacing: 2px;
     color: #64748b;
 }
 
 .title {
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 700;
 }
 
 .subtitle {
-    font-size: 14px;
+    font-size: 11px;
     color: #64748b;
 }
 

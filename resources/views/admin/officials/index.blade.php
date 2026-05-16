@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="d-flex justify-content-between align-items-center">
-            <h2 class="h4 mb-0">Ordinance Management</h2>
+            <h2 class="h4 mb-0">Officials Management</h2>
         </div>
     </x-slot>
 

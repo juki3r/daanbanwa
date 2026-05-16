@@ -12,7 +12,7 @@
                 <div class="d-flex justify-content-end align-items-center mb-3">
                     <button class="btn btn-success btn-sm d-flex align-items-center gap-2"
                         data-bs-toggle="modal"
-                        data-bs-target="#createOrdinanceModal">
+                        data-bs-target="#createOfficialModal">
                         <i class="bi bi-people"></i>
                         Add Official
                     </button>

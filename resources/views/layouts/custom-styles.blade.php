@@ -219,20 +219,15 @@ main::-webkit-scrollbar-thumb {
     z-index: 10;
 }
 
-
-@keyframes spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.4; }
+    100% { opacity: 1; }
 }
 
-.spin-icon {
-    animation: spin 1.5s linear infinite;
+.pulse-dot {
+    animation: pulse 1.8s infinite;
 }
-
 
 @media (max-width: 991px) {
     .admin-search {

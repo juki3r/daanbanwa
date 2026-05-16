@@ -47,6 +47,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::delete('/officials/{id}', [OfficialController::class, 'destroy'])->name('officials.destroy');
     Route::get('/officials/fetch', [OfficialController::class, 'fetch'])
         ->name('officials.fetch');
+    // UPDATE (THIS is what your form uses)
+    Route::put('/officials/{id}', [OfficialController::class, 'update_official'])->name('officials.update_official');
 
 
 

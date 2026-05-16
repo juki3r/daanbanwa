@@ -56,7 +56,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
         ->name('emergency.index');
     Route::get('/emergency/fetch', [EmergencyContactController::class, 'fetch'])
         ->name('emergency.fetch');
-
+    Route::delete('/emergency/{id}', [EmergencyContactController::class, 'destroy'])->name('emergency.destroy');
+    Route::put('/emergency/{id}', [EmergencyContactController::class, 'update'])->name('emergency.update');
+    Route::post('/emergency', [EmergencyContactController::class, 'store'])->name('emergency.store');
 
     Route::get('/ordinances', [OrdinanceController::class, 'index'])->name('ordinances.index');
     Route::post('/ordinances', [OrdinanceController::class, 'store'])->name('ordinances.store');

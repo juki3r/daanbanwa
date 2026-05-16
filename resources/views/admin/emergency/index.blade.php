@@ -12,8 +12,8 @@
                 <div class="d-flex justify-content-end align-items-center mb-3">
                     <button class="btn btn-success btn-sm d-flex align-items-center gap-2"
                         data-bs-toggle="modal"
-                        data-bs-target="#createOfficialModal">
-                        <i class="bi bi-people"></i>
+                        data-bs-target="#createEmergencyModal">
+                        <i class="bi bi-telephone"></i>
                         Add Contacts
                     </button>
                 </div>
@@ -57,242 +57,87 @@
     @endif
 
     <!-- EDIT OFFICIAL MODAL -->
-        {{-- @foreach ($officials as $official)
-        <div class="modal fade" id="editOfficialModal{{ $official->id }}" tabindex="-1">
-            <div class="modal-dialog modal-lg">
-                <form action="{{ route('officials.update_official', $official->id) }}"
-                    method="POST"
-                    class="modal-content">
+        @foreach ($officials as $official)
+            <div class="modal fade" id="editEmergencyModal{{ $item->id }}" tabindex="-1">
+                <div class="modal-dialog">
+                    <form action="{{ route('emergency.update', $item->id) }}" method="POST" class="modal-content">
+                        @csrf
+                        @method('PUT')
 
-                    @csrf
-                    @method('PUT')
+                        <div class="modal-header">
+                            <h5 class="modal-title">Edit Emergency Contact</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
 
-                    <div class="modal-header">
-                        <h5 class="modal-title">Edit Official</h5>
-                        <button type="button"
-                                class="btn-close"
-                                data-bs-dismiss="modal">
-                        </button>
-                    </div>
-
-                    <div class="modal-body">
-                        <div class="row g-3">
+                        <div class="modal-body">
 
                             <!-- NAME -->
-                            <div class="col-12">
-                                <label class="form-label">Name</label>
+                            <div class="mb-3">
+                                <label>Name</label>
                                 <input type="text"
                                     name="name"
-                                    value="{{ old('name', $official->name) }}"
-                                    class="form-control @error('name') is-invalid @enderror"
+                                    value="{{ old('name', $item->name) }}"
+                                    class="form-control"
                                     required>
                             </div>
 
-                            <!-- POSITION -->
-                            <div class="col-12 col-md-6">
-                                <label class="form-label">Position</label>
-                                <select name="position"
-                                        class="form-select @error('position') is-invalid @enderror"
-                                        required>
-                                    <option value="">Select Position</option>
-
-                                    <option value="Punong Barangay"
-                                        {{ old('position', $official->position) == 'Punong Barangay' ? 'selected' : '' }}>
-                                        Punong Barangay
-                                    </option>
-
-                                    <option value="Barangay Kagawad"
-                                        {{ old('position', $official->position) == 'Barangay Kagawad' ? 'selected' : '' }}>
-                                        Barangay Kagawad
-                                    </option>
-
-                                    <option value="Barangay Secretary"
-                                        {{ old('position', $official->position) == 'Barangay Secretary' ? 'selected' : '' }}>
-                                        Barangay Secretary
-                                    </option>
-
-                                    <option value="Barangay Treasurer"
-                                        {{ old('position', $official->position) == 'Barangay Treasurer' ? 'selected' : '' }}>
-                                        Barangay Treasurer
-                                    </option>
-
-                                    <option value="SK Chairman"
-                                        {{ old('position', $official->position) == 'SK Chairman' ? 'selected' : '' }}>
-                                        SK Chairman
-                                    </option>
-
-                                    <option value="SK Kagawad"
-                                        {{ old('position', $official->position) == 'SK Kagawad' ? 'selected' : '' }}>
-                                        SK Kagawad
-                                    </option>
-
-                                    <option value="SK Secretary"
-                                        {{ old('position', $official->position) == 'SK Secretary' ? 'selected' : '' }}>
-                                        SK Secretary
-                                    </option>
-
-                                    <option value="SK Treasurer"
-                                        {{ old('position', $official->position) == 'SK Treasurer' ? 'selected' : '' }}>
-                                        SK Treasurer
-                                    </option>
-
-                                    <option value="Chief Tanod"
-                                        {{ old('position', $official->position) == 'Chief Tanod' ? 'selected' : '' }}>
-                                        Chief Tanod
-                                    </option>
-                                </select>
-                            </div>
-
-                            <!-- PHONE NUMBER -->
-                            <div class="col-12 col-md-6">
-                                <label class="form-label">Phone Number</label>
+                            <!-- NUMBER -->
+                            <div class="mb-3">
+                                <label>Phone Number</label>
                                 <input type="text"
                                     name="phone_number"
-                                    value="{{ old('phone_number', $official->phone_number) }}"
-                                    class="form-control @error('phone_number') is-invalid @enderror">
-                            </div>
-
-                            <!-- ASSIGNMENT -->
-                            <div class="col-12">
-                                <label class="form-label">Assignment</label>
-                                <input type="text"
-                                    name="assignment"
-                                    value="{{ old('assignment', $official->assignment) }}"
-                                    class="form-control @error('assignment') is-invalid @enderror">
+                                    value="{{ old('phone_number', $item->phone_number) }}"
+                                    class="form-control"
+                                    required>
                             </div>
 
                         </div>
-                    </div>
 
-                    <div class="modal-footer">
-                        <button type="button"
-                                class="btn btn-light"
-                                data-bs-dismiss="modal">
-                            Cancel
-                        </button>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </div>
 
-                        <button type="submit"
-                                class="btn btn-primary">
-                            Update Official
-                        </button>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
-        </div>
-        @endforeach --}}
+        @endforeach
 
     <!-- CREATE OFFICIAL MODAL -->
-        <div class="modal fade" id="createOfficialModal" tabindex="-1">
-            <div class="modal-dialog modal-lg">
-                <form action="{{ route('officials.store') }}"
-                    method="POST"
-                    class="modal-content">
+       <div class="modal fade" id="createEmergencyModal" tabindex="-1">
+        <div class="modal-dialog">
+            <form action="{{ route('emergency.store') }}" method="POST" class="modal-content">
+                @csrf
 
-                    @csrf
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Emergency Contact</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
 
-                    <div class="modal-header">
-                        <h5 class="modal-title">Create Official</h5>
-                        <button type="button"
-                                class="btn-close"
-                                data-bs-dismiss="modal">
-                        </button>
+                <div class="modal-body">
+
+                    <!-- NAME -->
+                    <div class="mb-3">
+                        <label>Name</label>
+                        <input type="text" name="name" class="form-control" required>
                     </div>
 
-                    <div class="modal-body">
-
-                        {{-- Validation Errors --}}
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul class="mb-0 ps-3">
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-
-                        <div class="row g-3">
-
-                            <!-- NAME -->
-                            <div class="col-12">
-                                <label class="form-label">Name</label>
-                                <input type="text"
-                                    name="name"
-                                    value="{{ old('name') }}"
-                                    class="form-control @error('name') is-invalid @enderror"
-                                    required>
-                                @error('name')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <!-- POSITION -->
-                            <div class="col-12 col-md-6">
-                                <label class="form-label">Position</label>
-                                <select name="position"
-                                        class="form-select @error('position') is-invalid @enderror"
-                                        required>
-                                    <option value="">Select Position</option>
-                                    <option>Punong Barangay</option>
-                                    <option>Barangay Kagawad</option>
-                                    <option>Barangay Secretary</option>
-                                    <option>Barangay Treasurer</option>
-                                    <option>SK Chairman</option>
-                                    <option>SK Kagawad</option>
-                                    <option>SK Secretary</option>
-                                    <option>SK Treasurer</option>
-                                    <option>Chief Tanod</option>
-                                </select>
-
-                                @error('position')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <!-- PHONE NUMBER -->
-                            <div class="col-12 col-md-6">
-                                <label class="form-label">Phone Number</label>
-                                <input type="text"
-                                    name="phone_number"
-                                    value="{{ old('phone_number') }}"
-                                    class="form-control @error('phone_number') is-invalid @enderror">
-                                @error('phone_number')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <!-- ASSIGNMENT -->
-                            <div class="col-12">
-                                <label class="form-label">Assignment</label>
-                                <input type="text"
-                                    name="assignment"
-                                    value="{{ old('assignment') }}"
-                                    class="form-control @error('assignment') is-invalid @enderror">
-                                @error('assignment')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                        </div>
+                    <!-- NUMBER -->
+                    <div class="mb-3">
+                        <label>Phone Number</label>
+                        <input type="text" name="phone_number" class="form-control" required>
                     </div>
 
-                    <div class="modal-footer">
-                        <button type="button"
-                                class="btn btn-light"
-                                data-bs-dismiss="modal">
-                            Cancel
-                        </button>
+                </div>
 
-                        <button type="submit"
-                                class="btn btn-primary">
-                            Create Official
-                        </button>
-                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
 
-                </form>
-            </div>
+            </form>
         </div>
-
+    </div>
 
     <!-- ========================================= -->
     <!-- SCRIPTS -->

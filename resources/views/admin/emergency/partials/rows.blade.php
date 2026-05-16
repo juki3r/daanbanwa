@@ -25,20 +25,16 @@
         <div class="d-flex gap-2">
 
             <!-- EDIT -->
-            <button type="button"
-                    class="btn btn-sm btn-primary d-flex align-items-center justify-content-center gap-1"
+            <button class="btn btn-sm btn-primary"
                     data-bs-toggle="modal"
-                    data-bs-target="#editOfficialModal{{ $item->id }}">
-                <i class="bi bi-pencil-square"></i>
-                Edit
+                    data-bs-target="#editEmergencyModal{{ $item->id }}">
+                <i class="bi bi-pencil-square"></i> Edit
             </button>
 
             <!-- DELETE -->
-            <button type="button"
-                    class="btn btn-sm btn-danger delete-btn d-flex align-items-center justify-content-center gap-1"
+            <button class="btn btn-sm btn-danger delete-btn"
                     data-id="{{ $item->id }}">
-                <i class="bi bi-trash"></i>
-                Delete
+                <i class="bi bi-trash"></i> Delete
             </button>
 
         </div>

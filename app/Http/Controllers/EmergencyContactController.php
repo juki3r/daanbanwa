@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\EmergencyContact;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class EmergencyContactController extends Controller
 {
@@ -57,10 +58,17 @@ class EmergencyContactController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'phone_number' => 'required|regex:/^09\d{9}$/|digits:11',
+            'phone_number' => 'required|regex:/^09\d{9}$/',
         ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => 'Validation error',
+                'errors' => $validator->errors(),
+            ], 422);
+        }
 
         EmergencyContact::create([
             'name' => $request->name,

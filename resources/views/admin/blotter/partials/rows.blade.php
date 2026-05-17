@@ -3,9 +3,9 @@
 <tr id="blotter-row-{{ $blotter->id }}" class="{{ $blotter->admin_read == 0 ? 'table-warning' : '' }}">
 
     <td>{{ $blotter->case_number }}</td>
-        <td class="text-capitalize">
-            {{ trim(($blotter->user->first_name ?? '') . ' ' . ($blotter->user->last_name ?? '')) ?: 'N/A' }}
-        </td>
+    <td class="text-capitalize">
+        {{ trim(($blotter->user->first_name ?? '') . ' ' . ($blotter->user->last_name ?? '')) ?: 'N/A' }}
+    </td>
     <td>{{ $blotter->complainant_name }}</td>
     <td style="max-width: 300px; white-space: normal; word-break: break-word;">{{ $blotter->statement }}</td>
 

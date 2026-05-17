@@ -55,6 +55,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/news/{id}/view', [NewsController::class, 'markViewed']);
     Route::get('/unreadNews', [NewsController::class, 'unreadNews']);
     Route::post('/news', [NewsController::class, 'store_api'])->name('news.store');
+    Route::delete('/news/{id}', [NewsController::class, 'destroy_api']);
 
     Route::get('/blotters', [BlotterController::class, 'index']);
     Route::post('/blotters', [BlotterController::class, 'store']);

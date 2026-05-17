@@ -332,4 +332,23 @@ class NewsController extends Controller
             'unread_count' => $news->count()
         ]);
     }
+
+
+    public function destroy_api($id)
+    {
+        $news = News::find($id);
+
+        if (!$news) {
+            return response()->json([
+                'message' => 'News not found'
+            ], 404);
+        }
+
+        $news->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'News deleted successfully'
+        ], 200);
+    }
 }

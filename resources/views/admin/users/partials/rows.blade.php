@@ -32,6 +32,13 @@
         @endif
     </td>
     <td>
+        @if($user->fcm_token)
+            <span class="badge bg-success">Positive</span>
+        @else
+            <span class="badge bg-warning text-dark">Negative</span>
+        @endif
+    </td>
+    <td>
             <div class="d-flex gap-2 flex-wrap">
 
                 {{-- 1. NOT VERIFIED --}}

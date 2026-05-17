@@ -22,6 +22,7 @@
                                 <th>Phone</th>
                                 <th>Phone Verified</th>
                                 <th>Granted Access</th>
+                                <th>Token</th>
                                 <th>Action</th>
                             </tr>
                         </thead>

@@ -23,7 +23,8 @@
                         <thead class="table-dark">
                             <tr>
                                 <th>Case #</th>
-                                <th>Name</th>
+                                <th>Complainant</th>
+                                <th>Respondent</th>
                                 <th>Statement</th>
                                 <th>Status</th>
                                 <th>Actions</th>

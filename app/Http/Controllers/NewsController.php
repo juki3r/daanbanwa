@@ -95,21 +95,21 @@ class NewsController extends Controller
             ->where('granted', true)
             ->get();
 
-        // foreach ($users as $user) {
-        //     try {
-        //         Http::withHeaders([
-        //             'X-API-KEY' => env('SMS_API_KEY')
-        //         ])->post('https://carlesppo.com/api/send-sms-api', [
-        //             'phone_number' => $user->phone,
-        //             'message' => \Illuminate\Support\Str::limit(
-        //                 "[Daan Banwa ALERT]\n" . ucwords(strtolower($news->title)) . "\n\nOpen your DaanBanwa app for details.",
-        //                 140
-        //             )
-        //         ]);
-        //     } catch (\Exception $e) {
-        //         \Log::error('SMS failed for ' . $user->phone . ': ' . $e->getMessage());
-        //     }
-        // }
+        foreach ($users as $user) {
+            try {
+                Http::withHeaders([
+                    'X-API-KEY' => env('SMS_API_KEY')
+                ])->post('https://carlesppo.com/api/send-sms-api', [
+                    'phone_number' => $user->phone,
+                    'message' => \Illuminate\Support\Str::limit(
+                        "[Daan Banwa ALERT]\n" . ucwords(strtolower($news->title)) . "\n\nOpen your DaanBanwa app for details.",
+                        140
+                    )
+                ]);
+            } catch (\Exception $e) {
+                \Log::error('SMS failed for ' . $user->phone . ': ' . $e->getMessage());
+            }
+        }
 
         // Auto post to Facebook
         // $fb->postToPage($news->title . "\n\n" . $news->content);

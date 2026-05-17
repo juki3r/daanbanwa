@@ -101,7 +101,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     // News
     Route::get('/news', [NewsController::class, 'index'])->name('news.index');
-    Route::post('/news', [NewsController::class, 'store'])->name('news.store');
+    Route::post('/news', [NewsController::class, 'store'])->name('news.store_web');
     Route::put('/news/{id}', [NewsController::class, 'update'])->name('news.update');
     Route::delete('/news/{id}', [NewsController::class, 'destroy'])->name('news.destroy');
     Route::post('/news/store', [NewsController::class, 'store'])

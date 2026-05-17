@@ -51,7 +51,7 @@
 
         <div class="modal-dialog modal-lg">
 
-            <form action="{{ route('news.store') }}"
+            <form action="{{ route('news.store_web') }}"
                   method="POST"
                   enctype="multipart/form-data"
                   class="modal-content">

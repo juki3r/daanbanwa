@@ -129,8 +129,8 @@ class NewsController extends Controller
 
 
         // Auto post to Facebook
-        app(\App\Services\FacebookService::class)
-            ->postToPage($news->title . "\n\n" . $news->content);
+        // app(\App\Services\FacebookService::class)
+        //     ->postToPage($news->title . "\n\n" . $news->content);
 
 
         // return redirect()->route('news.index')->with('success', 'News created and notification sent.');
